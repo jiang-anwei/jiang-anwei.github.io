@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="在 Java 中，类的实例化流程分为两个部分：类的加载和类的实例化。类的加载又分为显式加载和隐式加载。大家使用 new 关键字创建类实例时，其实就隐式地包含了类的加载过程。对于类的显式加载来说，比较常用的是 Class.forName。其实，它们都是通过调用 ClassLoader 类的 loadClass 方法来完成类的实际加载工作的。 java类加载层次解构ClassLoader 在加载类时有">
-<meta name="keywords" content="java">
+  <meta name="description" content="一个运行的Android应用至少有2个ClassLoader，一个是BootClassLoader(系统启动时创建的)，一个是PathClassLoader(应用启动时创建的，用于加载/data/data/packagename/apkname.apk) android中应用的类加载器主要有两种，分别是PathClassLoader和DexClassLoader，PathClassLoader只能">
+<meta name="keywords" content="Android,ClassLoader">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java classLoader">
-<meta property="og:url" content="http://yoursite.com/2019/01/04/java类加载器/index.html">
+<meta property="og:title" content="Android ClassLoader">
+<meta property="og:url" content="http://yoursite.com/2019/01/14/Android ClassLoder/index.html">
 <meta property="og:site_name" content="蒋安维的博客">
-<meta property="og:description" content="在 Java 中，类的实例化流程分为两个部分：类的加载和类的实例化。类的加载又分为显式加载和隐式加载。大家使用 new 关键字创建类实例时，其实就隐式地包含了类的加载过程。对于类的显式加载来说，比较常用的是 Class.forName。其实，它们都是通过调用 ClassLoader 类的 loadClass 方法来完成类的实际加载工作的。 java类加载层次解构ClassLoader 在加载类时有">
+<meta property="og:description" content="一个运行的Android应用至少有2个ClassLoader，一个是BootClassLoader(系统启动时创建的)，一个是PathClassLoader(应用启动时创建的，用于加载/data/data/packagename/apkname.apk) android中应用的类加载器主要有两种，分别是PathClassLoader和DexClassLoader，PathClassLoader只能">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-11T08:47:07.918Z">
+<meta property="og:updated_time" content="2019-01-14T06:15:48.269Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java classLoader">
-<meta name="twitter:description" content="在 Java 中，类的实例化流程分为两个部分：类的加载和类的实例化。类的加载又分为显式加载和隐式加载。大家使用 new 关键字创建类实例时，其实就隐式地包含了类的加载过程。对于类的显式加载来说，比较常用的是 Class.forName。其实，它们都是通过调用 ClassLoader 类的 loadClass 方法来完成类的实际加载工作的。 java类加载层次解构ClassLoader 在加载类时有">
+<meta name="twitter:title" content="Android ClassLoader">
+<meta name="twitter:description" content="一个运行的Android应用至少有2个ClassLoader，一个是BootClassLoader(系统启动时创建的)，一个是PathClassLoader(应用启动时创建的，用于加载/data/data/packagename/apkname.apk) android中应用的类加载器主要有两种，分别是PathClassLoader和DexClassLoader，PathClassLoader只能">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/04/java类加载器/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/14/Android ClassLoder/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>java classLoader | 蒋安维的博客</title>
+  <title>Android ClassLoader | 蒋安维的博客</title>
   
 
 
@@ -352,7 +352,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/java类加载器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/Android ClassLoder/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="蒋安维">
@@ -369,7 +369,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">java classLoader
+          <h1 class="post-title" itemprop="name headline">Android ClassLoader
 
               
             
@@ -395,28 +395,34 @@
                 
               
 
-              <time title="Created: 2019-01-04 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-04T00:00:00+08:00">2019-01-04</time>
+              <time title="Created: 2019-01-14 00:00:00 / Modified: 14:15:48" itemprop="dateCreated datePublished" datetime="2019-01-14T00:00:00+08:00">2019-01-14</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-01-11 16:47:07" itemprop="dateModified" datetime="2019-01-11T16:47:07+08:00">2019-01-11</time>
               
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Android逆向/" itemprop="url" rel="index"><span itemprop="name">Android逆向</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -445,18 +451,24 @@
       
 
       
-        <p>在 Java 中，类的实例化流程分为两个部分：类的加载和类的实例化。类的加载又分为显式加载和隐式加载。大家使用 new 关键字创建类实例时，其实就隐式地包含了类的加载过程。对于类的显式加载来说，比较常用的是 Class.forName。其实，它们都是通过调用 ClassLoader 类的 loadClass 方法来完成类的实际加载工作的。</p>
-<h1 id="java类加载层次解构"><a href="#java类加载层次解构" class="headerlink" title="java类加载层次解构"></a>java类加载层次解构</h1><p>ClassLoader 在加载类时有一定的层次关系和规则。在 Java 中，有四种类型的类加载器，从上到下分别为：BootStrapClassLoader、ExtClassLoader、AppClassLoader 以及用户自定义的 ClassLoader。这四种类加载器分别负责不同路径的类的加载，并形成了一个类加载的层次结构。</p>
-<h4 id="bootStrapClassLoader"><a href="#bootStrapClassLoader" class="headerlink" title="bootStrapClassLoader"></a>bootStrapClassLoader</h4><p>Bootstrap ClassLoader最顶层的加载类，主要加载核心类库，%JRE_HOME%\lib下的rt.jar、resources.jar、charsets.jar和class等。可以通过　System.getProperty(“sun.boot.class.path”)获得相应路径。</p>
-<p>可以通过启动jvm时指定-Xbootclasspath和路径来改变Bootstrap ClassLoader的加载目录。比如<code>java -Xbootclasspath/a:path</code>被指定的文件追加到默认的bootstrap路径中。</p>
-<h4 id="ExtClassLoader"><a href="#ExtClassLoader" class="headerlink" title="ExtClassLoader"></a>ExtClassLoader</h4><p>扩展的类加载器，加载目录%JRE_HOME%\lib\ext目录下的jar包和class文件。还可以加载<code>-D java.ext.dirs</code>选项指定的目录。可以通过System.out.println(System.getProperty(“java.ext.dirs”));相应路径</p>
-<h4 id="AppClassLoader"><a href="#AppClassLoader" class="headerlink" title="AppClassLoader"></a>AppClassLoader</h4><p><strong>Appclass Loader也称为SystemAppClass</strong>加载当前应用的classpath的所有类。 通过System.out.println(System.getProperty(“java.class.path”));获得相应路径</p>
-<h1 id="双亲委托"><a href="#双亲委托" class="headerlink" title="双亲委托"></a>双亲委托</h1><p> 一个类加载器加载class时，是通过“委托模式”进行的，它首先判断这个class是不是已经加载成功，如果没有的话它并不是自己进行查找，而是先通过父加载器，然后递归下去，直到Bootstrap ClassLoader，如果Bootstrap classloader找到了，直接返回，如果没有找到，则一级一级返回，最后到达自身去查找这些对象。这种机制就叫做双亲委托。 </p>
-<h1 id="重要方法"><a href="#重要方法" class="headerlink" title="重要方法"></a>重要方法</h1><h4 id="findLoadedClass"><a href="#findLoadedClass" class="headerlink" title="findLoadedClass"></a>findLoadedClass</h4><p>每个类加载器都维护有自己的一份已加载类名字空间，其中不能出现两个同名的类。凡是通过该类加载器加载的类，无论是直接的还是间接的，都保存在自己的名字空间中，该方法就是在该名字空间中寻找指定的类是否已存在，如果存在就返回给类的引用，否则就返回 null。这里的直接是指，存在于该类加载器的加载路径上并由该加载器完成加载，间接是指，由该类加载器把类的加载工作委托给其他类加载器完成类的实际加载。</p>
-<h4 id="getSystemClassLoader"><a href="#getSystemClassLoader" class="headerlink" title="getSystemClassLoader"></a>getSystemClassLoader</h4><p>该方法返回系统使用的 ClassLoader。可以在自己定制的类加载器中通过该方法把一部分工作转交给系统类加载器去处理。</p>
-<h4 id="defineClass"><a href="#defineClass" class="headerlink" title="defineClass"></a>defineClass</h4><p>该方法是 ClassLoader 中非常重要的一个方法，它接收以字节数组表示的类字节码，并把它转换成 Class 实例，该方法转换一个类的同时，会先要求装载该类的父类以及实现的接口类。</p>
-<h4 id="findClass"><a href="#findClass" class="headerlink" title="findClass"></a>findClass</h4><p>从指定的路径中查找.class文件，并加载类</p>
-<h4 id="loadClass"><a href="#loadClass" class="headerlink" title="loadClass"></a>loadClass</h4><p>加载类的入口方法，调用该方法完成类的显式加载。通过对该方法的重新实现，我们可以完全控制和管理类的加载过程。</p>
+        <p>一个运行的Android应用至少有2个ClassLoader，一个是BootClassLoader(系统启动时创建的)，一个是PathClassLoader(应用启动时创建的，用于加载/data/data/packagename/apkname.apk)</p>
+<p>android中应用的类加载器主要有两种，分别是PathClassLoader和DexClassLoader，PathClassLoader只能用来加载已安装应用的dex文件，而DexClassLoader可以用来加载未安装的apk\jar等文件；</p>
+<h3 id="PathClassLoder"><a href="#PathClassLoder" class="headerlink" title="PathClassLoder"></a>PathClassLoder</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Provides a simple &#123;<span class="doctag">@link</span> ClassLoader&#125; implementation that operates on a list</span></span><br><span class="line"><span class="comment"> * of files and directories in the local file system, but does not attempt to</span></span><br><span class="line"><span class="comment"> * load classes from the network. Android uses this class for its system class</span></span><br><span class="line"><span class="comment"> * loader and for its application class loader(s).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PathClassLoader</span> <span class="keyword">extends</span> <span class="title">BaseDexClassLoader</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates a &#123;<span class="doctag">@code</span> PathClassLoader&#125; that operates on a given list of files</span></span><br><span class="line"><span class="comment">     * and directories. This method is equivalent to calling</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> #PathClassLoader(String, String, ClassLoader)&#125; with a</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> null&#125; value for the second argument (see description there).</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> dexPath the list of jar/apk files containing classes and</span></span><br><span class="line"><span class="comment">     * resources, delimited by &#123;<span class="doctag">@code</span> File.pathSeparator&#125;, which</span></span><br><span class="line"><span class="comment">     * defaults to &#123;<span class="doctag">@code</span> ":"&#125; on Android</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> parent the parent class loader</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PathClassLoader</span><span class="params">(String dexPath, ClassLoader parent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(dexPath, <span class="keyword">null</span>, <span class="keyword">null</span>, parent);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates a &#123;<span class="doctag">@code</span> PathClassLoader&#125; that operates on two given</span></span><br><span class="line"><span class="comment">     * lists of files and directories. The entries of the first list</span></span><br><span class="line"><span class="comment">     * should be one of the following:</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;ul&gt;</span></span><br><span class="line"><span class="comment">     * &lt;li&gt;JAR/ZIP/APK files, possibly containing a "classes.dex" file as</span></span><br><span class="line"><span class="comment">     * well as arbitrary resources.</span></span><br><span class="line"><span class="comment">     * &lt;li&gt;Raw ".dex" files (not inside a zip file).</span></span><br><span class="line"><span class="comment">     * &lt;/ul&gt;</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * The entries of the second list should be directories containing</span></span><br><span class="line"><span class="comment">     * native library files.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> dexPath the list of jar/apk files containing classes and</span></span><br><span class="line"><span class="comment">     * resources, delimited by &#123;<span class="doctag">@code</span> File.pathSeparator&#125;, which</span></span><br><span class="line"><span class="comment">     * defaults to &#123;<span class="doctag">@code</span> ":"&#125; on Android</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> libraryPath the list of directories containing native</span></span><br><span class="line"><span class="comment">     * libraries, delimited by &#123;<span class="doctag">@code</span> File.pathSeparator&#125;; may be</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> null&#125;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> parent the parent class loader</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PathClassLoader</span><span class="params">(String dexPath, String libraryPath,</span></span></span><br><span class="line"><span class="function"><span class="params">            ClassLoader parent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(dexPath, <span class="keyword">null</span>, libraryPath, parent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>PathClassLoader是ClassLoader的简单实现且只能加载本地的列表文件或目录，在Android中也就是已安装好的APK，它不能加载来自网络的类。Android中的系统类加载器与应用类加载器都是PathClassLoader。</p>
+<p>PathClassLoader是ClassLoader的简单实现且只能加载本地的列表文件或目录，在Android中也就是已安装好的APK，它不能加载来自网络的类。Android中的系统类加载器与应用类加载器都是PathClassLoader。</p>
+<p>Android系统使用PathClassLoader来加载系统类和应用程序的类，如果是加载非系统应用程序类，则会加载data/app/目录下的dex文件以及包含dex的apk文件或jar文件，不管是加载那种文件，最终都是要加载dex文件，在这里为了方便理解，我们将dex文件以及包含dex的apk文件或jar文件统称为dex相关文件。PathClassLoader不建议开发直接使用。PathClassLoader继承自BaseDexClassLoader，很明显PathClassLoader的方法实现都在BaseDexClassLoader中。从PathClassLoader的构造方法也可以看出它遵循了双亲委托模式。</p>
+<p>dexPath：包含dex文件的JAR/ZIP/APK文件的路径</p>
+<p>librarySearchPath：native library文件的路径</p>
+<p>parent：父类加载器</p>
+<h3 id="DexClassLoader"><a href="#DexClassLoader" class="headerlink" title="DexClassLoader"></a>DexClassLoader</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * A class loader that loads classes from &#123;<span class="doctag">@code</span> .jar&#125; and &#123;<span class="doctag">@code</span> .apk&#125; files</span></span><br><span class="line"><span class="comment"> * containing a &#123;<span class="doctag">@code</span> classes.dex&#125; entry. This can be used to execute code not</span></span><br><span class="line"><span class="comment"> * installed as part of an application.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;This class loader requires an application-private, writable directory to</span></span><br><span class="line"><span class="comment"> * cache optimized classes. Use &#123;<span class="doctag">@code</span> Context.getDir(String, int)&#125; to create</span></span><br><span class="line"><span class="comment"> * such a directory: &lt;pre&gt;   &#123;<span class="doctag">@code</span></span></span><br><span class="line"><span class="comment"> *   File dexOutputDir = context.getDir("dex", 0);</span></span><br><span class="line"><span class="comment"> * &#125;&lt;/pre&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;&lt;strong&gt;Do not cache optimized classes on external storage.&lt;/strong&gt;</span></span><br><span class="line"><span class="comment"> * External storage does not provide access controls necessary to protect your</span></span><br><span class="line"><span class="comment"> * application from code injection attacks.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DexClassLoader</span> <span class="keyword">extends</span> <span class="title">BaseDexClassLoader</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates a &#123;<span class="doctag">@code</span> DexClassLoader&#125; that finds interpreted and native</span></span><br><span class="line"><span class="comment">     * code.  Interpreted classes are found in a set of DEX files contained</span></span><br><span class="line"><span class="comment">     * in Jar or APK files.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;The path lists are separated using the character specified by the</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> path.separator&#125; system property, which defaults to &#123;<span class="doctag">@code</span> :&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> dexPath the list of jar/apk files containing classes and</span></span><br><span class="line"><span class="comment">     *     resources, delimited by &#123;<span class="doctag">@code</span> File.pathSeparator&#125;, which</span></span><br><span class="line"><span class="comment">     *     defaults to &#123;<span class="doctag">@code</span> ":"&#125; on Android</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> optimizedDirectory directory where optimized dex files</span></span><br><span class="line"><span class="comment">     *     should be written; must not be &#123;<span class="doctag">@code</span> null&#125;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> libraryPath the list of directories containing native</span></span><br><span class="line"><span class="comment">     *     libraries, delimited by &#123;<span class="doctag">@code</span> File.pathSeparator&#125;; may be</span></span><br><span class="line"><span class="comment">     *     &#123;<span class="doctag">@code</span> null&#125;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> parent the parent class loader</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DexClassLoader</span><span class="params">(String dexPath, String optimizedDirectory,</span></span></span><br><span class="line"><span class="function"><span class="params">            String libraryPath, ClassLoader parent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(dexPath, <span class="keyword">new</span> File(optimizedDirectory), libraryPath, parent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>DexClassLoader可以从包含dex文件的JAR或APK中来加载类，而这些代码源允许不必是安装应用的一部分，因此可用于动态加载。</p>
+<p>构造方法中有一个新的参数为optimizedDirectory，它表示优化后的dex文件要写入的路径。通常建议使用如下路径：</p>
+<p>context.getCodeCacheDir();</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>PathClassLoader: 主要用于系统和app的类加载器,其中optimizedDirectory为null, 采用默认目录/data/dalvik-cache/</li>
+<li>DexClassLoader: 可以从包含classes.dex的jar或者apk中，加载类的类加载器, 可用于执行动态加载,但必须是app私有可写目录来缓存odex文件. 能够加载系统没有安装的apk或者jar文件， 因此很多插件化方案都是采用DexClassLoader;</li>
+<li>BaseDexClassLoader: 比较基础的类加载器, PathClassLoader和DexClassLoader都只是在构造函数上对其简单封装而已.</li>
+</ul>
 
       
     </div>
@@ -480,7 +492,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/ClassLoader/" rel="tag"># ClassLoader</a>
           
         </div>
       
@@ -493,8 +507,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/18/springboot及bean 初始化运行/" rel="next" title="springboot及bean 初始化运行">
-                <i class="fa fa-chevron-left"></i> springboot及bean 初始化运行
+              <a href="/2019/01/04/java类加载器/" rel="next" title="java classLoader">
+                <i class="fa fa-chevron-left"></i> java classLoader
               </a>
             
           </div>
@@ -502,10 +516,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/14/Android ClassLoder/" rel="prev" title="Android ClassLoader">
-                Android ClassLoader <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -655,7 +665,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java类加载层次解构"><span class="nav-number">1.</span> <span class="nav-text">java类加载层次解构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#bootStrapClassLoader"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">bootStrapClassLoader</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ExtClassLoader"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">ExtClassLoader</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AppClassLoader"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">AppClassLoader</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#双亲委托"><span class="nav-number">2.</span> <span class="nav-text">双亲委托</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重要方法"><span class="nav-number">3.</span> <span class="nav-text">重要方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#findLoadedClass"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">findLoadedClass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getSystemClassLoader"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">getSystemClassLoader</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#defineClass"><span class="nav-number">3.0.0.3.</span> <span class="nav-text">defineClass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#findClass"><span class="nav-number">3.0.0.4.</span> <span class="nav-text">findClass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#loadClass"><span class="nav-number">3.0.0.5.</span> <span class="nav-text">loadClass</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#PathClassLoder"><span class="nav-number">1.</span> <span class="nav-text">PathClassLoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DexClassLoader"><span class="nav-number">2.</span> <span class="nav-text">DexClassLoader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
