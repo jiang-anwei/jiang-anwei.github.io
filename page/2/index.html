@@ -348,6 +348,176 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/mysql学习笔记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蒋安维">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒋安维的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/10/10/mysql学习笔记/" class="post-title-link" itemprop="url">mqsql学习笔记</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-10-10 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-10T00:00:00+08:00">2018-10-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-01-11 16:47:07" itemprop="dateModified" datetime="2019-01-11T16:47:07+08:00">2019-01-11</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="btree索引与hash索引的区别"><a href="#btree索引与hash索引的区别" class="headerlink" title="btree索引与hash索引的区别"></a>btree索引与hash索引的区别</h4><h6 id="hash索引的优点"><a href="#hash索引的优点" class="headerlink" title="hash索引的优点"></a>hash索引的优点</h6><pre><code>hash索引解构的特殊性，其检索效率非常高，btree索引需要充根节点访问到分支节点，这样会有多次的io访问，所以hash索引
+的查询效率远高于btree
+</code></pre><h6 id="btree索引的优点"><a href="#btree索引的优点" class="headerlink" title="btree索引的优点"></a>btree索引的优点</h6><pre><code>1.hash索引不能满足范围查询而btree可以这是由于 Hash 索引比较的是进行 Hash 运算之后的 Hash 值，所以它只能用于
+等值的过滤，不能用于基于范围的过滤，因为经过相应的 Hash 算法处理之后的 Hash 值的大小关系，并不能保证和Hash运算
+前完全一样。
+
+2.Hash 索引无法被用来避免数据的排序操作。由于 Hash 索引中存放的是经过 Hash 计算之后的 Hash 值，而且Hash值的
+大小关系并不一定和 Hash 运算前的键值完全一样，所以数据库无法利用索引的数据来避免任何排序运算；
+
+3.Hash 索引不能利用部分索引键查询。对于组合索引，Hash 索引在计算 Hash 值的时候是组合索引键合并后再一起计算Hash
+值，而不是单独计算 Hash 值，所以通过组合索引的前面一个或几个索引键进行查询的时候，Hash 索引也无法被利用。
+
+4.Hash 索引在任何时候都不能避免表扫描。Hash 索引是将索引键通过 Hash 运算之后，将 Hash运算结果的 Hash 值和所对
+应的行指针信息存放于一个 Hash 表中，由于不同索引键存在相同 Hash 值，所以即使取满足某个 Hash 键值的数据的记录
+条数，也无法从 Hash 索引中直接完成查询，还是要通过访问表中的实际数据进行相应的比较，并得到相应的结果。
+</code></pre><p><code>注意事项</code>{:.warning}</p>
+<pre><code>左连接求和时右边的表相关的列求和可能会重复。
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/26/quartz定时任务SpringBoot配置/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -542,7 +712,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -586,7 +756,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
