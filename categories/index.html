@@ -100,7 +100,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="categories">
 <meta property="og:url" content="http://jiang-anwei.github.io/categories/index.html">
-<meta property="og:site_name" content="jianganwei blog">
+<meta property="og:site_name" content="jiang-anwei blog">
 <meta property="og:description" content="思绪总在漂流，偶而在此停留">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-01-11T08:47:07.920Z">
@@ -123,7 +123,7 @@
   };
 </script>
 
-  <title>categories | jianganwei blog</title>
+  <title>categories | jiang-anwei blog</title>
   
 
 
@@ -182,7 +182,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">jianganwei blog</span>
+        <span class="site-title">jiang-anwei blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -420,9 +420,7 @@
 
   
     <div class="comments" id="comments">
-      
-        <div id="gitment-container"></div>
-      
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mjg4Mi8xOTQyOA=="></div>
     </div>
 
   
@@ -453,7 +451,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">蒋安维</p>
+              <p class="site-author-name" itemprop="name">jiang-anwei</p>
               <p class="site-description motion-element" itemprop="description">思绪总在漂流，偶而在此停留</p>
           </div>
 
@@ -553,7 +551,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">蒋安维</span>
+  <span class="author" itemprop="copyrightHolder">jiang-anwei</span>
 
   
 
@@ -677,44 +675,18 @@
 
   
   
-    <!-- LOCAL: You can save these files to your site and update links -->
-
-  
-  <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitmint.browser.js"></script>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css">
-<!-- END LOCAL -->
-
-<style>
-#gitment-container a {
-  border-bottom: none;
-}
-
-</style>
-
-<script>
-  function renderGitment() {
-    var gitment = new Gitmint({
-      id: window.location.pathname,
-      owner: 'jiang-anwei',
-      repo: 'gitment-comments',
-      
-        lang: 'zh-Hans' || navigator.language || navigator.systemLanguage || navigator.userLanguage,
-      
-      oauth: {
-      
-      
-        client_secret: 'a2ed32a9e13d5525bf4897b6d961e5ad6023a3e1',
-      
-        client_id: '525007ae9dd6f002d7ef'
-      }
-    });
-    gitment.render('gitment-container');
-  }
-
-  
-    renderGitment();
-  
+    <script>
+  window.livereOptions = {
+    refer: 'categories/index.html'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
 </script>
 
   
