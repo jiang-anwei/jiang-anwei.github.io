@@ -96,24 +96,25 @@
 
 
 
-  <meta name="description" content="思绪总在漂流，偶而在此停留">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://jiang-anwei.github.io/tags/index.html">
+  <meta name="description" content="最近公司的运营管理系统开发完毕，有时间来写点东西，就先来总结一下我再权限系统的设计思路吧，希望能有点用。 权限管理分为 功能权限以及数据权限。 功能权限功能权限是指某个用户使用某个功能的权限 ，简单的说就是调用某个接口的权限。 功能权限比较简单，主要要有三个实体： 用户：保存用户信息 角色：用户的角色信息 权限：权限信息 通过 用户绑定角色，角色绑定权限来实现对用户权限的控制，他们之间都是多对多的">
+<meta name="keywords" content="模块设计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="权限管理设计思路">
+<meta property="og:url" content="http://jiang-anwei.github.io/2019/02/28/权限管理设计思路/index.html">
 <meta property="og:site_name" content="jiang-anwei blog">
-<meta property="og:description" content="思绪总在漂流，偶而在此停留">
+<meta property="og:description" content="最近公司的运营管理系统开发完毕，有时间来写点东西，就先来总结一下我再权限系统的设计思路吧，希望能有点用。 权限管理分为 功能权限以及数据权限。 功能权限功能权限是指某个用户使用某个功能的权限 ，简单的说就是调用某个接口的权限。 功能权限比较简单，主要要有三个实体： 用户：保存用户信息 角色：用户的角色信息 权限：权限信息 通过 用户绑定角色，角色绑定权限来实现对用户权限的控制，他们之间都是多对多的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-11T08:47:07.920Z">
+<meta property="og:updated_time" content="2019-02-28T10:09:23.827Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="思绪总在漂流，偶而在此停留">
+<meta name="twitter:title" content="权限管理设计思路">
+<meta name="twitter:description" content="最近公司的运营管理系统开发完毕，有时间来写点东西，就先来总结一下我再权限系统的设计思路吧，希望能有点用。 权限管理分为 功能权限以及数据权限。 功能权限功能权限是指某个用户使用某个功能的权限 ，简单的说就是调用某个接口的权限。 功能权限比较简单，主要要有三个实体： 用户：保存用户信息 角色：用户的角色信息 权限：权限信息 通过 用户绑定角色，角色绑定权限来实现对用户权限的控制，他们之间都是多对多的">
 
 
 
 
 
 
-  <link rel="canonical" href="http://jiang-anwei.github.io/tags/">
+  <link rel="canonical" href="http://jiang-anwei.github.io/2019/02/28/权限管理设计思路/">
 
 
 
@@ -123,7 +124,7 @@
   };
 </script>
 
-  <title>tags | jiang-anwei blog</title>
+  <title>权限管理设计思路 | jiang-anwei blog</title>
   
 
 
@@ -226,7 +227,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -290,25 +291,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -356,90 +338,209 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jiang-anwei.github.io/2019/02/28/权限管理设计思路/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蒋安维">
+      <meta itemprop="description" content="思绪总在漂流，偶而在此停留">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiang-anwei blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">tags
-
-</h1>
-
-<div class="post-meta">
-  
-  
-
-
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
+          <h1 class="post-title" itemprop="name headline">权限管理设计思路
+
               
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-              9 tags in total
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Android/" style="font-size: 12px; color: #ccc">Android</a> <a href="/tags/ClassLoader/" style="font-size: 12px; color: #ccc">ClassLoader</a> <a href="/tags/Springboot/" style="font-size: 30px; color: #111">Springboot</a> <a href="/tags/java/" style="font-size: 30px; color: #111">java</a> <a href="/tags/mysql/" style="font-size: 12px; color: #ccc">mysql</a> <a href="/tags/quartz/" style="font-size: 12px; color: #ccc">quartz</a> <a href="/tags/多线程/" style="font-size: 12px; color: #ccc">多线程</a> <a href="/tags/模块设计/" style="font-size: 12px; color: #ccc">模块设计</a> <a href="/tags/爬虫/" style="font-size: 12px; color: #ccc">爬虫</a>
-            </div>
-          </div>
+            
+          </h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-28 00:00:00 / Modified: 18:09:23" itemprop="dateCreated datePublished" datetime="2019-02-28T00:00:00+08:00">2019-02-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/后台/" itemprop="url" rel="index"><span itemprop="name">后台</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>最近公司的运营管理系统开发完毕，有时间来写点东西，就先来总结一下我再权限系统的设计思路吧，希望能有点用。</p>
+<p>权限管理分为 功能权限以及数据权限。</p>
+<h2 id="功能权限"><a href="#功能权限" class="headerlink" title="功能权限"></a>功能权限</h2><p>功能权限是指某个用户使用某个功能的权限 ，简单的说就是调用某个接口的权限。</p>
+<p>功能权限比较简单，主要要有三个实体：</p>
+<p>用户：保存用户信息</p>
+<p>角色：用户的角色信息</p>
+<p>权限：权限信息</p>
+<p>通过 用户绑定角色，角色绑定权限来实现对用户权限的控制，他们之间都是多对多的关系。</p>
+<h2 id="数据权限"><a href="#数据权限" class="headerlink" title="数据权限"></a>数据权限</h2><p>数据权限就是指不同的用户，使用同样的接口得到数据数量，数据维度不同，所以数据权限又分为行级权限以及列级权限。</p>
+<h3 id="数据权限-行级权限"><a href="#数据权限-行级权限" class="headerlink" title="数据权限-行级权限"></a>数据权限-行级权限</h3><p>行级权限可能会涉及到层级关系，比如销售数据： 普通员工能只能看自己的销售数据</p>
+<p>销售组长能看这个组及自己的，部门领导能看所有的。还会有跨部门的权限情况：比如财务部的任何一个人都能看销售部所有的数据。</p>
+<p>行级数据权限表设计（主要字段）：</p>
+<p>字段1: source_type：需要配置权限的类型（角色或者部门）</p>
+<p>字段2: source_id：角色id 或者部门id</p>
+<p>字段3: target_type：source 能访问的目标数据的 类型（角色或者部门）</p>
+<p>字段3: target_id：角色id或者部门id</p>
+<p>这样一条数据的意思是，source角色或者部门下的人员能够访问target角色或者部门下人员的所有数据。</p>
+<h3 id="数据权限-列级权限"><a href="#数据权限-列级权限" class="headerlink" title="数据权限-列级权限"></a>数据权限-列级权限</h3><p>列级数据权限表设计（主要字段）：</p>
+<p>字段1: source_type：需要配置权限的类型（角色或者部门）</p>
+<p>字段2: source_id：角色id 或者部门id</p>
+<p>字段3: target_type：source 能访问的目标数据的 类型（客户列表）</p>
+<p>字段3: target_colums：列名 逗号分隔</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ol>
+<li><p>再用户登陆的时候 将这个用户信息，权限信息，根据以上结构查出来，放到缓存里（redis）</p>
+</li>
+<li><p>功能权限的实现都在过滤器（filter）里面，有相应的权限才放行。</p>
+</li>
+<li><p>数据权限就是在各个数据接口中，根据每个用户的配置的数据权限动态生成sql ，select 中的值是列级权限的配置，where 条件中加上 行级权限的相关配置。</p>
+</li>
+</ol>
+
       
     </div>
-    
-
-
 
     
+
     
     
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/模块设计/" rel="tag"># 模块设计</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/15/java多线程/" rel="next" title="java多线程">
+                <i class="fa fa-chevron-left"></i> java多线程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
   </div>
 
 
@@ -474,8 +575,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -563,6 +673,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#功能权限"><span class="nav-number">1.</span> <span class="nav-text">功能权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据权限"><span class="nav-number">2.</span> <span class="nav-text">数据权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据权限-行级权限"><span class="nav-number">2.1.</span> <span class="nav-text">数据权限-行级权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据权限-列级权限"><span class="nav-number">2.2.</span> <span class="nav-text">数据权限-列级权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -707,7 +834,7 @@
   
     <script>
   window.livereOptions = {
-    refer: 'tags/index.html'
+    refer: '2019/02/28/权限管理设计思路/'
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
