@@ -96,25 +96,23 @@
 
 
 
-  <meta name="description" content="等待池假设一个线程a 调用了某个对象的wait方法，线程a就会释放该锁，进入到该对象的等待池中。等待池中的线程不会参与锁的竞争。 锁池假设线程a已经拥有了某个对象的锁，而其他线程想要执行这个对象的某个同步代码块（syschronized）的代码,由于这些线程在进入对象的同步代码块（syschronized）之前必须先获得这个对象的锁，但是该对象的锁目前正被线程a拥有，所以这些线程就进入了该对象的锁">
-<meta name="keywords" content="java,多线程">
-<meta property="og:type" content="article">
-<meta property="og:title" content="java多线程">
-<meta property="og:url" content="http://jiang-anwei.github.io/2019/01/15/java多线程/index.html">
+  <meta name="description" content="思绪总在漂流，偶而在此停留">
+<meta property="og:type" content="website">
+<meta property="og:title" content="jiang-anwei blog">
+<meta property="og:url" content="http://jiang-anwei.github.io/tags/ThreadPool/index.html">
 <meta property="og:site_name" content="jiang-anwei blog">
-<meta property="og:description" content="等待池假设一个线程a 调用了某个对象的wait方法，线程a就会释放该锁，进入到该对象的等待池中。等待池中的线程不会参与锁的竞争。 锁池假设线程a已经拥有了某个对象的锁，而其他线程想要执行这个对象的某个同步代码块（syschronized）的代码,由于这些线程在进入对象的同步代码块（syschronized）之前必须先获得这个对象的锁，但是该对象的锁目前正被线程a拥有，所以这些线程就进入了该对象的锁">
+<meta property="og:description" content="思绪总在漂流，偶而在此停留">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-15T09:38:51.020Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java多线程">
-<meta name="twitter:description" content="等待池假设一个线程a 调用了某个对象的wait方法，线程a就会释放该锁，进入到该对象的等待池中。等待池中的线程不会参与锁的竞争。 锁池假设线程a已经拥有了某个对象的锁，而其他线程想要执行这个对象的某个同步代码块（syschronized）的代码,由于这些线程在进入对象的同步代码块（syschronized）之前必须先获得这个对象的锁，但是该对象的锁目前正被线程a拥有，所以这些线程就进入了该对象的锁">
+<meta name="twitter:title" content="jiang-anwei blog">
+<meta name="twitter:description" content="思绪总在漂流，偶而在此停留">
 
 
 
 
 
 
-  <link rel="canonical" href="http://jiang-anwei.github.io/2019/01/15/java多线程/">
+  <link rel="canonical" href="http://jiang-anwei.github.io/tags/ThreadPool/">
 
 
 
@@ -124,7 +122,7 @@
   };
 </script>
 
-  <title>java多线程 | jiang-anwei blog</title>
+  <title>Tag: ThreadPool | jiang-anwei blog</title>
   
 
 
@@ -172,7 +170,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -227,7 +225,7 @@
         
         
           
-          <li class="menu-item menu-item-tags">
+          <li class="menu-item menu-item-tags menu-item-active">
 
     
     
@@ -332,247 +330,79 @@
           
             
 
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
+
           
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block tag">
 
-  
+    <div id="posts" class="posts-collapse">
+      <div class="collection-title">
+        <h1>ThreadPool<small>Tag</small>
+        </h1>
+      </div>
 
-  
-  
-  
-
-  
+      
+        
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://jiang-anwei.github.io/2019/01/15/java多线程/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="蒋安维">
-      <meta itemprop="description" content="思绪总在漂流，偶而在此停留">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jiang-anwei blog">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
+          <a class="post-title-link" href="/2019/03/06/java多线程之ThreadPoolExecutor/" itemprop="url">
+            
+              <span itemprop="name">java多线程之ThreadPoolExecutor</span>
+            
+          </a>
         
-          <h1 class="post-title" itemprop="name headline">java多线程
+      </h2>
 
-              
-            
-          </h1>
-        
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2019-03-06T00:00:00+08:00" content="2019-03-06">
+          03-06
+        </time>
+      </div>
 
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-01-15 00:00:00 / Modified: 17:38:51" itemprop="dateCreated datePublished" datetime="2019-01-15T00:00:00+08:00">2019-01-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/后台/" itemprop="url" rel="index"><span itemprop="name">后台</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h3 id="等待池"><a href="#等待池" class="headerlink" title="等待池"></a>等待池</h3><p>假设一个线程a 调用了某个对象的wait方法，线程a就会释放该锁，进入到该对象的等待池中。等待池中的线程不会参与锁的竞争。</p>
-<h3 id="锁池"><a href="#锁池" class="headerlink" title="锁池"></a>锁池</h3><p>假设线程a已经拥有了某个对象的锁，而其他线程想要执行这个对象的某个同步代码块（syschronized）的代码,由于这些线程在进入对象的同步代码块（syschronized）之前必须先获得这个对象的锁，但是该对象的锁目前正被线程a拥有，所以这些线程就进入了该对象的锁池中。</p>
-<h3 id="wait"><a href="#wait" class="headerlink" title="wait"></a>wait</h3><ol>
-<li><p>wait 方法只能在同步代码块（syschronized）中调用，调用后就会释放该锁，进入到等待池中。（暂时失去锁机制 wait（long timeOut）到超时时间后还需要返还对象锁）；</p>
-</li>
-<li><p>进入wait 状态的线程能够被notify 和notiffyAll唤醒，然后从等待池进入锁池中参与锁的竞争</p>
-</li>
-<li><p>wait通常有条件的执行，直到某个条件为真（while）  </p>
-</li>
-</ol>
-<h3 id="sleep"><a href="#sleep" class="headerlink" title="sleep"></a>sleep</h3><p>sleep 使当前线程进入停滞状态（阻塞当前线程），让出cpu的使用，目的使不让线程独自霸占该进程的所获的所有cpu资源，留给其他线程执行的机会。</p>
-<p>sleep 使Thread的静态方法，他不能改变对象的锁，所以当在一个同步代码块中调用sleep方法，虽然线程休眠了，但是对象的锁并没有被释放，其他线程不能访问这个对象的锁；</p>
-<p>在sleep的休眠期满了之后，该线程不一点会立即执行，这是因为其他线程可能正在运行而且没有被调度为放弃执行，除非此线程有更高的优先级。</p>
-<h3 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h3><p>yield 和sleep大部分一样， yield和sleep的主要区别是，yield会临时暂停当前正在执行的线程，来让有同样优先级的线程有机会执行，或则等待线程的优先级都比较低，那么该线程会继续执行。执行了yeild方法的线程，什么时候会继续运行由调度器来决定。</p>
-<h3 id="notify"><a href="#notify" class="headerlink" title="notify"></a>notify</h3><p>notify 调用后 只会将等待池中的一个随机移到锁池，所以这个函数使用不当会造成死锁，当这个被移到锁池的线程获得锁之后没有唤醒其他线程（调用notigy，notifyAll）就会可能造成死锁。因为在等待池中的线程不会参与锁的竞争。</p>
-<h3 id="notifyAll"><a href="#notifyAll" class="headerlink" title="notifyAll"></a>notifyAll</h3><p>notifyAll 会将等待池中的全部线程移到锁池。</p>
-<h3 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h3><p><code>Java</code>的原子性就和数据库事务的原子性差不多，一个操作中要么全部执行成功或者失败。</p>
-<p><code>JMM</code>只是保证了基本的原子性，但类似于<code>i++</code>之类的操作，看似是原子操作，其实里面涉及到:</p>
-<ul>
-<li>获取 i 的值。</li>
-<li>自增。</li>
-<li>再赋值给 i。</li>
-</ul>
-<p>这三步操作，所以想要实现<code>i++</code>这样的原子操作就需要用到<code>synchronized</code>或者是<code>lock</code>进行加锁处理。</p>
-<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><p>由于<code>CPU</code>直接从主内存中读取数据的效率不高，所以都会对应的<code>CPU</code>高速缓存，先将主内存中的数据读取到缓存中，线程修改数据之后首先更新到缓存，之后才会更新到主内存。如果此时还没有将数据更新到主内存其他的线程此时来读取就是修改之前的数据。</p>
-<p><code>volatile</code>关键字就是用于保证内存可见性，当线程A更新了 volatile 修饰的变量时，它会立即刷新到主线程，并且将其余缓存中该变量的值清空，导致其余线程只能去主内存读取最新值。</p>
-<p>使用<code>volatile</code>关键词修饰的变量每次读取都会得到最新的数据，不管哪个线程对这个变量的修改都会立即刷新到主内存。</p>
-<p><code>synchronized</code>和加锁也能能保证可见性，实现原理就是在释放锁之前其余线程是访问不到这个共享变量的。但是和<code>volatile</code>相比开销较大。</p>
-<h3 id="顺序性"><a href="#顺序性" class="headerlink" title="顺序性"></a>顺序性</h3><p>正常情况下的执行顺序应该是<code>1&gt;&gt;2&gt;&gt;3</code>。但是有时<code>JVM</code>为了提高整体的效率会进行指令重排导致执行的顺序可能是<code>2&gt;&gt;1&gt;&gt;3</code>。但是<code>JVM</code>也不能是什么都进行重排，是在保证最终结果和代码顺序执行结果一致的情况下才可能进行重排。</p>
-<p>重排在单线程中不会出现问题，但在多线程中会出现数据不一致的问题。</p>
-<p>Java 中可以使用<code>volatile</code>来保证顺序性，<code>synchronized 和 lock</code>也可以来保证有序性，和保证原子性的方式一样，通过同一段时间只能一个线程访问来实现的。</p>
-<p>除了通过<code>volatile</code>关键字显式的保证顺序之外，<code>JVM</code>还通过<code>happen-before</code>原则来隐式的保证顺序性。</p>
-<p>其中有一条就是适用于<code>volatile</code>关键字的，针对于<code>volatile</code>关键字的写操作肯定是在读操作之前，也就是说读取的值肯定是最新的。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singleton singleton;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">                        singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> singleton;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>这里的<code>volatile</code>关键字主要是为了防止指令重排。 如果不用<code>volatile</code>，<code>singleton = new Singleton();</code>，这段代码其实是分为三步：</p>
-<ul>
-<li>分配内存空间。(1)</li>
-<li>初始化对象。(2)</li>
-<li>将<code>singleton</code>对象指向分配的内存地址。(3)</li>
-</ul>
-<p>加上<code>volatile</code>是为了让以上的三步操作顺序执行，反之有可能第三步在第二步之前被执行就有可能导致某个线程拿到的单例对象还没有初始化，以致于使用报错。</p>
-<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><p>volatile关键字只能保证可见性，顺序性，<strong>不能保证原子性</strong>。</p>
-
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/java/" rel="tag"># java</a>
-          
-            <a href="/tags/多线程/" rel="tag"># 多线程</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/01/14/Android ClassLoder/" rel="next" title="Android ClassLoader">
-                <i class="fa fa-chevron-left"></i> Android ClassLoader
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/28/权限管理设计思路/" rel="prev" title="权限管理设计思路">
-                权限管理设计思路 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
 
+      
+    </div>
+
   </div>
+  
+  
+  
+
+  
 
 
           </div>
           
-
-  
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mjg4Mi8xOTQyOA=="></div>
-    </div>
-
-  
-
-
 
         </div>
         
@@ -593,17 +423,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -618,7 +439,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -666,7 +487,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -691,23 +514,6 @@
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#等待池"><span class="nav-number">1.</span> <span class="nav-text">等待池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#锁池"><span class="nav-number">2.</span> <span class="nav-text">锁池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wait"><span class="nav-number">3.</span> <span class="nav-text">wait</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sleep"><span class="nav-number">4.</span> <span class="nav-text">sleep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yield"><span class="nav-number">5.</span> <span class="nav-text">yield</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#notify"><span class="nav-number">6.</span> <span class="nav-text">notify</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#notifyAll"><span class="nav-number">7.</span> <span class="nav-text">notifyAll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原子性"><span class="nav-number">8.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可见性"><span class="nav-number">9.</span> <span class="nav-text">可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序性"><span class="nav-number">10.</span> <span class="nav-text">顺序性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile"><span class="nav-number">11.</span> <span class="nav-text">volatile</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
@@ -838,10 +644,6 @@
 
 
   
-  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
-<script src="/js/src/post-details.js?v=6.7.0"></script>
-
-
 
   
 
@@ -851,23 +653,6 @@
 
 
   
-  
-    <script>
-  window.livereOptions = {
-    refer: '2019/01/15/java多线程/'
-  };
-  (function(d, s) {
-    var j, e = d.getElementsByTagName(s)[0];
-    if (typeof LivereTower === 'function') { return; }
-    j = d.createElement(s);
-    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-    j.async = true;
-    e.parentNode.insertBefore(j, e);
-  })(document, 'script');
-</script>
-
-  
-
 
 
 

@@ -96,25 +96,27 @@
 
 
 
-  <meta name="description" content="最近公司的运营管理系统开发完毕，有时间来写点东西，就先来总结一下我再权限系统的设计思路吧，希望能有点用。 权限管理分为 功能权限以及数据权限。 功能权限功能权限是指某个用户使用某个功能的权限 ，简单的说就是调用某个接口的权限。 功能权限比较简单，主要要有三个实体： 用户：保存用户信息 角色：用户的角色信息 权限：权限信息 通过 用户绑定角色，角色绑定权限来实现对用户权限的控制，他们之间都是多对多的">
-<meta name="keywords" content="模块设计">
+  <meta name="description" content="构造函数1234567public ThreadPoolExecutor(int corePoolSize,                             int maximumPoolSize,                             long keepAliveTime,                             TimeUnit unit,">
+<meta name="keywords" content="java,多线程,ThreadPool">
 <meta property="og:type" content="article">
-<meta property="og:title" content="权限管理设计思路">
-<meta property="og:url" content="http://jiang-anwei.github.io/2019/02/28/权限管理设计思路/index.html">
+<meta property="og:title" content="java多线程之ThreadPoolExecutor">
+<meta property="og:url" content="http://jiang-anwei.github.io/2019/03/06/java多线程之ThreadPoolExecutor/index.html">
 <meta property="og:site_name" content="jiang-anwei blog">
-<meta property="og:description" content="最近公司的运营管理系统开发完毕，有时间来写点东西，就先来总结一下我再权限系统的设计思路吧，希望能有点用。 权限管理分为 功能权限以及数据权限。 功能权限功能权限是指某个用户使用某个功能的权限 ，简单的说就是调用某个接口的权限。 功能权限比较简单，主要要有三个实体： 用户：保存用户信息 角色：用户的角色信息 权限：权限信息 通过 用户绑定角色，角色绑定权限来实现对用户权限的控制，他们之间都是多对多的">
+<meta property="og:description" content="构造函数1234567public ThreadPoolExecutor(int corePoolSize,                             int maximumPoolSize,                             long keepAliveTime,                             TimeUnit unit,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-28T10:09:23.827Z">
+<meta property="og:image" content="https://i.loli.net/2019/03/06/5c7f6daeb5aa4.jpg">
+<meta property="og:updated_time" content="2019-03-06T07:32:56.206Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="权限管理设计思路">
-<meta name="twitter:description" content="最近公司的运营管理系统开发完毕，有时间来写点东西，就先来总结一下我再权限系统的设计思路吧，希望能有点用。 权限管理分为 功能权限以及数据权限。 功能权限功能权限是指某个用户使用某个功能的权限 ，简单的说就是调用某个接口的权限。 功能权限比较简单，主要要有三个实体： 用户：保存用户信息 角色：用户的角色信息 权限：权限信息 通过 用户绑定角色，角色绑定权限来实现对用户权限的控制，他们之间都是多对多的">
+<meta name="twitter:title" content="java多线程之ThreadPoolExecutor">
+<meta name="twitter:description" content="构造函数1234567public ThreadPoolExecutor(int corePoolSize,                             int maximumPoolSize,                             long keepAliveTime,                             TimeUnit unit,">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/06/5c7f6daeb5aa4.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://jiang-anwei.github.io/2019/02/28/权限管理设计思路/">
+  <link rel="canonical" href="http://jiang-anwei.github.io/2019/03/06/java多线程之ThreadPoolExecutor/">
 
 
 
@@ -124,7 +126,7 @@
   };
 </script>
 
-  <title>权限管理设计思路 | jiang-anwei blog</title>
+  <title>java多线程之ThreadPoolExecutor | jiang-anwei blog</title>
   
 
 
@@ -352,7 +354,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://jiang-anwei.github.io/2019/02/28/权限管理设计思路/">
+    <link itemprop="mainEntityOfPage" href="http://jiang-anwei.github.io/2019/03/06/java多线程之ThreadPoolExecutor/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="蒋安维">
@@ -369,7 +371,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">权限管理设计思路
+          <h1 class="post-title" itemprop="name headline">java多线程之ThreadPoolExecutor
 
               
             
@@ -395,7 +397,7 @@
                 
               
 
-              <time title="Created: 2019-02-28 00:00:00 / Modified: 18:09:23" itemprop="dateCreated datePublished" datetime="2019-02-28T00:00:00+08:00">2019-02-28</time>
+              <time title="Created: 2019-03-06 00:00:00 / Modified: 15:32:56" itemprop="dateCreated datePublished" datetime="2019-03-06T00:00:00+08:00">2019-03-06</time>
             
 
             
@@ -451,36 +453,22 @@
       
 
       
-        <p>最近公司的运营管理系统开发完毕，有时间来写点东西，就先来总结一下我再权限系统的设计思路吧，希望能有点用。</p>
-<p>权限管理分为 功能权限以及数据权限。</p>
-<h2 id="功能权限"><a href="#功能权限" class="headerlink" title="功能权限"></a>功能权限</h2><p>功能权限是指某个用户使用某个功能的权限 ，简单的说就是调用某个接口的权限。</p>
-<p>功能权限比较简单，主要要有三个实体：</p>
-<p>用户：保存用户信息</p>
-<p>角色：用户的角色信息</p>
-<p>权限：权限信息</p>
-<p>通过 用户绑定角色，角色绑定权限来实现对用户权限的控制，他们之间都是多对多的关系。</p>
-<h2 id="数据权限"><a href="#数据权限" class="headerlink" title="数据权限"></a>数据权限</h2><p>数据权限就是指不同的用户，使用同样的接口得到数据数量，数据维度不同，所以数据权限又分为行级权限以及列级权限。</p>
-<h3 id="数据权限-行级权限"><a href="#数据权限-行级权限" class="headerlink" title="数据权限-行级权限"></a>数据权限-行级权限</h3><p>行级权限可能会涉及到层级关系，比如销售数据： 普通员工能只能看自己的销售数据</p>
-<p>销售组长能看这个组及自己的，部门领导能看所有的。还会有跨部门的权限情况：比如财务部的任何一个人都能看销售部所有的数据。</p>
-<p>行级数据权限表设计（主要字段）：</p>
-<p>字段1: source_type：需要配置权限的类型（角色或者部门）</p>
-<p>字段2: source_id：角色id 或者部门id</p>
-<p>字段3: target_type：source 能访问的目标数据的 类型（角色或者部门）</p>
-<p>字段3: target_id：角色id或者部门id</p>
-<p>这样一条数据的意思是，source角色或者部门下的人员能够访问target角色或者部门下人员的所有数据。</p>
-<h3 id="数据权限-列级权限"><a href="#数据权限-列级权限" class="headerlink" title="数据权限-列级权限"></a>数据权限-列级权限</h3><p>列级数据权限表设计（主要字段）：</p>
-<p>字段1: source_type：需要配置权限的类型（角色或者部门）</p>
-<p>字段2: source_id：角色id 或者部门id</p>
-<p>字段3: target_type：source 能访问的目标数据的 类型（客户列表）</p>
-<p>字段3: target_colums：列名 逗号分隔</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ol>
-<li><p>再用户登陆的时候 将这个用户信息，权限信息，根据以上结构查出来，放到缓存里（redis）</p>
-</li>
-<li><p>功能权限的实现都在过滤器（filter）里面，有相应的权限才放行。</p>
-</li>
-<li><p>数据权限就是在各个数据接口中，根据每个用户的配置的数据权限动态生成sql ，select 中的值是列级权限的配置，where 条件中加上 行级权限的相关配置。</p>
-</li>
-</ol>
+        <h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                             <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                             <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                             TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                             BlockingQueue&lt;Runnable&gt; workQueue,</span></span></span><br><span class="line"><span class="function"><span class="params">                             ThreadFactory threadFactory,</span></span></span><br><span class="line"><span class="function"><span class="params">                             RejectedExecutionHandler handler)</span></span></span><br></pre></td></tr></table></figure>
+<p>解释一下这几个参数</p>
+<p>corePoolSize：线程池核心线程数量；线程池刚刚创建的时候线程池中有0个线程在执行任务，当任务提交到线程池时，如果当前线程数量小于corePoolSize，就会创建新的线程执行任务；如果当前线程已经等于corePoolSize，就会把任务放在workQueue任务队列中。</p>
+<p>maximumPoolSize：线程池最大线程数量；当workQueue任务队列已满，此时如果添加新的任务，线程池就会创建新的线程来执行任务，但是最大不会超过maximumPoolSize</p>
+<p>keepAliveTime：线程池中线程的数量大于corePoolSize时，空闲线程的超时回收时间。如果 allowCoreThreadTimeOut为true 则核心线程也会超时回收。</p>
+<p>threadFactory：创建线程的工厂。</p>
+<p>handler：拒绝策略，当workQueue已满而且线程数达到maximumPoolSize，无法处理新来的任务时的拒绝策略。</p>
+<p><img src="https://i.loli.net/2019/03/06/5c7f6daeb5aa4.jpg" alt="5c7f6daeb5aa4"></p>
+<p>## </p>
+<h2 id="addWorker方法"><a href="#addWorker方法" class="headerlink" title="addWorker方法"></a>addWorker方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">addWorker</span><span class="params">(Runnable firstTask, <span class="keyword">boolean</span> core)</span> </span>&#123;</span><br><span class="line">    retry:</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="keyword">int</span> c = ctl.get();</span><br><span class="line">        <span class="keyword">int</span> rs = runStateOf(c);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Check if queue empty only if necessary.</span></span><br><span class="line">        <span class="keyword">if</span> (rs &gt;= SHUTDOWN &amp;&amp;</span><br><span class="line">            ! (rs == SHUTDOWN &amp;&amp;</span><br><span class="line">               firstTask == <span class="keyword">null</span> &amp;&amp;</span><br><span class="line">               ! workQueue.isEmpty()))</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">            <span class="keyword">int</span> wc = workerCountOf(c);</span><br><span class="line">            <span class="keyword">if</span> (wc &gt;= CAPACITY ||</span><br><span class="line">                wc &gt;= (core ? corePoolSize : maximumPoolSize))</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">if</span> (compareAndIncrementWorkerCount(c))</span><br><span class="line">                <span class="keyword">break</span> retry;</span><br><span class="line">            c = ctl.get();  <span class="comment">// Re-read ctl</span></span><br><span class="line">            <span class="keyword">if</span> (runStateOf(c) != rs)</span><br><span class="line">                <span class="keyword">continue</span> retry;</span><br><span class="line">            <span class="comment">// else CAS failed due to workerCount change; retry inner loop</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">boolean</span> workerStarted = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">boolean</span> workerAdded = <span class="keyword">false</span>;</span><br><span class="line">    Worker w = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">//创建工作线程</span></span><br><span class="line">        w = <span class="keyword">new</span> Worker(firstTask);</span><br><span class="line">        <span class="keyword">final</span> Thread t = w.thread;</span><br><span class="line">        <span class="keyword">if</span> (t != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">final</span> ReentrantLock mainLock = <span class="keyword">this</span>.mainLock;</span><br><span class="line">            mainLock.lock();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// Recheck while holding lock.</span></span><br><span class="line">                <span class="comment">// Back out on ThreadFactory failure or if</span></span><br><span class="line">                <span class="comment">// shut down before lock acquired.</span></span><br><span class="line">                <span class="keyword">int</span> rs = runStateOf(ctl.get());</span><br><span class="line">                  <span class="comment">//判断线程是否被SHUTDOWN</span></span><br><span class="line">                <span class="keyword">if</span> (rs &lt; SHUTDOWN ||</span><br><span class="line">                    (rs == SHUTDOWN &amp;&amp; firstTask == <span class="keyword">null</span>)) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (t.isAlive()) <span class="comment">// precheck that t is startable</span></span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalThreadStateException();</span><br><span class="line">                    workers.add(w);</span><br><span class="line">                    <span class="keyword">int</span> s = workers.size();</span><br><span class="line">                    <span class="keyword">if</span> (s &gt; largestPoolSize)</span><br><span class="line">                        largestPoolSize = s;</span><br><span class="line">                    workerAdded = <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                mainLock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (workerAdded) &#123;</span><br><span class="line">            <span class="comment">//开始执行运行线程</span></span><br><span class="line">                t.start();</span><br><span class="line">                workerStarted = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (! workerStarted)</span><br><span class="line">            addWorkerFailed(w);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> workerStarted;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在里面完成了状态检查、新建任务、执行任务等一系列动作。可以看到上面创建线程的流程和上面画的图一样。</p>
+<p>接下来看t.start();到底做了什么</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Worker(Runnable firstTask) &#123;</span><br><span class="line">          setState(-<span class="number">1</span>); <span class="comment">// inhibit interrupts until runWorker</span></span><br><span class="line">          <span class="keyword">this</span>.firstTask = firstTask;</span><br><span class="line">          <span class="keyword">this</span>.thread = getThreadFactory().newThread(<span class="keyword">this</span>);</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+<p>在Worker 的构造函数里面可以看到 Worker.thread 是使用自己来构造的一个线程，所以上面的t.start() 所执行的就是work的run方法。也就是runWorker</p>
+<h2 id="runWorker"><a href="#runWorker" class="headerlink" title="runWorker"></a>runWorker</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">runWorker</span><span class="params">(Worker w)</span> </span>&#123;</span><br><span class="line">       Thread wt = Thread.currentThread();</span><br><span class="line">       Runnable task = w.firstTask;</span><br><span class="line">       w.firstTask = <span class="keyword">null</span>;</span><br><span class="line">       w.unlock(); <span class="comment">// allow interrupts</span></span><br><span class="line">       <span class="keyword">boolean</span> completedAbruptly = <span class="keyword">true</span>;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="keyword">while</span> (task != <span class="keyword">null</span> || (task = getTask()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">               w.lock();</span><br><span class="line">               <span class="comment">// If pool is stopping, ensure thread is interrupted;</span></span><br><span class="line">               <span class="comment">// if not, ensure thread is not interrupted.  This</span></span><br><span class="line">               <span class="comment">// requires a recheck in second case to deal with</span></span><br><span class="line">               <span class="comment">// shutdownNow race while clearing interrupt</span></span><br><span class="line">               <span class="keyword">if</span> ((runStateAtLeast(ctl.get(), STOP) ||</span><br><span class="line">                    (Thread.interrupted() &amp;&amp;</span><br><span class="line">                     runStateAtLeast(ctl.get(), STOP))) &amp;&amp;</span><br><span class="line">                   !wt.isInterrupted())</span><br><span class="line">                   wt.interrupt();</span><br><span class="line">               <span class="keyword">try</span> &#123;</span><br><span class="line">                   beforeExecute(wt, task);</span><br><span class="line">                   Throwable thrown = <span class="keyword">null</span>;</span><br><span class="line">                   <span class="keyword">try</span> &#123;</span><br><span class="line">                       task.run();</span><br><span class="line">                   &#125; <span class="keyword">catch</span> (RuntimeException x) &#123;</span><br><span class="line">                       thrown = x; <span class="keyword">throw</span> x;</span><br><span class="line">                   &#125; <span class="keyword">catch</span> (Error x) &#123;</span><br><span class="line">                       thrown = x; <span class="keyword">throw</span> x;</span><br><span class="line">                   &#125; <span class="keyword">catch</span> (Throwable x) &#123;</span><br><span class="line">                       thrown = x; <span class="keyword">throw</span> <span class="keyword">new</span> Error(x);</span><br><span class="line">                   &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                       afterExecute(task, thrown);</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                   task = <span class="keyword">null</span>;</span><br><span class="line">                   w.completedTasks++;</span><br><span class="line">                   w.unlock();</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           completedAbruptly = <span class="keyword">false</span>;</span><br><span class="line">       &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">           processWorkerExit(w, completedAbruptly);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到这个方法一直在执行我们提交的任务的run() 方法，第一次会执行创建这个线程的任务的run方法，后面会执通过getTask()方法重队列里面的任务。</p>
 
       
     </div>
@@ -504,7 +492,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/模块设计/" rel="tag"># 模块设计</a>
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/多线程/" rel="tag"># 多线程</a>
+          
+            <a href="/tags/ThreadPool/" rel="tag"># ThreadPool</a>
           
         </div>
       
@@ -517,8 +509,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/15/java多线程基础/" rel="next" title="java多线程基础">
-                <i class="fa fa-chevron-left"></i> java多线程基础
+              <a href="/2019/02/28/权限管理设计思路/" rel="next" title="权限管理设计思路">
+                <i class="fa fa-chevron-left"></i> 权限管理设计思路
               </a>
             
           </div>
@@ -526,10 +518,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/06/java多线程之ThreadPoolExecutor/" rel="prev" title="java多线程之ThreadPoolExecutor">
-                java多线程之ThreadPoolExecutor <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -690,7 +678,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#功能权限"><span class="nav-number">1.</span> <span class="nav-text">功能权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据权限"><span class="nav-number">2.</span> <span class="nav-text">数据权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据权限-行级权限"><span class="nav-number">2.1.</span> <span class="nav-text">数据权限-行级权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据权限-列级权限"><span class="nav-number">2.2.</span> <span class="nav-text">数据权限-列级权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数"><span class="nav-number">1.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#addWorker方法"><span class="nav-number">2.</span> <span class="nav-text">addWorker方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#runWorker"><span class="nav-number">3.</span> <span class="nav-text">runWorker</span></a></li></ol></div>
             
 
           </div>
@@ -842,7 +830,7 @@
   
     <script>
   window.livereOptions = {
-    refer: '2019/02/28/权限管理设计思路/'
+    refer: '2019/03/06/java多线程之ThreadPoolExecutor/'
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
