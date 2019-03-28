@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://jiang-anwei.github.io/2018/12/18/springboot%E5%8F%8Abean%20%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%90%E8%A1%8C/</loc>
+    
+    <lastmod>2019-03-27T10:08:35.634Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jiang-anwei.github.io/2019/03/06/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8BThreadPoolExecutor/</loc>
     
     <lastmod>2019-03-06T07:32:56.206Z</lastmod>
@@ -73,13 +80,6 @@
   
   <url>
     <loc>http://jiang-anwei.github.io/2018/10/10/mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    
-    <lastmod>2019-01-11T08:47:07.919Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jiang-anwei.github.io/2018/12/18/springboot%E5%8F%8Abean%20%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%90%E8%A1%8C/</loc>
     
     <lastmod>2019-01-11T08:47:07.919Z</lastmod>
     
