@@ -96,25 +96,27 @@
 
 
 
-  <meta name="description" content="spring boot 启动时运行Spring Boot应用程序在启动后，会遍历CommandLineRunner接口的实例并运行它们的run方法。也可以利用@Order注解（或者实现Order接口）来规定所有CommandLineRunner实例的运行顺序。 12345678910111213@Order(10)@Componentpublic class ContractUsegeStatus">
-<meta name="keywords" content="Springboot">
+  <meta name="description" content="Celery 是一个简单、灵活且可靠的，处理大量消息的分布式系统，并且提供维护这样一个系统的必需工具。 它是一个专注于实时处理的任务队列，同时也支持任务调度。 原理在celery 中主要有4个角色，productor ，broker，worker，backend productor 作为生产者发布任务 broker 是消息队列 用于存储任务 官方推荐使用 RabbitMQ 或者redis work">
+<meta name="keywords" content="python,celery,分布式,任务队列">
 <meta property="og:type" content="article">
-<meta property="og:title" content="springboot及bean 初始化运行">
-<meta property="og:url" content="http://jiang-anwei.github.io/2018/12/18/springboot及bean 初始化运行/index.html">
+<meta property="og:title" content="Celery-分布式任务队列">
+<meta property="og:url" content="http://jiang-anwei.github.io/2019/02/28/Celery - 分布式任务队列/index.html">
 <meta property="og:site_name" content="jiang-anwei blog">
-<meta property="og:description" content="spring boot 启动时运行Spring Boot应用程序在启动后，会遍历CommandLineRunner接口的实例并运行它们的run方法。也可以利用@Order注解（或者实现Order接口）来规定所有CommandLineRunner实例的运行顺序。 12345678910111213@Order(10)@Componentpublic class ContractUsegeStatus">
+<meta property="og:description" content="Celery 是一个简单、灵活且可靠的，处理大量消息的分布式系统，并且提供维护这样一个系统的必需工具。 它是一个专注于实时处理的任务队列，同时也支持任务调度。 原理在celery 中主要有4个角色，productor ，broker，worker，backend productor 作为生产者发布任务 broker 是消息队列 用于存储任务 官方推荐使用 RabbitMQ 或者redis work">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-27T10:08:35.634Z">
+<meta property="og:image" content="https://i.loli.net/2019/03/28/5c9c435e7e435.png">
+<meta property="og:updated_time" content="2019-03-28T04:54:47.109Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="springboot及bean 初始化运行">
-<meta name="twitter:description" content="spring boot 启动时运行Spring Boot应用程序在启动后，会遍历CommandLineRunner接口的实例并运行它们的run方法。也可以利用@Order注解（或者实现Order接口）来规定所有CommandLineRunner实例的运行顺序。 12345678910111213@Order(10)@Componentpublic class ContractUsegeStatus">
+<meta name="twitter:title" content="Celery-分布式任务队列">
+<meta name="twitter:description" content="Celery 是一个简单、灵活且可靠的，处理大量消息的分布式系统，并且提供维护这样一个系统的必需工具。 它是一个专注于实时处理的任务队列，同时也支持任务调度。 原理在celery 中主要有4个角色，productor ，broker，worker，backend productor 作为生产者发布任务 broker 是消息队列 用于存储任务 官方推荐使用 RabbitMQ 或者redis work">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/28/5c9c435e7e435.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://jiang-anwei.github.io/2018/12/18/springboot及bean 初始化运行/">
+  <link rel="canonical" href="http://jiang-anwei.github.io/2019/02/28/Celery - 分布式任务队列/">
 
 
 
@@ -124,7 +126,7 @@
   };
 </script>
 
-  <title>springboot及bean 初始化运行 | jiang-anwei blog</title>
+  <title>Celery-分布式任务队列 | jiang-anwei blog</title>
   
 
 
@@ -352,7 +354,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://jiang-anwei.github.io/2018/12/18/springboot及bean 初始化运行/">
+    <link itemprop="mainEntityOfPage" href="http://jiang-anwei.github.io/2019/02/28/Celery - 分布式任务队列/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="蒋安维">
@@ -369,7 +371,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">springboot及bean 初始化运行
+          <h1 class="post-title" itemprop="name headline">Celery-分布式任务队列
 
               
             
@@ -395,7 +397,7 @@
                 
               
 
-              <time title="Created: 2018-12-18 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-18T00:00:00+08:00">2018-12-18</time>
+              <time title="Created: 2019-02-28 00:00:00" itemprop="dateCreated datePublished" datetime="2019-02-28T00:00:00+08:00">2019-02-28</time>
             
 
             
@@ -412,11 +414,29 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-27 18:08:35" itemprop="dateModified" datetime="2019-03-27T18:08:35+08:00">2019-03-27</time>
+                <time title="Modified: 2019-03-28 12:54:47" itemprop="dateModified" datetime="2019-03-28T12:54:47+08:00">2019-03-28</time>
               
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/后台/" itemprop="url" rel="index"><span itemprop="name">后台</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -445,12 +465,19 @@
       
 
       
-        <h2 id="spring-boot-启动时运行"><a href="#spring-boot-启动时运行" class="headerlink" title="spring boot 启动时运行"></a>spring boot 启动时运行</h2><p>Spring Boot应用程序在启动后，会遍历CommandLineRunner接口的实例并运行它们的run方法。也可以利用@Order注解（或者实现Order接口）来规定所有CommandLineRunner实例的运行顺序。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Order</span>(<span class="number">10</span>)</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ContractUsegeStatusInitRunner</span> <span class="keyword">implements</span> <span class="title">CommandLineRunner</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Logger logger= LoggerFactory.getLogger(ContractUsegeStatusInitRunner.class);</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ScheduleService scheduleService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(String... strings)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        logger.info(<span class="string">"&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;启动时合同使用状态更新"</span>);</span><br><span class="line">        scheduleService.updateContractUsegeStatus();</span><br><span class="line">        logger.info(<span class="string">"&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;合同使用状态更新结束"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Bean-初始化完成时运行"><a href="#Bean-初始化完成时运行" class="headerlink" title="Bean 初始化完成时运行"></a>Bean 初始化完成时运行</h2><p>执行顺序　<strong>Constructor &gt; @PostConstruct &gt; InitializingBean &gt; init-method</strong></p>
-<p><em>&lt;<strong>bean</strong>class=”InitSequenceBean”init-method=”initMethod”&gt;</em></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InitSequenceBean</span> <span class="keyword">implements</span> <span class="title">InitializingBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">InitSequenceBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       System.out.println(<span class="string">"InitSequenceBean: constructor"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postConstruct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       System.out.println(<span class="string">"InitSequenceBean: postConstruct"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       System.out.println(<span class="string">"InitSequenceBean: init-method"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterPropertiesSet</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">       System.out.println(<span class="string">"InitSequenceBean: afterPropertiesSet"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Bean销毁之前执行"><a href="#Bean销毁之前执行" class="headerlink" title="Bean销毁之前执行"></a>Bean销毁之前执行</h2><p>使用@PreDestroy</p>
+        <p><a href="http://docs.jinkan.org/docs/celery/index.html" target="_blank" rel="noopener">Celery</a> 是一个简单、灵活且可靠的，处理大量消息的分布式系统，并且提供维护这样一个系统的必需工具。</p>
+<p>它是一个专注于实时处理的任务队列，同时也支持任务调度。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>在celery 中主要有4个角色，productor ，broker，worker，backend</p>
+<p>productor 作为生产者发布任务</p>
+<p>broker 是消息队列 用于存储任务 官方推荐使用 <a href="http://docs.jinkan.org/docs/celery/getting-started/first-steps-with-celery.html#rabbitmq" target="_blank" rel="noopener">RabbitMQ</a> 或者redis</p>
+<p>worker 消费者， 任务处理逻辑</p>
+<p>backend 处理结果</p>
+<p><img src="https://i.loli.net/2019/03/28/5c9c435e7e435.png" alt="5c9c435e7e435"></p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> kombu <span class="keyword">import</span> Exchange, Queue</span><br><span class="line"><span class="comment"># broker 连接，这里使用redis</span></span><br><span class="line">BROKER_URL = <span class="string">"redis://172.16.101.24:6379/1"</span></span><br><span class="line"><span class="comment"># BACKEND 连接，这里使用redis</span></span><br><span class="line">CELERY_RESULT_BACKEND = <span class="string">"redis://172.16.101.24:6379/2"</span></span><br><span class="line"><span class="comment"># 任务序列化方式</span></span><br><span class="line">CELERY_TASK_SERIALIZER = <span class="string">"json"</span></span><br><span class="line">CELERY_RESULT_SERIALIZER = <span class="string">'json'</span></span><br><span class="line">CELERY_TASK_RESULT_EXPIRES = <span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果任务没有在 可见性超时 内确认接收，任务会被重新委派给另一个职程并执行。</span></span><br><span class="line">BROKER_TRANSPORT_OPTIONS = &#123;<span class="string">'visibility_timeout'</span>: <span class="number">43200</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 内存泄漏</span></span><br><span class="line"><span class="comment"># 长时间运行Celery有可能发生内存泄露，可以像下面这样设置</span></span><br><span class="line"></span><br><span class="line">CELERYD_CONCURRENCY = <span class="number">20</span>  <span class="comment"># 并发worker数</span></span><br><span class="line"></span><br><span class="line">CELERYD_MAX_TASKS_PER_CHILD = <span class="number">40</span>  <span class="comment"># 每个worker执行了多少任务就会死掉 防止内存溢出</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CELERY_QUEUES = (</span><br><span class="line">    Queue(<span class="string">"default"</span>, Exchange(<span class="string">"default"</span>), routing_key=<span class="string">"default"</span>),</span><br><span class="line">    Queue(<span class="string">"multiplication_task_queue"</span>, Exchange(<span class="string">"multiplication_task"</span>), routing_key=<span class="string">"multiplication_task"</span>),</span><br><span class="line">    Queue(<span class="string">"sum_all"</span>, Exchange(<span class="string">"sum_all"</span>), routing_key=<span class="string">"sum_all"</span>),</span><br><span class="line">    Queue(<span class="string">"add_task_queue"</span>, Exchange(<span class="string">"add_task"</span>), routing_key=<span class="string">"add_task"</span>)</span><br><span class="line">)</span><br><span class="line"><span class="comment"># 定义每个任务使用的队列，不同的任务，最好使用不同的队列 以免混乱</span></span><br><span class="line">CELERY_ROUTES = &#123;</span><br><span class="line">    <span class="string">'task.multiplication_task'</span>: &#123;<span class="string">"queue"</span>: <span class="string">"multiplication_task_queue"</span>, <span class="string">"routing_key"</span>: <span class="string">"multiplication_task"</span>&#125;,</span><br><span class="line">    <span class="string">'task.sum_all'</span>: &#123;<span class="string">"queue"</span>: <span class="string">"sum_all"</span>, <span class="string">"routing_key"</span>: <span class="string">"sum_all"</span>&#125;,</span><br><span class="line">    <span class="string">'task.add_task'</span>: &#123;<span class="string">"queue"</span>: <span class="string">"add_task_queue"</span>, <span class="string">"routing_key"</span>: <span class="string">"add_task"</span>&#125;&#125;</span><br><span class="line"><span class="comment"># celery -A proj worker --loglevel=INFO --concurrency=10 -n worker1.%h -Q for_task</span></span><br><span class="line"><span class="comment"># 定时任务配置</span></span><br><span class="line">CELERYBEAT_SCHEDULE = &#123;</span><br><span class="line">    <span class="string">'add-every-30-seconds'</span>: &#123;</span><br><span class="line">        <span class="string">'task'</span>: <span class="string">'tasks.add'</span>,</span><br><span class="line">        <span class="string">'schedule'</span>: timedelta(seconds=<span class="number">30</span>),</span><br><span class="line">        <span class="string">'args'</span>: (<span class="number">16</span>, <span class="number">16</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="worker"><a href="#worker" class="headerlink" title="worker"></a>worker</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> Celery, platforms, Task, chain</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">platforms.C_FORCE_ROOT = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">app = Celery()</span><br><span class="line"><span class="comment"># 引入配置</span></span><br><span class="line">app.config_from_object(<span class="string">"celeryconfig"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CalculationTask</span><span class="params">(Task)</span>:</span></span><br><span class="line">    <span class="comment"># 任务成功回调</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">on_success</span><span class="params">(self, retval, task_id, args, kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">'task done: &#123;0&#125;'</span>.format(retval)</span><br><span class="line">        <span class="keyword">return</span> super(CalculationTask, self).on_success(retval, task_id, args, kwargs)</span><br><span class="line">     <span class="comment"># 任务失败回调</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">on_failure</span><span class="params">(self, exc, task_id, args, kwargs, einfo)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">'task fail, reason: &#123;0&#125;'</span>.format(exc)</span><br><span class="line">        <span class="keyword">return</span> super(CalculationTask, self).on_failure(exc, task_id, args, kwargs, einfo)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 不关心结果</span></span><br><span class="line"><span class="comment"># @app.task(ignore_result=True)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># bind=True 时 Task 本身会作为第一个参数 注入到 函数中</span></span><br><span class="line"><span class="meta">@app.task(bind=True, max_retries=3, default_retry_delay=1 * 6)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">multiplication_task</span><span class="params">(self, x, y)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line">        <span class="comment"># raise Exception("test")</span></span><br><span class="line">        <span class="keyword">return</span> x * y</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> exc:</span><br><span class="line">        <span class="comment"># 异常重试 这里countdown 的优先级大于 default_retry_delay</span></span><br><span class="line">        self.retry(exc=exc, countdown=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.task(base=CalculationTask)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_task</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.task</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum_all</span><span class="params">(x=None)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> sum(x)</span><br></pre></td></tr></table></figure>
+<p>进入work 所在的目录 执行命令 celery -A task worker –loglevel=INFO  -n worker1.%h </p>
+<p>worker 就启动起来了（可以启动多个， 注意修改一下名字作区分）</p>
+<h3 id="调度任务（product）"><a href="#调度任务（product）" class="headerlink" title="调度任务（product）"></a>调度任务（product）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> task <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> group, chord</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">start = time.time()</span><br><span class="line">addresult = [add_task.delay(i, i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line">mult_result = [multiplication_task.delay(i, i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> re <span class="keyword">in</span> addresult:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"加法："</span>, re.get()</span><br><span class="line"><span class="keyword">for</span> re <span class="keyword">in</span> mult_result:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"乘法："</span>, re.get()</span><br><span class="line"><span class="keyword">print</span> <span class="string">"cost:&#123;&#125;"</span>.format(str(time.time() - start))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">result = add_task.apply_async((<span class="number">2</span>, <span class="number">2</span>), link=[add_task.s(<span class="number">16</span>), add_task.s(<span class="number">15</span>)])</span><br><span class="line"><span class="keyword">print</span> result.get()</span><br><span class="line"><span class="keyword">print</span> result.children[<span class="number">0</span>].get()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># chain</span></span><br><span class="line"><span class="comment"># 串行调用</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># chain 函数接受一个任务的列表，Celery 保证一个 chain 里的子任务会依次执行，</span></span><br><span class="line"><span class="comment"># 在 AsynResult 上执行 get 会得到最后一个任务的返回值。和 link 功能类似，</span></span><br><span class="line"><span class="comment"># 每一个任务执行结果会当作参数传入下一个任务，所以如果你不需要这种特性，采用 immutable signature (si)来取消。</span></span><br><span class="line"></span><br><span class="line">result = chain(add_task.s(<span class="number">1</span>, <span class="number">2</span>), add_task.s(<span class="number">3</span>), add_task.s(<span class="number">4</span>))()</span><br><span class="line"><span class="comment"># result = chain(add_task.si(1, 2), add_task.si(3, 3), add_task.si(4, 4))()</span></span><br><span class="line"><span class="keyword">print</span> result.get()</span><br><span class="line"><span class="keyword">print</span> result.parent.parent.graph</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Groups</span></span><br><span class="line"><span class="comment"># 并行调用</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">result = group(add_task.s(<span class="number">1</span>, <span class="number">2</span>), add_task.s(<span class="number">2</span>, <span class="number">3</span>), add_task.s(<span class="number">2</span>, <span class="number">4</span>))()</span><br><span class="line"><span class="keyword">print</span> result.get()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Chords</span></span><br><span class="line"><span class="comment"># 先并行调用，再串行调用 4+8+16</span></span><br><span class="line"><span class="comment"># 两种写法等价</span></span><br><span class="line"><span class="comment"># result=chord((add_task.s(2, 2), add_task.s(4, 4), add_task.s(8, 8)), sum_all.s())()</span></span><br><span class="line">result = chain(group(add_task.s(<span class="number">2</span>, <span class="number">2</span>), add_task.s(<span class="number">4</span>, <span class="number">4</span>), add_task.s(<span class="number">8</span>, <span class="number">8</span>)), sum_all.s())()</span><br><span class="line"><span class="keyword">print</span> result.get()</span><br><span class="line"></span><br><span class="line"><span class="comment"># map</span></span><br><span class="line"><span class="comment"># 对并行调用的结果各自汇总</span></span><br><span class="line">result = sum_all.map([range(<span class="number">10</span>), range(<span class="number">100</span>)]).delay()</span><br><span class="line"><span class="keyword">print</span> result.get()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Starmap</span></span><br><span class="line"><span class="comment"># 对并行调用的结果各自汇总，汇总参数是tuple</span></span><br><span class="line">result = add_task.starmap(zip(range(<span class="number">10</span>), range(<span class="number">10</span>))).delay()</span><br><span class="line"><span class="keyword">print</span> result.get()</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -474,7 +501,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Springboot/" rel="tag"># Springboot</a>
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/celery/" rel="tag"># celery</a>
+          
+            <a href="/tags/分布式/" rel="tag"># 分布式</a>
+          
+            <a href="/tags/任务队列/" rel="tag"># 任务队列</a>
           
         </div>
       
@@ -487,8 +520,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/29/springboot多个数据库的配置/" rel="next" title="springboot多个数据库配置">
-                <i class="fa fa-chevron-left"></i> springboot多个数据库配置
+              <a href="/2019/01/15/java多线程基础/" rel="next" title="java多线程基础">
+                <i class="fa fa-chevron-left"></i> java多线程基础
               </a>
             
           </div>
@@ -497,8 +530,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/04/java类加载器/" rel="prev" title="java classLoader">
-                java classLoader <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/28/权限管理设计思路/" rel="prev" title="权限管理设计思路">
+                权限管理设计思路 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -668,7 +701,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-boot-启动时运行"><span class="nav-number">1.</span> <span class="nav-text">spring boot 启动时运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bean-初始化完成时运行"><span class="nav-number">2.</span> <span class="nav-text">Bean 初始化完成时运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bean销毁之前执行"><span class="nav-number">3.</span> <span class="nav-text">Bean销毁之前执行</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用"><span class="nav-number">2.</span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#worker"><span class="nav-number">2.2.</span> <span class="nav-text">worker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度任务（product）"><span class="nav-number">2.3.</span> <span class="nav-text">调度任务（product）</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -820,7 +853,7 @@
   
     <script>
   window.livereOptions = {
-    refer: '2018/12/18/springboot及bean 初始化运行/'
+    refer: '2019/02/28/Celery - 分布式任务队列/'
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
