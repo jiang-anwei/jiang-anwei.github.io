@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="先创建需要自动配置的类123456789101112package com.icekredit.autoconfigdemo.demo;import org.springframework.beans.factory.annotation.Value;public class AutoconfigDemo &amp;#123;    @Value(&amp;quot;$&amp;#123;init.message&amp;#12">
+  <meta name="description" content="先创建需要自动配置的类123456789101112package com.jianganwei.autoconfigdemo.demo;import org.springframework.beans.factory.annotation.Value;public class AutoconfigDemo &amp;#123;    @Value(&amp;quot;$&amp;#123;init.message&amp;#1">
 <meta name="keywords" content="Springboot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="springboot自动配置demo">
 <meta property="og:url" content="http://jiang-anwei.github.io/2018/10/23/Springboot自动配置demo/index.html">
 <meta property="og:site_name" content="jiang-anwei blog">
-<meta property="og:description" content="先创建需要自动配置的类123456789101112package com.icekredit.autoconfigdemo.demo;import org.springframework.beans.factory.annotation.Value;public class AutoconfigDemo &amp;#123;    @Value(&amp;quot;$&amp;#123;init.message&amp;#12">
+<meta property="og:description" content="先创建需要自动配置的类123456789101112package com.jianganwei.autoconfigdemo.demo;import org.springframework.beans.factory.annotation.Value;public class AutoconfigDemo &amp;#123;    @Value(&amp;quot;$&amp;#123;init.message&amp;#1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-11T08:47:07.918Z">
+<meta property="og:updated_time" content="2019-04-09T11:18:23.370Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="springboot自动配置demo">
-<meta name="twitter:description" content="先创建需要自动配置的类123456789101112package com.icekredit.autoconfigdemo.demo;import org.springframework.beans.factory.annotation.Value;public class AutoconfigDemo &amp;#123;    @Value(&amp;quot;$&amp;#123;init.message&amp;#12">
+<meta name="twitter:description" content="先创建需要自动配置的类123456789101112package com.jianganwei.autoconfigdemo.demo;import org.springframework.beans.factory.annotation.Value;public class AutoconfigDemo &amp;#123;    @Value(&amp;quot;$&amp;#123;init.message&amp;#1">
 
 
 
@@ -412,7 +412,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-01-11 16:47:07" itemprop="dateModified" datetime="2019-01-11T16:47:07+08:00">2019-01-11</time>
+                <time title="Modified: 2019-04-09 19:18:23" itemprop="dateModified" datetime="2019-04-09T19:18:23+08:00">2019-04-09</time>
               
             
           </span>
@@ -445,10 +445,10 @@
       
 
       
-        <h4 id="先创建需要自动配置的类"><a href="#先创建需要自动配置的类" class="headerlink" title="先创建需要自动配置的类"></a>先创建需要自动配置的类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">package com.icekredit.autoconfigdemo.demo;</span><br><span class="line"></span><br><span class="line">import org.springframework.beans.factory.annotation.Value;</span><br><span class="line"></span><br><span class="line">public class AutoconfigDemo &#123;</span><br><span class="line">    @Value(&quot;$&#123;init.message&#125;&quot;)</span><br><span class="line">    private String message;</span><br><span class="line"></span><br><span class="line">    public void sout() &#123;</span><br><span class="line">        System.out.println(&quot;the message is: &quot; + message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h4 id="先创建需要自动配置的类"><a href="#先创建需要自动配置的类" class="headerlink" title="先创建需要自动配置的类"></a>先创建需要自动配置的类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">package com.jianganwei.autoconfigdemo.demo;</span><br><span class="line"></span><br><span class="line">import org.springframework.beans.factory.annotation.Value;</span><br><span class="line"></span><br><span class="line">public class AutoconfigDemo &#123;</span><br><span class="line">    @Value(&quot;$&#123;init.message&#125;&quot;)</span><br><span class="line">    private String message;</span><br><span class="line"></span><br><span class="line">    public void sout() &#123;</span><br><span class="line">        System.out.println(&quot;the message is: &quot; + message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="编写创建该类的条件"><a href="#编写创建该类的条件" class="headerlink" title="编写创建该类的条件"></a>编写创建该类的条件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;</span><br><span class="line">import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;</span><br><span class="line">import org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">public class Demo &#123;</span><br><span class="line">    @Bean</span><br><span class="line">    @ConditionalOnMissingBean(AutoconfigDemo.class)</span><br><span class="line">    @ConfigurationProperties(prefix = &quot;init&quot;)</span><br><span class="line">    @ConditionalOnProperty(prefix = &quot;init&quot;,value = &quot;message&quot;)</span><br><span class="line">   public AutoconfigDemo getDemo()&#123;</span><br><span class="line">        return new AutoconfigDemo();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="最后在resources-目录下创建-META-INF-spring-factories"><a href="#最后在resources-目录下创建-META-INF-spring-factories" class="headerlink" title="最后在resources 目录下创建 META-INF/spring.factories"></a>最后在resources 目录下创建 META-INF/spring.factories</h4><p>在文件中配入需要自动创建的bean 条件类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.icekredit.autoconfigdemo.demo.Demo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.jianganwei.autoconfigdemo.demo.Demo</span><br></pre></td></tr></table></figure>
 
       
     </div>
