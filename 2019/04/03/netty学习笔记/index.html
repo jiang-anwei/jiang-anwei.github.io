@@ -105,7 +105,7 @@
 <meta property="og:description" content="Channel底层网络传输 API 必须提供给应用 I/O操作的接口，如读，写，连接，绑定等等。 ChannelHandler业务逻辑主要存活于此，主要子接口分别有ChannelInboundHandler，ChannelOutboundHandler。ChannelInboundHandler入站时回调主要处理入站逻辑，主要应用于解码器，获取客户端发送的数据等逻辑。相反ChannelOutbou">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://waylau.com/essential-netty-in-action/images/Figure%209.3%20ServerBootstrap.jpg">
-<meta property="og:updated_time" content="2019-04-03T05:43:35.854Z">
+<meta property="og:updated_time" content="2019-04-10T02:34:22.101Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="netty学习笔记">
 <meta name="twitter:description" content="Channel底层网络传输 API 必须提供给应用 I/O操作的接口，如读，写，连接，绑定等等。 ChannelHandler业务逻辑主要存活于此，主要子接口分别有ChannelInboundHandler，ChannelOutboundHandler。ChannelInboundHandler入站时回调主要处理入站逻辑，主要应用于解码器，获取客户端发送的数据等逻辑。相反ChannelOutbou">
@@ -397,12 +397,24 @@
                 
               
 
-              <time title="Created: 2019-04-03 00:00:00 / Modified: 13:43:35" itemprop="dateCreated datePublished" datetime="2019-04-03T00:00:00+08:00">2019-04-03</time>
+              <time title="Created: 2019-04-03 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-03T00:00:00+08:00">2019-04-03</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-10 10:34:22" itemprop="dateModified" datetime="2019-04-10T10:34:22+08:00">2019-04-10</time>
               
             
           </span>
@@ -497,10 +509,6 @@
 </tr>
 </tbody>
 </table>
-<p>channelReadComplete：channel读操作完成时回调</p>
-<p>channelRead：数据准备好刻时回调</p>
-<p>channelWritabilityChanged：当channel的可写状态发生改变时回调。用户可以确保写入速度不会太快（存在OutOfMemoryError的风险），或者可以在Channel可再次写入时恢复写入。Channel.isWritable（）可用于检测通道的实际可写性。可写性的阈值可以通过Channel.config（）。setWriteHighWaterMark（）和Channel.config（）。setWriteLowWaterMark（）来设置。</p>
-<p>userEventTriggered：当用户调用了ChannelHandlerContext.fireUserEventTriggered回调（不会在当前的handler生效，后面的handler才会生效）</p>
 <p>注意⚠️</p>
 <p>1.在 inBoundHandler 中调用了write （）方法，会直接把任务，交给该inBoundHandler 在ChannelPipeline中上面的outBoundHandler处理。</p>
 <p>2.使用ReferenceCountUtil.release() 来丢弃收到的信息</p>
