@@ -105,7 +105,7 @@
 <meta property="og:description" content="Channel底层网络传输 API 必须提供给应用 I/O操作的接口，如读，写，连接，绑定等等。 ChannelHandler业务逻辑主要存活于此，主要子接口分别有ChannelInboundHandler，ChannelOutboundHandler。ChannelInboundHandler入站时回调主要处理入站逻辑，主要应用于解码器，获取客户端发送的数据等逻辑。相反ChannelOutbou">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://waylau.com/essential-netty-in-action/images/Figure%209.3%20ServerBootstrap.jpg">
-<meta property="og:updated_time" content="2019-04-10T02:34:22.101Z">
+<meta property="og:updated_time" content="2019-04-10T02:42:40.141Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="netty学习笔记">
 <meta name="twitter:description" content="Channel底层网络传输 API 必须提供给应用 I/O操作的接口，如读，写，连接，绑定等等。 ChannelHandler业务逻辑主要存活于此，主要子接口分别有ChannelInboundHandler，ChannelOutboundHandler。ChannelInboundHandler入站时回调主要处理入站逻辑，主要应用于解码器，获取客户端发送的数据等逻辑。相反ChannelOutbou">
@@ -414,7 +414,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-10 10:34:22" itemprop="dateModified" datetime="2019-04-10T10:34:22+08:00">2019-04-10</time>
+                <time title="Modified: 2019-04-10 10:42:40" itemprop="dateModified" datetime="2019-04-10T10:42:40+08:00">2019-04-10</time>
               
             
           </span>
@@ -511,7 +511,8 @@
 </table>
 <p>注意⚠️</p>
 <p>1.在 inBoundHandler 中调用了write （）方法，会直接把任务，交给该inBoundHandler 在ChannelPipeline中上面的outBoundHandler处理。</p>
-<p>2.使用ReferenceCountUtil.release() 来丢弃收到的信息</p>
+<p>2.使用ReferenceCountUtil.release() 来丢弃收到的信息。</p>
+<p>总结：如果消息是被 消耗/丢弃 并不会被传入下个 ChannelPipeline 的 ChannelOutboundHandler 或者ChannelInboundHandler，调用 ReferenceCountUtil.release(message) 。一旦消息经过实际的传输，在消息被写或者 Channel 关闭时，它将会自动释放。</p>
 <h3 id="ChannelOutboundHandler"><a href="#ChannelOutboundHandler" class="headerlink" title="ChannelOutboundHandler"></a>ChannelOutboundHandler</h3><table>
 <thead>
 <tr>
