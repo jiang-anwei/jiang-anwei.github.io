@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="iText 基础基础介绍iText是著名的开放源码的站点sourceforge一个项目，是用于生成PDF文档的一个java类库。通过iText不仅可以生成PDF或rtf的文档，而且可以将XML、Html文件转化为PDF文件。本文仅讨论如何使用iTextApi生成PDF文件，不讨论关于xml，html相关的pdf转换特性。 基础APIiText DocumentDocument是iText中一个通用">
+<meta name="keywords" content="java,pdf,itext">
+<meta property="og:type" content="article">
+<meta property="og:title" content="itext-pdf">
+<meta property="og:url" content="http://jiang-anwei.github.io/2019/04/10/itext-pdf/index.html">
+<meta property="og:site_name" content="jiang-anwei blog">
+<meta property="og:description" content="iText 基础基础介绍iText是著名的开放源码的站点sourceforge一个项目，是用于生成PDF文档的一个java类库。通过iText不仅可以生成PDF或rtf的文档，而且可以将XML、Html文件转化为PDF文件。本文仅讨论如何使用iTextApi生成PDF文件，不讨论关于xml，html相关的pdf转换特性。 基础APIiText DocumentDocument是iText中一个通用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jiang-anwei.github.io/img/001.png">
+<meta property="og:image" content="http://jiang-anwei.github.io/img/002.png">
+<meta property="og:image" content="http://jiang-anwei.github.io/img/003.png">
+<meta property="og:image" content="http://jiang-anwei.github.io/img/004.png">
+<meta property="og:image" content="http://jiang-anwei.github.io/img/005.png">
+<meta property="og:image" content="http://jiang-anwei.github.io/img/006.png">
+<meta property="og:updated_time" content="2019-04-10T02:13:26.796Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="itext-pdf">
+<meta name="twitter:description" content="iText 基础基础介绍iText是著名的开放源码的站点sourceforge一个项目，是用于生成PDF文档的一个java类库。通过iText不仅可以生成PDF或rtf的文档，而且可以将XML、Html文件转化为PDF文件。本文仅讨论如何使用iTextApi生成PDF文件，不讨论关于xml，html相关的pdf转换特性。 基础APIiText DocumentDocument是iText中一个通用">
+<meta name="twitter:image" content="http://jiang-anwei.github.io/img/001.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://jiang-anwei.github.io/2019/04/10/itext-pdf/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>itext-pdf | jiang-anwei blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">jiang-anwei blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jiang-anwei.github.io/2019/04/10/itext-pdf/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蒋安维">
+      <meta itemprop="description" content="思绪总在漂流，偶而在此停留">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiang-anwei blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">itext-pdf
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-10 00:00:00 / Modified: 10:13:26" itemprop="dateCreated datePublished" datetime="2019-04-10T00:00:00+08:00">2019-04-10</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/后台/" itemprop="url" rel="index"><span itemprop="name">后台</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="iText-基础"><a href="#iText-基础" class="headerlink" title="iText 基础"></a>iText 基础</h2><h3 id="基础介绍"><a href="#基础介绍" class="headerlink" title="基础介绍"></a>基础介绍</h3><p>iText是著名的开放源码的站点sourceforge一个项目，是用于生成PDF文档的一个java类库。通过iText不仅可以生成PDF或rtf的文档，而且可以将XML、Html文件转化为PDF文件。<br>本文仅讨论如何使用iTextApi生成PDF文件，不讨论关于xml，html相关的pdf转换特性。</p>
+<h3 id="基础API"><a href="#基础API" class="headerlink" title="基础API"></a>基础API</h3><h4 id="iText-Document"><a href="#iText-Document" class="headerlink" title="iText Document"></a>iText Document</h4><p>Document是iText中一个通用的文档类，所有我本内容最终都会被附加或者说填充到一个文档中，此文档对象也会在子元素被添加的同时回调一些由listener指定的回调接口！</p>
+<h5 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h5><ul>
+<li>当一个文档对象创建完成得到实例之后，我们就可以为这个文档实例添加一些元数据，比如文档所属用户，文档简要描述等等。</li>
+<li>当一个文档对象创建完成得到实例之后，我们可以为文档指定文档页眉和页脚</li>
+<li>只有先打开文档(调用<code>document.open()</code>)之后我们才能够向文档中写入内容</li>
+<li>打开文档之前，需要使用一个DocumentWriter的实现类比如PdfWriter的实例来将Document和一个OutputStream绑定到一起，当调用<code>close()</code>方法，文档内容将被写入到输出流中</li>
+<li>一旦文档被打开，将无法再向文档中添加元数据</li>
+<li>如果你在某一页面调整了页眉或者页脚，接下来的后续页面都会被改变</li>
+<li>一旦文档被关闭，与当前文档关联的所有listener也都将被关闭<h5 id="核心API"><a href="#核心API" class="headerlink" title="核心API"></a>核心API</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Document</span> <span class="keyword">implements</span> <span class="title">DocListener</span>, <span class="title">IAccessibleElement</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Methods extended from DocListener</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">open</span><span class="params">()</span></span>;  <span class="comment">//打开文档</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span></span>;  <span class="comment">//关闭万恶的囊</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">newPage</span><span class="params">()</span></span>;  <span class="comment">//开始新的一页</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">setPageSize</span><span class="params">(Rectangle pageSize)</span></span>;    <span class="comment">//设置文档页面大小</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">setMargins</span><span class="params">(<span class="keyword">float</span> marginLeft, <span class="keyword">float</span> marginRight, <span class="keyword">float</span> marginTop, <span class="keyword">float</span> marginBottom)</span></span>;    <span class="comment">//设置文档页面边距</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPageCount</span><span class="params">(<span class="keyword">int</span> pageN)</span></span>;    <span class="comment">//设置文档页码</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">resetPageCount</span><span class="params">()</span></span>;    <span class="comment">//重置当前文档页码为0</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Fields declared document itself </span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">protected</span> ArrayList&lt;DocListener&gt; listeners = <span class="keyword">new</span> ArrayList&lt;&gt;();    <span class="comment">//关联的listener</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">boolean</span> open;    <span class="comment">//文档是否已被打开</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">boolean</span> close;    <span class="comment">//文档是否已被关闭</span></span><br><span class="line">    <span class="keyword">protected</span> Rectangle pageSize;    <span class="comment">//文档页面大小</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> marginLeft = <span class="number">0</span>;    <span class="comment">//文档左边距</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> marginRight = <span class="number">0</span>;    <span class="comment">//文档右边距</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> marginTop = <span class="number">0</span>;    <span class="comment">//文档上边距</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> marginBottom = <span class="number">0</span>;    <span class="comment">//文档下边距</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Constructor method </span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Document</span><span class="params">()</span></span>;    <span class="comment">//same as Document(PageSize.A4); A4 = new RectangleReadOnly(595,842)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Document</span><span class="params">(Rectangle pageSize)</span></span>;    <span class="comment">//same as Document(pageSize, 36, 36, 36, 36)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Document</span><span class="params">(Rectangle pageSize, <span class="keyword">float</span> marginLeft, <span class="keyword">float</span> marginRight,<span class="keyword">float</span> marginTop, <span class="keyword">float</span> marginBottom)</span></span>;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Methods declared document itself </span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addDocListener</span><span class="params">(DocListener listener)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeDocListener</span><span class="params">(DocListener listener)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(Element element)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">addHeader</span><span class="params">(String name, String content)</span></span>;    <span class="comment">//为文档添加一个header</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">addTitle</span><span class="params">(String title)</span></span>;    <span class="comment">//为文档添加一个title</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">addSubject</span><span class="params">(String subject)</span></span>;    <span class="comment">//为文档添加一个主题</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">addKeywords</span><span class="params">(String keywords)</span></span>;    <span class="comment">//为文档添加一系列关键字</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">addAuthor</span><span class="params">(String author)</span></span>;    <span class="comment">//添加文档的作者</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">addCreator</span><span class="params">(String creator)</span></span>;    <span class="comment">//添加文档创建者名称</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">addCreationDate</span><span class="params">()</span></span>;    <span class="comment">//设定文档创建时间，即当前时间</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DocumentApiTest</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//创建一个空白文档，无参构造函数相当于new Document(PageSize.A4,36,36,36,36)</span></span><br><span class="line">        Document document = <span class="keyword">new</span> Document();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//创建一个输出流，此处我们使用文件输出流</span></span><br><span class="line">        OutputStream outputStream = <span class="keyword">new</span> FileOutputStream(<span class="keyword">new</span> File(<span class="string">"helloWorld.pdf"</span>));</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//将目标文档同输出流绑定到一起</span></span><br><span class="line">        PdfWriter.getInstance(document , outputStream);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//设置文档元数据</span></span><br><span class="line">        document.addAuthor(<span class="string">"San Zhang"</span>); </span><br><span class="line">        document.addSubject(<span class="string">"Test for Document Api!"</span>); </span><br><span class="line">        </span><br><span class="line">        <span class="comment">//打开文档</span></span><br><span class="line">        document.open(); </span><br><span class="line">        </span><br><span class="line">        <span class="comment">//添加内容</span></span><br><span class="line">        document.add(<span class="keyword">new</span> Paragraph(<span class="string">"Hello world！"</span>));</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//关闭文档</span></span><br><span class="line">        document.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="iText-Element"><a href="#iText-Element" class="headerlink" title="iText Element"></a>iText Element</h4><p>文本元素的通用接口。</p>
+<h5 id="核心API-1"><a href="#核心API-1" class="headerlink" title="核心API"></a>核心API</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Element</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">type</span><span class="params">()</span></span>;    <span class="comment">//当前元素类型</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isContent</span><span class="params">()</span></span>;    <span class="comment">//当前元素是否是一个content object</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isNestable</span><span class="params">()</span></span>;    <span class="comment">//当前元素是否可以被嵌入到其他元素中</span></span><br><span class="line">    <span class="function">List&lt;Chunk&gt; <span class="title">getChunks</span><span class="params">()</span></span>;    <span class="comment">//获取当前元素全部的chunks</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 对type的诸多常量定义</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">int</span> HEADER = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> TITLE = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> TITLE = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> SUBJECT = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> KEYWORDS = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">int</span> AUTHOR = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span> PRODUCER = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">int</span> CREATIONDATE = <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">int</span> CREATOR = <span class="number">7</span>;</span><br><span class="line">    <span class="keyword">int</span> LANGUAGE = <span class="number">8</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> CHUNK = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> PHRASE = <span class="number">11</span>;</span><br><span class="line">    <span class="keyword">int</span> PARAGRAPH = <span class="number">12</span>;</span><br><span class="line">    <span class="keyword">int</span> SECTION = <span class="number">13</span>;</span><br><span class="line">    <span class="keyword">int</span> LIST = <span class="number">14</span>;</span><br><span class="line">    <span class="keyword">int</span> LISTITEM = <span class="number">15</span>;</span><br><span class="line">    <span class="keyword">int</span> CHAPTER = <span class="number">16</span>;</span><br><span class="line">    <span class="keyword">int</span> ANCHOR = <span class="number">17</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> PTABLE = <span class="number">23</span>;</span><br><span class="line">    <span class="keyword">int</span> ANNOTATION = <span class="number">29</span>;</span><br><span class="line">    <span class="keyword">int</span> RECTANGLE = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">int</span> JPEG = <span class="number">32</span>;</span><br><span class="line">    <span class="keyword">int</span> JPEG2000 = <span class="number">33</span>;</span><br><span class="line">    <span class="keyword">int</span> IMGRAW = <span class="number">34</span>;</span><br><span class="line">    <span class="keyword">int</span> IMGTEMPLATE = <span class="number">35</span>;</span><br><span class="line">    <span class="keyword">int</span> JBIG2 = <span class="number">36</span>;</span><br><span class="line">    <span class="keyword">int</span> DIV = <span class="number">37</span>;</span><br><span class="line">    <span class="keyword">int</span> BODY = <span class="number">38</span>;</span><br><span class="line">    <span class="keyword">int</span> MARKED = <span class="number">50</span>;</span><br><span class="line">    <span class="keyword">int</span> YMARK = <span class="number">55</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> ALIGN_UNDEFINED = -<span class="number">1</span>;    <span class="comment">//段落对齐方式：同ALIGN_LEFT</span></span><br><span class="line">    <span class="keyword">int</span> ALIGN_LEFT = <span class="number">0</span>;    <span class="comment">//段落水平左对齐</span></span><br><span class="line">    <span class="keyword">int</span> ALIGN_CENTER = <span class="number">1</span>;    <span class="comment">//段落水平居中对其</span></span><br><span class="line">    <span class="keyword">int</span> ALIGN_RIGHT = <span class="number">2</span>;    <span class="comment">//段落属性右对齐</span></span><br><span class="line">    <span class="keyword">int</span> ALIGN_JUSTIFIED = <span class="number">3</span>;    <span class="comment">//段落水平展开，除了最后一行，其余各行水平伸展占据整行</span></span><br><span class="line">    <span class="keyword">int</span> ALIGN_TOP = <span class="number">4</span>;    <span class="comment">//段落垂直靠顶部对齐</span></span><br><span class="line">    <span class="keyword">int</span> ALIGN_MIDDLE = <span class="number">5</span>;    <span class="comment">//段落垂直居中对齐</span></span><br><span class="line">    <span class="keyword">int</span> ALIGN_BOTTOM = <span class="number">6</span>;    <span class="comment">//段落处置靠底部对齐</span></span><br><span class="line">    <span class="keyword">int</span> ALIGN_BASELINE = <span class="number">7</span>;    <span class="comment">//段落靠基线对齐</span></span><br><span class="line">    <span class="keyword">int</span> ALIGN_JUSTIFIED_ALL = <span class="number">8</span>;    <span class="comment">//段落水平展开，各行均水平伸展占据整行</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="iText-Chunk"><a href="#iText-Chunk" class="headerlink" title="iText Chunk"></a>iText Chunk</h4><p>可以被添加到文档中的最小的文本单位。许多其他元素都被拆分成一个或多个Chunk，每一个Chunk都关联了一个字符串以及对应的字体。关于chunk的布局参数等则应该在被拆分的元素内部进行定义。</p>
+<h5 id="核心API-2"><a href="#核心API-2" class="headerlink" title="核心API"></a>核心API</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Chunk</span> <span class="keyword">implements</span> <span class="title">Element</span>, <span class="title">IAccessibleElement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> StringBuffer content;    <span class="comment">//关联的文本内容</span></span><br><span class="line">    <span class="keyword">protected</span> Font font;    <span class="comment">//关联的字体</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Chunk</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Chunk</span><span class="params">(<span class="keyword">final</span> <span class="keyword">char</span> c)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Chunk</span><span class="params">(<span class="keyword">final</span> <span class="keyword">char</span> c, <span class="keyword">final</span> Font font)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Chunk</span><span class="params">(<span class="keyword">final</span> String content)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Chunk</span><span class="params">(<span class="keyword">final</span> String content, <span class="keyword">final</span> Font font)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChunkApiTest</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        </span><br><span class="line">        Chunk chunk = <span class="keyword">new</span> Chunk(</span><br><span class="line">                <span class="string">"Hello world"</span>,</span><br><span class="line">                FontFactory.getFont(FontFactory.COURIER, <span class="number">20</span>, Font.ITALIC, <span class="keyword">new</span> BaseColor(<span class="number">255</span>, <span class="number">0</span>,<span class="number">0</span>))</span><br><span class="line">        );  </span><br><span class="line">        document.add(chunk);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="iText-Phrase"><a href="#iText-Phrase" class="headerlink" title="iText Phrase"></a>iText Phrase</h4><p>一个Phrase是一系列Chunk的集合。<br>每一个Phrase都有一个主字体，所有添加到此Phrase中的Chunk都默认使用这个字体，但是每一个Chunk仍然可以自定义字体。所有的Chunk使用同一个leading（行间距）</p>
+<h4 id="核心API-3"><a href="#核心API-3" class="headerlink" title="核心API"></a>核心API</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Phrase</span> <span class="keyword">extends</span> <span class="title">ArrayList</span>&lt;<span class="title">Element</span>&gt; <span class="keyword">implements</span> <span class="title">TextElementArray</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> leading;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> multipliedLeading;</span><br><span class="line">    <span class="keyword">protected</span> Font font;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Phrase</span><span class="params">()</span></span>;    <span class="comment">//same as Phrase(16);</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Phrase</span><span class="params">(<span class="keyword">final</span> <span class="keyword">float</span> leading)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Phrase</span><span class="params">(<span class="keyword">final</span> Chunk chunk)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Phrase</span><span class="params">(<span class="keyword">final</span> <span class="keyword">float</span> leading, <span class="keyword">final</span> Chunk chunk)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Phrase</span><span class="params">(<span class="keyword">final</span> String string)</span></span>;    <span class="comment">//Phrase(Float.NaN, string, new Font())</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Phrase</span><span class="params">(<span class="keyword">final</span> String string, <span class="keyword">final</span> Font font)</span></span>;    <span class="comment">//Phrase(Float.NaN, string, font)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Phrase</span><span class="params">(<span class="keyword">final</span> <span class="keyword">float</span> leading, <span class="keyword">final</span> String string)</span></span>;  <span class="comment">//Phrase(leading, string, new Font())</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Phrase</span><span class="params">(<span class="keyword">final</span> <span class="keyword">float</span> leading, <span class="keyword">final</span> String string, <span class="keyword">final</span> Font font)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">type</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Element.PHRASE;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(<span class="keyword">final</span> String s)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(<span class="keyword">final</span> Element element)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">addChunk</span><span class="params">(<span class="keyword">final</span> Chunk chunk)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码-1"><a href="#示例代码-1" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PhraseApiTest</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// When no parameters are passed, the default leading = 16</span></span><br><span class="line">        Phrase phrase0 = <span class="keyword">new</span> Phrase();</span><br><span class="line">        Phrase phrase1 = <span class="keyword">new</span> Phrase(<span class="string">"this is a phrase"</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// In this example the leading is passed as a parameter</span></span><br><span class="line">        Phrase phrase2 = <span class="keyword">new</span> Phrase(<span class="number">16</span>, <span class="string">"this is a phrase with leading 16"</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// When a Font is passed (explicitly or embedded in a chunk), the default leading = 1.5 * size of the font</span></span><br><span class="line">        Phrase phrase3 = <span class="keyword">new</span> Phrase(<span class="string">"this is a phrase with a red, normal font Courier, size 12"</span>, FontFactory.getFont(FontFactory.COURIER, <span class="number">12</span>, Font.NORMAL, <span class="keyword">new</span> Color(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>)));</span><br><span class="line">        Phrase phrase4 = <span class="keyword">new</span> Phrase(<span class="keyword">new</span> Chunk(<span class="string">"this is a phrase"</span>));</span><br><span class="line">        Phrase phrase5 = <span class="keyword">new</span> Phrase(<span class="number">18</span>, <span class="keyword">new</span> Chunk(<span class="string">"this is a phrase"</span>, FontFactory.getFont(FontFactory.HELVETICA, <span class="number">16</span>, Font.BOLD, <span class="keyword">new</span> Color(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>))));</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//document.add(...)</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="iText-BaseColor"><a href="#iText-BaseColor" class="headerlink" title="iText BaseColor"></a>iText BaseColor</h4><p>iText 颜色工具类</p>
+<h5 id="核心API-4"><a href="#核心API-4" class="headerlink" title="核心API"></a>核心API</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseColor</span> </span>&#123;</span><br><span class="line">    <span class="comment">//rgba值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//构造函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BaseColor</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span> red, <span class="keyword">final</span> <span class="keyword">int</span> green, <span class="keyword">final</span> <span class="keyword">int</span> blue, <span class="keyword">final</span> <span class="keyword">int</span> alpha)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BaseColor</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span> red, <span class="keyword">final</span> <span class="keyword">int</span> green, <span class="keyword">final</span> <span class="keyword">int</span> blue)</span></span>;    <span class="comment">//默认 alpha 为100,即完全不透明</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getRGB</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getRed</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getGreen</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getBlue</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAlpha</span><span class="params">()</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//颜色常量</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> BaseColor WHITE = <span class="keyword">new</span> BaseColor(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> BaseColor LIGHT_GRAY = <span class="keyword">new</span> BaseColor(<span class="number">192</span>, <span class="number">192</span>, <span class="number">192</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> BaseColor GRAY = <span class="keyword">new</span> BaseColor(<span class="number">128</span>, <span class="number">128</span>, <span class="number">128</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> BaseColor DARK_GRAY = <span class="keyword">new</span> BaseColor(<span class="number">64</span>, <span class="number">64</span>, <span class="number">64</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> BaseColor BLACK = <span class="keyword">new</span> BaseColor(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> BaseColor RED = <span class="keyword">new</span> BaseColor(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> BaseColor PINK = <span class="keyword">new</span> BaseColor(<span class="number">255</span>, <span class="number">175</span>, <span class="number">175</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> BaseColor ORANGE = <span class="keyword">new</span> BaseColor(<span class="number">255</span>, <span class="number">200</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> BaseColor YELLOW = <span class="keyword">new</span> BaseColor(<span class="number">255</span>, <span class="number">255</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> BaseColor GREEN = <span class="keyword">new</span> BaseColor(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> BaseColor MAGENTA = <span class="keyword">new</span> BaseColor(<span class="number">255</span>, <span class="number">0</span>, <span class="number">255</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> BaseColor CYAN = <span class="keyword">new</span> BaseColor(<span class="number">0</span>, <span class="number">255</span>, <span class="number">255</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> BaseColor BLUE = <span class="keyword">new</span> BaseColor(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="iText-BaseFont"><a href="#iText-BaseFont" class="headerlink" title="iText BaseFont"></a>iText BaseFont</h4><p>BaseFont为iText字体基类，可根据自体文件创建或加载对应字体。</p>
+<h5 id="核心API-5"><a href="#核心API-5" class="headerlink" title="核心API"></a>核心API</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseFont</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BaseFont <span class="title">createFont</span><span class="params">()</span></span>;    <span class="comment">//创建一个基于默认字体Helvetica的自体，且不嵌入</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BaseFont <span class="title">createFont</span><span class="params">(String name, String encoding, <span class="keyword">boolean</span> embedded)</span></span>;    <span class="comment">//按照指定自体文件名称加载自体文件，并创建字体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码-2"><a href="#示例代码-2" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseFontApiTest</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        String MSYH_FONT_STR = <span class="string">"msyh.ttf"</span>;    <span class="comment">//加载系统classPath路径下的由文件名msyh.ttf指定的微软雅黑字体</span></span><br><span class="line">        </span><br><span class="line">        baseFontChinese = BaseFont.createFont(MSYH_FONT_STR, BaseFont.IDENTITY_H, <span class="keyword">false</span>);     </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h5><p><strong><em>在使用maven等包管理工具管理项目时，一般我们会将字体等资源文件放到项目的resources资源文件目录，在项目的打包阶段，maven编译插件通常会对资源文件进行编译，这会导致字体文件被损坏，若要保证自体文件的正常使用，请设置插件的filtering为false</em></strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--省略部分无关代码--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.tty<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>false<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="iText-Font"><a href="#iText-Font" class="headerlink" title="iText Font"></a>iText Font</h4><p>一个字体描述类，包含字体类型，大小，样式以及颜色</p>
+<h5 id="核心API-6"><a href="#核心API-6" class="headerlink" title="核心API"></a>核心API</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Font</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Font</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">//内部枚举，字体样式</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum</span> FontStyle &#123;</span><br><span class="line">        NORMAL(<span class="string">"normal"</span>), </span><br><span class="line">        BOLD(<span class="string">"bold"</span>), </span><br><span class="line">        ITALIC(<span class="string">"italic"</span>), </span><br><span class="line">        OBLIQUE(<span class="string">"oblique"</span>), </span><br><span class="line">        UNDERLINE(<span class="string">"underline"</span>), </span><br><span class="line">        LINETHROUGH(<span class="string">"line-through"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> String code;</span><br><span class="line"></span><br><span class="line">        FontStyle(<span class="keyword">final</span> String code) &#123;</span><br><span class="line">            <span class="keyword">this</span>.code = code;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@return</span> a string, the text value of this style.</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@since</span> 5.0.6</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> code;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> size;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> style;</span><br><span class="line">    <span class="keyword">private</span> BaseColor color;</span><br><span class="line">    <span class="keyword">private</span> BaseFont baseFont;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 构造函数</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Font</span><span class="params">(<span class="keyword">final</span> BaseFont bf, <span class="keyword">final</span> <span class="keyword">float</span> size, <span class="keyword">final</span> <span class="keyword">int</span> style, <span class="keyword">final</span> BaseColor color)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="示例代码-3"><a href="#示例代码-3" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FontApiTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        BaseColor fontColor = <span class="keyword">new</span> BaseColor(<span class="number">0x59</span>, <span class="number">0x57</span>, <span class="number">0x57</span>, <span class="number">0xff</span>);</span><br><span class="line">        <span class="keyword">int</span> fontSize = <span class="number">8</span>;</span><br><span class="line">        <span class="keyword">int</span> fontStyle = Font.NORMAL;</span><br><span class="line">        BaseFont baseFontChinese = BaseFont.createFont(MSYH_FONT_STR, BaseFont.IDENTITY_H, <span class="keyword">false</span>);</span><br><span class="line">        Font chineseFont = <span class="keyword">new</span> Font(baseFontChinese, fontSize, fontStyle, fontColor);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="iText-Rectangle"><a href="#iText-Rectangle" class="headerlink" title="iText Rectangle"></a>iText Rectangle</h4><p>Rectangle是对一个矩形区域的抽象。</p>
+<h5 id="核心API-7"><a href="#核心API-7" class="headerlink" title="核心API"></a>核心API</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Element</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> llx;    <span class="comment">//矩形左下角x位置（lower left x-coordinate）</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> lly;    <span class="comment">//矩形左下角y位置（lower left y-coordinate）</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> urx;    <span class="comment">//矩形右上角x位置（upper right x-coordinate）</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> ury;    <span class="comment">//矩形右上角y位置（upper right y-coordinate）</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> rotation;    <span class="comment">//矩形旋转角度(是角度不是弧度)</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">protected</span> BaseColor backgroundColor;    <span class="comment">//矩形背景颜色</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> border;    <span class="comment">//当前矩形是否有边框，比如如果等于3（TOP | BOTTOM），表示有上下边框</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNDEFINED = -<span class="number">1</span>;    <span class="comment">//未定义是否有Border</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TOP = <span class="number">1</span>;    <span class="comment">//当前矩形有上边框</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> BOTTOM = <span class="number">2</span>;    <span class="comment">//当前矩形有下边框</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> LEFT = <span class="number">4</span>;    <span class="comment">//当前矩形有左边框</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> RIGHT = <span class="number">8</span>;    <span class="comment">//当前矩形有右边框</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> NO_BORDER = <span class="number">0</span>;    <span class="comment">//当前矩形没有任何边框</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> BOX = TOP + BOTTOM + LEFT + RIGHT;    <span class="comment">//当前矩形有上下左右边框</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> borderWidth;    <span class="comment">//矩形边框宽度</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> borderWidthLeft;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> borderWidthRight;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> borderWidthTop;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> borderWidthBottom;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">protected</span> BaseColor borderColor;    <span class="comment">//矩形边框颜色</span></span><br><span class="line">    <span class="keyword">protected</span> BaseColor borderColorLeft;</span><br><span class="line">    <span class="keyword">protected</span> BaseColor borderColorRight;</span><br><span class="line">    <span class="keyword">protected</span> BaseColor borderColorTop;</span><br><span class="line">    <span class="keyword">protected</span> BaseColor borderColorBottom;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Rectangle</span><span class="params">(<span class="keyword">final</span> <span class="keyword">float</span> urx, <span class="keyword">final</span> <span class="keyword">float</span> ury)</span></span>;    <span class="comment">//with default llx=0 and lly = 0 and rotate=0</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Rectangle</span><span class="params">(<span class="keyword">final</span> <span class="keyword">float</span> llx, <span class="keyword">final</span> <span class="keyword">float</span> lly, <span class="keyword">final</span> <span class="keyword">float</span> urx, <span class="keyword">final</span> <span class="keyword">float</span> ury)</span></span>;    <span class="comment">//with default rotate=0</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Rectangle</span><span class="params">(<span class="keyword">final</span> <span class="keyword">float</span> llx, <span class="keyword">final</span> <span class="keyword">float</span> lly, <span class="keyword">final</span> <span class="keyword">float</span> urx, <span class="keyword">final</span> <span class="keyword">float</span> ury, <span class="keyword">final</span> <span class="keyword">int</span> rotation)</span></span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="iText-PdfPCell"><a href="#iText-PdfPCell" class="headerlink" title="iText PdfPCell"></a>iText PdfPCell</h4><p>iText单元格。是PdfPTable的基本元素。关于单元格的设计可以参考html的盒子模型。之后所有的控件都是由PdfPCell扩展而来。具体细节之后会详述。</p>
+<h5 id="核心API-8"><a href="#核心API-8" class="headerlink" title="核心API"></a>核心API</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PdfPCell</span> <span class="keyword">extends</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">IAccessibleElement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ColumnText column;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> verticalAlignment;    <span class="comment">//当前单元格竖直方向对齐格式</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> paddingLeft;    <span class="comment">//单元格内边距，默认均为2</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> paddingRight;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> paddingTop;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> paddingBottom;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> fixedHeight;    <span class="comment">//单元格高度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> calculatedHeight;    <span class="comment">//单元格高度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> minimumHeight;    <span class="comment">//单元格最小高度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> cachedMaxHeight;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> noWrap;    <span class="comment">//单元格是否对内容进行包裹，如果true且内容较多，会换行显示。如果为false会对内容进行截断。</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> PdfPTable table;    <span class="comment">//附属的表格</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> colspan = <span class="number">1</span>;    <span class="comment">//当前单元格占据表格的列数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> rowspan = <span class="number">1</span>;    <span class="comment">//当前单元格占据表格的行数</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> Image image;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> PdfPCellEvent cellEvent;    <span class="comment">//当前单元格关联的单元格布局函数</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">protected</span> Phrase phrase;     <span class="comment">//单元格内容</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> rotation;     <span class="comment">//单元格旋转角度 可选值0,90,180,270</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PdfPCell</span><span class="params">()</span></span>;    <span class="comment">//构造函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PdfPCell</span><span class="params">(Phrase phrase)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PdfPCell</span><span class="params">(Image image)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PdfPCell</span><span class="params">(Image image, <span class="keyword">boolean</span> fit)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setColspan</span><span class="params">(<span class="keyword">int</span> colspan)</span></span>;    <span class="comment">//设置单元格占据的列</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRowspan</span><span class="params">(<span class="keyword">int</span> rowspan)</span></span>;    <span class="comment">//设置单元格占据的行</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCellEvent</span><span class="params">(PdfPCellEvent cellEvent)</span></span>;    <span class="comment">//设置单元格布局实现</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNoWrap</span><span class="params">(<span class="keyword">boolean</span> noWrap)</span></span>;    <span class="comment">//设置是否wrap</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFixedHeight</span><span class="params">(<span class="keyword">float</span> fixedHeight)</span></span>;    <span class="comment">//设置单元格固定高度</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLeading</span><span class="params">(<span class="keyword">float</span> fixedLeading, <span class="keyword">float</span> multipliedLeading)</span></span>;   <span class="comment">//leading = fixedLeading + multipliedLeading * maxFontSize </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="注意-2"><a href="#注意-2" class="headerlink" title="注意"></a>注意</h5><p>如果某个表格被拆分为多列，比如列数为columnCountOfTable，如果最后一行中所有单元格的列数加起来都不足columnCountOfTable，那么这一行内的单元格将不会被展示出来。如果想让单元格展示出来，必须利用一些空白单元格对最后一行进行补齐。</p>
+<h5 id="示例代码-4"><a href="#示例代码-4" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PdfPCellApiTest</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    </span><br><span class="line">        PdfPTable mainFrame = <span class="keyword">new</span> PdfPTable(<span class="number">12</span>);    <span class="comment">//the table will be split to 12 columns</span></span><br><span class="line">        </span><br><span class="line">        PdfPCell oneColumnCell;</span><br><span class="line">        <span class="keyword">int</span> cellCount = <span class="number">12</span>;    <span class="comment">//if set cellCount=11,no cell will be shown.</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>;index &lt; cellCount;index ++)&#123;</span><br><span class="line">            oneColumnCell = <span class="keyword">new</span> PdfPCell(<span class="keyword">new</span> Phrase(<span class="keyword">new</span> Chunk(<span class="string">"cell "</span> + index)));</span><br><span class="line">            oneColumnCell.setColspan(<span class="number">1</span>);</span><br><span class="line">            mainFrame.add(oneColumnCell);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="iText-PdfPTable"><a href="#iText-PdfPTable" class="headerlink" title="iText PdfPTable"></a>iText PdfPTable</h4><p>iText表格类，一个表格可以被给定一个绝对位置，也可以作为一个Element被放置到一个Document中，如果被放置到一个Document中，那么这个表格占据这个document除开上下左右边距之后的整个空间。<br>在日常的项目实现中我们一般会使用表格来进行布局。参照bootstrap中的一些思想。我们一般会将表格框架拆分为12列或者是24列。具体为什么是12列或者24列，大家可以自己想一下。</p>
+<h5 id="核心API-9"><a href="#核心API-9" class="headerlink" title="核心API"></a>核心API</h5><p>PdfPTable包含的API众多，我们此处只罗列几个比较重要的。其实对于PdfPTable主要是理解为什么需要将其拆分为12列或者是24列，其他关于具体怎么使用它进行布局的部分实在是太过简单，毕竟流式布局实在没什么好说的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PdfPTable</span> <span class="keyword">implements</span> <span class="title">LargeElement</span>, <span class="title">Spaceable</span>, <span class="title">IAccessibleElement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> ArrayList&lt;PdfPRow&gt; rows;    <span class="comment">//当前表格的行</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">float</span> widthPercentage;    <span class="comment">//当前表格占据的宽度百分比</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> splitRows;    <span class="comment">//是否拆分页脚最后一个单元格（如果页面剩余宽度不够一个单元格的高度）</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> splitLate ;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PdfPTable</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span> numColumns)</span></span>;    <span class="comment">//构造函数指定表格列数目</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PdfPCell <span class="title">addCell</span><span class="params">(<span class="keyword">final</span> PdfPCell cell)</span></span>;    <span class="comment">//向当前表格中添加一个单元格</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWidthPercentage</span><span class="params">(<span class="keyword">final</span> <span class="keyword">float</span> widthPercentage)</span></span>;    <span class="comment">//设置当前表格宽度百分比</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSplitRows</span><span class="params">(<span class="keyword">final</span> <span class="keyword">boolean</span> splitRows)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSplitLate</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="示例代码-5"><a href="#示例代码-5" class="headerlink" title="示例代码"></a>示例代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PdfPTableTest</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        </span><br><span class="line">        PdfPTable mainFrame = <span class="keyword">new</span> PdfPTable(<span class="number">12</span>);</span><br><span class="line">        mainFrame.setWidthPercentage(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">        PdfPCell oneColumnCell = <span class="keyword">new</span> PdfPCell(<span class="keyword">new</span> Phrase(<span class="keyword">new</span> Chunk(<span class="string">"one   column cell"</span>)));</span><br><span class="line">        oneColumnCell.setColspan(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        PdfPCell twoColumnCell = <span class="keyword">new</span> PdfPCell(<span class="keyword">new</span> Phrase(<span class="keyword">new</span> Chunk(<span class="string">"two   column cell"</span>)));</span><br><span class="line">        oneColumnCell.setColspan(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">        PdfPCell threeColumnCell = <span class="keyword">new</span> PdfPCell(<span class="keyword">new</span> Phrase(<span class="keyword">new</span> Chunk(<span class="string">"three column cell"</span>)));</span><br><span class="line">        oneColumnCell.setColspan(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">        PdfPCell fourColumnCell = <span class="keyword">new</span> PdfPCell(<span class="keyword">new</span> Phrase(<span class="keyword">new</span> Chunk(<span class="string">"four  column cell"</span>)));</span><br><span class="line">        oneColumnCell.setColspan(<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">        PdfPCell sixColumnCell = <span class="keyword">new</span> PdfPCell(<span class="keyword">new</span> Phrase(<span class="keyword">new</span> Chunk(<span class="string">"six   column cell"</span>)));</span><br><span class="line">        oneColumnCell.setColspan(<span class="number">6</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//第一行，两个占据一列的单元格，两个占据两列的单元格，一个占据六列的单元格</span></span><br><span class="line">        mainFrame.addCell(oneColumnCell);</span><br><span class="line">        mainFrame.addCell(oneColumnCell);</span><br><span class="line">        mainFrame.addCell(twoColumnCell);</span><br><span class="line">        mainFrame.addCell(twoColumnCell);</span><br><span class="line">        mainFrame.addCell(sixColumnCell);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//第二行，四个占据3列的单元格</span></span><br><span class="line">        mainFrame.addCell(threeColumnCell);</span><br><span class="line">        mainFrame.addCell(threeColumnCell);</span><br><span class="line">        mainFrame.addCell(threeColumnCell);</span><br><span class="line">        mainFrame.addCell(threeColumnCell);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//第三行，三个占据四列的单元格</span></span><br><span class="line">        mainFrame.addCell(fourColumnCell);</span><br><span class="line">        mainFrame.addCell(fourColumnCell);</span><br><span class="line">        mainFrame.addCell(fourColumnCell);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="iText控件扩展"><a href="#iText控件扩展" class="headerlink" title="iText控件扩展"></a>iText控件扩展</h2><p>前面也提到过，对于iText,想要进行控件实现，那么就必须依赖于PdfPCell类以及PdfPCellEvent。</p>
+<h3 id="PdfPCellEvent接口定义"><a href="#PdfPCellEvent接口定义" class="headerlink" title="PdfPCellEvent接口定义"></a>PdfPCellEvent接口定义</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PdfPCellEvent</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 此方法在单元格整个渲染流程的最后面被执行，普通的文本或者是复杂的图片将会通过由canvases指定的四种画布勾画到具体单元格中。四种画布索引如下：</span></span><br><span class="line"><span class="comment">    * 1）PdfPTable.BASECANVAS：最原始的画布，所有勾画到这个画布内容都会被置于单元格最底层</span></span><br><span class="line"><span class="comment">    * 2）PdfPTable.BACKGROUNDCANVAS：背景画布，所有勾画到这个画布的内容都会被置于背景层</span></span><br><span class="line"><span class="comment">    * 3）PdfPTable.LINECANVAS ：线画布，所有勾画到这个画布的内容都会被置于线层</span></span><br><span class="line"><span class="comment">    * 4）PdfPTable.TEXTCANVAS：文字画布，所有勾画到这个画布的内容都会被置于文字层，文字层是在单元格的最上层</span></span><br><span class="line"><span class="comment">    * 上述画布层按照指定属性依次在前一个画布的上层</span></span><br><span class="line"><span class="comment">    * </span></span><br><span class="line"><span class="comment">    * 三个参数:</span></span><br><span class="line"><span class="comment">    * cell:当前单元格</span></span><br><span class="line"><span class="comment">    * position: 当前单元格所处位置</span></span><br><span class="line"><span class="comment">    * canvases：四种画布</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">cellLayout</span><span class="params">(PdfPCell cell, Rectangle position, PdfContentByte[] canvases)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-example"><a href="#How-to-example" class="headerlink" title="How to example"></a>How to example</h3><p>本例中我们将会使用一个比较复杂的例子来讲述具体如何通过扩展PdfPCell来得到一个控件，这个控件的名称叫南丁格尔玫瑰图，不知道什么是南丁格尔玫瑰图的同学可以看百度一下。下面是南丁格尔玫瑰图的报读百科描述。</p>
+<blockquote>
+<p>南丁格尔玫瑰图是弗罗伦斯·南丁格尔所发明的。又名为极区图 。是一种圆形的直方图。 南丁格尔自己常昵称这类图为鸡冠花图（coxcomb），并且用以表达军医院季节性的死亡率，对象是那些不太能理解传统统计报表的公务人员。</p>
+</blockquote>
+<blockquote>
+<p>弗罗伦斯·南丁格尔  （英语：Florence Nightingale，1820年5月12日－1910年8月13日），英国护士和统计学家，出生于意大利的一个英国上流社会的家庭。在德国学习护理后，曾往伦敦的医院工作。于1853年成为伦敦慈善医院的护士长。</p>
+</blockquote>
+<blockquote>
+<p>出于对资料统计的结果会不受人重视的忧虑，她发展出一种色彩缤纷的图表形式，让数据能够更加让人印象深刻。 这种图表形式有时也被称作「南丁格尔的玫瑰」，是一种圆形的直方图。 南丁格尔自己常昵称这类图为鸡冠花图（coxcomb），并且用以表达军医院季节性的死亡率，对象是那些不太能理解传统统计报表的公务人员。 她的方法打动了当时的高层，包括军方人士和维多利亚女王本人，于是医事改良的提案才得到支持。  </p>
+</blockquote>
+<p>接下来我会一步一步的展示如何实现这个控件。</p>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li>由于PdfPCell有一些基本的样式属性，其中一些属性比如border相关的我们需要禁用，为什么呢，因为通常我们控件的border会靠内一点，即我们会留出一点padding，这样当吧单元格放到表格中时不至于挤到一起。我们通过设置pdfPCell.border = Rectangle.NO_BORDER来禁用。</li>
+<li>除了border相关的属性，还有一个就是单元格自带的backgroundColor属性,像上一点所说我们要使得控件展示出来时不至于挤到一起，会在padding的部分留白，但PdfPCell的默认backgroundColor是覆盖这一部分的。<h4 id="需求定义"><a href="#需求定义" class="headerlink" title="需求定义"></a>需求定义</h4><h5 id="控件基本属性"><a href="#控件基本属性" class="headerlink" title="控件基本属性"></a>控件基本属性</h5></li>
+<li><h4 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h4><h5 id="第一步，控件基本骨架"><a href="#第一步，控件基本骨架" class="headerlink" title="第一步，控件基本骨架"></a>第一步，控件基本骨架</h5>前面也提到过，想要扩展控件，那么我们必须使用PdfPCell以及PdfPCellEvent这两个类，让我们的控件继承自PdfPCell并实现PdfPCellEvent，在PdfPCellEvent的doCellLayout回调中进行我们的控件勾画工作。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 南丁格尔玫瑰图</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wenchao</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NightingaleRoseDiagram</span> <span class="keyword">extends</span> <span class="title">PdfPCell</span> <span class="keyword">implements</span> <span class="title">PdfPCellEvent</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NightingaleRoseDiagram</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cellLayout</span><span class="params">(PdfPCell cell, Rectangle position, PdfContentByte[] canvases)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//draw component content here</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="第二步，控件基本属性“禁用”"><a href="#第二步，控件基本属性“禁用”" class="headerlink" title="第二步，控件基本属性“禁用”"></a>第二步，控件基本属性“禁用”</h5><p>根据前面注意事项所说，我们需要“禁用”边框以及背景色两个属性<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 南丁格尔玫瑰图</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wenchao</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NightingaleRoseDiagram</span> <span class="keyword">extends</span> <span class="title">PdfPCell</span> <span class="keyword">implements</span> <span class="title">PdfPCellEvent</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NightingaleRoseDiagram</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        disableTheDefaultFeature();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cellLayout</span><span class="params">(PdfPCell cell, Rectangle position, PdfContentByte[] canvases)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 禁用控件自定义边框以及背景色</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">disableTheDefaultFeature</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setBorder(PdfPCell.NO_BORDER);</span><br><span class="line">        <span class="keyword">this</span>.setBackgroundColor(BaseColor.WHITE);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="第三步，定义控件基本属性"><a href="#第三步，定义控件基本属性" class="headerlink" title="第三步，定义控件基本属性"></a>第三步，定义控件基本属性</h5><p>南丁格尔玫瑰图内部是由扇区定义的，在笔者接触到的南丁格尔玫瑰图中这些扇区都是等分的，所以今天实现的南丁格尔玫瑰图扇区也会是等分的。</p>
+<ul>
+<li>单元格背景色</li>
+<li>待勾画控件以圆形或者圆环为基础框架，所以需要定义圆心（圆心在cellLayout回调中使用position确定），最大半径，最小半径。</li>
+<li>具体有多少个扇区，由传入的扇区数据集合大小来确定</li>
+<li>扇区基本数据,扇区半径，扇区背景色，扇区描述（扇区描述文字，扇区描述字体）</li>
+<li>单元格高度，我们设定为最大圆半径 × 2 × 1.2</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 南丁格尔玫瑰图</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wenchao</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NightingaleRoseDiagram</span> <span class="keyword">extends</span> <span class="title">PdfPCell</span> <span class="keyword">implements</span> <span class="title">PdfPCellEvent</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BaseColor bgColor;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> DEFAULT_HEIGHT_EXPAND_RATIO = <span class="number">1.2f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> innerRadius;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> MIN_INNER_RADIUS = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> MAX_INNER_RADIUS_RATIO = <span class="number">0.8f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> outerRadius;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> MIN_OUTER_RADIUS = <span class="number">50</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> MAX_OUTER_RADIUS = <span class="number">80</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;RoseDiagramItem&gt; roseDiagramItems;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NightingaleRoseDiagram</span><span class="params">(BaseColor bgColor, <span class="keyword">float</span> outerRadius, <span class="keyword">float</span> innerRadius, List&lt;RoseDiagramItem&gt; roseDiagramItems)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.bgColor = bgColor;</span><br><span class="line">        <span class="keyword">this</span>.outerRadius = normalize(outerRadius,MIN_OUTER_RADIUS,MAX_OUTER_RADIUS);</span><br><span class="line">        <span class="keyword">this</span>.innerRadius = normalize(innerRadius,MIN_INNER_RADIUS,MAX_INNER_RADIUS_RATIO * <span class="keyword">this</span>.outerRadius);</span><br><span class="line">        <span class="keyword">this</span>.roseDiagramItems = roseDiagramItems;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (RoseDiagramItem roseDiagramItem:roseDiagramItems)&#123;</span><br><span class="line">            roseDiagramItem.normalize(<span class="keyword">this</span>.innerRadius,<span class="keyword">this</span>.outerRadius);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.setFixedHeight(<span class="keyword">this</span>.outerRadius * <span class="number">2</span> * DEFAULT_HEIGHT_EXPAND_RATIO);</span><br><span class="line"></span><br><span class="line">        disableTheDefaultFeature();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cellLayout</span><span class="params">(PdfPCell cell, Rectangle position, PdfContentByte[] canvases)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 禁用控件自定义边框以及背景色</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">disableTheDefaultFeature</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setBorder(PdfPCell.NO_BORDER);</span><br><span class="line">        <span class="keyword">this</span>.setBackgroundColor(BaseColor.WHITE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">RoseDiagramItem</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> String description;</span><br><span class="line">        <span class="keyword">private</span> Font descriptionFont;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">float</span> radius;</span><br><span class="line">        <span class="keyword">private</span> BaseColor bgColor;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">RoseDiagramItem</span><span class="params">(String description, Font descriptionFont, <span class="keyword">float</span> radius, BaseColor bgColor)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.description = description;</span><br><span class="line">            <span class="keyword">this</span>.descriptionFont = descriptionFont;</span><br><span class="line">            <span class="keyword">this</span>.radius = radius;</span><br><span class="line">            <span class="keyword">this</span>.bgColor = bgColor;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">normalize</span><span class="params">(<span class="keyword">float</span> innerRadius,<span class="keyword">float</span> outerRadius)</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.radius = NightingaleRoseDiagram.normalize(radius,innerRadius,outerRadius);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 按照最大最小值对指定半径做处理</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> radius 当前半径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> minRadius 最小半径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> maxRadius 最大半径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 如果当前半径小于最小半径，返回最小半径，如果当前半径大于最大半径，返回最大半径，否则返回当前半径</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">float</span> <span class="title">normalize</span><span class="params">(<span class="keyword">float</span> radius, <span class="keyword">float</span> minRadius, <span class="keyword">float</span> maxRadius)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (radius &lt; minRadius)&#123;</span><br><span class="line">            <span class="keyword">return</span> minRadius;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (radius &gt; maxRadius)&#123;</span><br><span class="line">            <span class="keyword">return</span> minRadius;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> radius;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="第四步，勾画控件"><a href="#第四步，勾画控件" class="headerlink" title="第四步，勾画控件"></a>第四步，勾画控件</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 南丁格尔玫瑰图</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wenchao</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NightingaleRoseDiagram</span> <span class="keyword">extends</span> <span class="title">PdfPCell</span> <span class="keyword">implements</span> <span class="title">PdfPCellEvent</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cellLayout</span><span class="params">(PdfPCell cell, Rectangle position, PdfContentByte[] canvases)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//按照单元格宽度进行伸缩</span></span><br><span class="line">        <span class="keyword">float</span> oldOuterRadius = outerRadius;</span><br><span class="line">        outerRadius = Math.min(outerRadius,position.getWidth() / <span class="number">2</span> - <span class="number">20</span>);</span><br><span class="line">        innerRadius = Math.min(innerRadius,MAX_INNER_RADIUS_RATIO * <span class="keyword">this</span>.outerRadius);</span><br><span class="line">        <span class="keyword">for</span> (RoseDiagramItem roseDiagramItem : roseDiagramItems) &#123;</span><br><span class="line">            roseDiagramItem.scale(outerRadius / oldOuterRadius);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//勾画背景色</span></span><br><span class="line">        drawBackGround(position, canvases[PdfPTable.BACKGROUNDCANVAS], bgColor);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//勾画外围圆以及网格刻度线</span></span><br><span class="line">        drawOuterCircle(position, canvases[PdfPTable.BACKGROUNDCANVAS], outerRadius, roseDiagramItems.size());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//勾画扇区</span></span><br><span class="line">        drawSectors(position, canvases[PdfPTable.BACKGROUNDCANVAS], roseDiagramItems);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//勾画扇区描述</span></span><br><span class="line">        drawSectorsDesc(position, canvases[PdfPTable.TEXTCANVAS], roseDiagramItems);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//勾画内部圆</span></span><br><span class="line">        drawInnerCircle(position, canvases[PdfPTable.BACKGROUNDCANVAS], innerRadius);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//..</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="第五步，勾画背景"><a href="#第五步，勾画背景" class="headerlink" title="第五步，勾画背景"></a>第五步，勾画背景</h5><p>勾画单元格背景时，我们使用padding缩小一点勾画的范围，就可以预留出一点空白，避免单元格挤到一起<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NightingaleRoseDiagram</span> <span class="keyword">extends</span> <span class="title">PdfPCell</span> <span class="keyword">implements</span> <span class="title">PdfPCellEvent</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">drawBackGround</span><span class="params">(Rectangle position, PdfContentByte canvas, BaseColor bgColor)</span> </span>&#123;</span><br><span class="line">        Rectangle backgroundRectangle = <span class="keyword">new</span> Rectangle(position);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//预留空白padding</span></span><br><span class="line">        backgroundRectangle.setLeft(backgroundRectangle.getLeft() + DEFAULT_PADDING);</span><br><span class="line">        backgroundRectangle.setRight(backgroundRectangle.getRight() - DEFAULT_PADDING);</span><br><span class="line">        backgroundRectangle.setBottom(backgroundRectangle.getBottom() + DEFAULT_PADDING);</span><br><span class="line">        backgroundRectangle.setTop(backgroundRectangle.getTop() - DEFAULT_PADDING);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//勾画背景</span></span><br><span class="line">        canvas.saveState();</span><br><span class="line">        canvas.setLineWidth(<span class="number">0</span>);</span><br><span class="line">        canvas.setColorStroke(bgColor);</span><br><span class="line">        canvas.setColorFill(bgColor);</span><br><span class="line">        canvas.rectangle(backgroundRectangle.getLeft(), backgroundRectangle.getBottom(),</span><br><span class="line">                backgroundRectangle.getWidth(), backgroundRectangle.getHeight());</span><br><span class="line">        canvas.closePathFillStroke();</span><br><span class="line">        canvas.restoreState();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>示例<br><img src="/img/001.png" alt="玫瑰图背景"></p>
+<h5 id="第五步勾画刻度"><a href="#第五步勾画刻度" class="headerlink" title="第五步勾画刻度"></a>第五步勾画刻度</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NightingaleRoseDiagram</span> <span class="keyword">extends</span> <span class="title">PdfPCell</span> <span class="keyword">implements</span> <span class="title">PdfPCellEvent</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">drawOuterCircle</span><span class="params">(Rectangle position, PdfContentByte canvas, <span class="keyword">float</span> outerRadius, <span class="keyword">int</span> sectorCount)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">float</span> centerX = (position.getLeft() + position.getRight()) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">float</span> centerY = (position.getBottom() + position.getTop()) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> defaultScale = <span class="number">5</span>;    <span class="comment">//以五为级别勾画刻度</span></span><br><span class="line">        canvas.saveState();</span><br><span class="line">        canvas.setColorStroke(BaseColor.WHITE);</span><br><span class="line">        canvas.setLineWidth(<span class="number">0.1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; defaultScale; index++) &#123;</span><br><span class="line">            canvas.circle(centerX, centerY, outerRadius * (index + <span class="number">1</span>) / defaultScale);</span><br><span class="line">            canvas.stroke();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">float</span> sectorAngleOffset = (<span class="keyword">float</span>) (Math.PI * <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">double</span> sectorIncrement = Math.PI * <span class="number">2</span> / sectorCount;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; sectorCount; index++) &#123;</span><br><span class="line">            canvas.moveTo(centerX, centerY);</span><br><span class="line">            canvas.lineTo(</span><br><span class="line">                    centerX + outerRadius * Math.cos(sectorAngleOffset),</span><br><span class="line">                    centerY + outerRadius * Math.sin(sectorAngleOffset)</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">            sectorAngleOffset += sectorIncrement;</span><br><span class="line">            canvas.stroke();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        canvas.restoreState();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例<br><img src="/img/002.png" alt="玫瑰图刻度"></p>
+<h5 id="第六步，勾画扇区描述"><a href="#第六步，勾画扇区描述" class="headerlink" title="第六步，勾画扇区描述"></a>第六步，勾画扇区描述</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NightingaleRoseDiagram</span> <span class="keyword">extends</span> <span class="title">PdfPCell</span> <span class="keyword">implements</span> <span class="title">PdfPCellEvent</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">drawSectorsDesc</span><span class="params">(Rectangle position, PdfContentByte canvas, List&lt;RoseDiagramItem&gt; roseDiagramItems)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">float</span> centerX = (position.getLeft() + position.getRight()) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">float</span> centerY = (position.getBottom() + position.getTop()) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span> expand = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span> sectorIncrement = Math.PI * <span class="number">2</span> / roseDiagramItems.size();</span><br><span class="line">        <span class="keyword">double</span> sectorAngleOffset = sectorIncrement / <span class="number">2</span> + (<span class="keyword">float</span>) (Math.PI / <span class="number">2</span>);     <span class="comment">//扇区描述文字初始偏移量为扇区角度的一半</span></span><br><span class="line">        <span class="keyword">double</span> sectorBoundCenterX;</span><br><span class="line">        <span class="keyword">double</span> sectorBoundCenterY;</span><br><span class="line">        <span class="keyword">double</span> sectorAngleCos;</span><br><span class="line">        <span class="keyword">double</span> sectorAngleSin;</span><br><span class="line">        <span class="keyword">float</span> descStrWidth;</span><br><span class="line">        <span class="keyword">float</span> descStrHeight;</span><br><span class="line">        <span class="keyword">for</span> (RoseDiagramItem roseDiagramItem : roseDiagramItems) &#123;</span><br><span class="line">            sectorAngleCos = Math.cos(sectorAngleOffset);</span><br><span class="line">            sectorAngleSin = Math.sin(sectorAngleOffset);</span><br><span class="line"></span><br><span class="line">            sectorBoundCenterX = centerX + (outerRadius + expand) * sectorAngleCos;</span><br><span class="line">            sectorBoundCenterY = centerY + (outerRadius + expand) * sectorAngleSin;</span><br><span class="line"></span><br><span class="line">            descStrWidth = roseDiagramItem.descriptionFont.getBaseFont().getWidthPoint(</span><br><span class="line">                    roseDiagramItem.description,</span><br><span class="line">                    roseDiagramItem.descriptionFont.getSize()</span><br><span class="line">            );</span><br><span class="line">            descStrHeight = roseDiagramItem.descriptionFont.getBaseFont().getWidthPoint(</span><br><span class="line">                    <span class="string">"AA"</span>,</span><br><span class="line">                    roseDiagramItem.descriptionFont.getSize()</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">            <span class="comment">//如果是</span></span><br><span class="line">            <span class="keyword">if</span> (sectorAngleCos &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                ColumnText.showTextAligned(</span><br><span class="line">                        canvas,</span><br><span class="line">                        Element.ALIGN_CENTER,</span><br><span class="line">                        <span class="keyword">new</span> Phrase(<span class="keyword">new</span> Chunk(</span><br><span class="line">                                roseDiagramItem.description,</span><br><span class="line">                                roseDiagramItem.descriptionFont</span><br><span class="line">                        )),</span><br><span class="line">                        (<span class="keyword">float</span>) (sectorBoundCenterX + descStrWidth / <span class="number">2</span>),</span><br><span class="line">                        (<span class="keyword">float</span>) (sectorBoundCenterY - descStrHeight / <span class="number">2</span>),</span><br><span class="line">                        <span class="number">0</span></span><br><span class="line">                );</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sectorAngleCos &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                ColumnText.showTextAligned(</span><br><span class="line">                        canvas,</span><br><span class="line">                        Element.ALIGN_CENTER,</span><br><span class="line">                        <span class="keyword">new</span> Phrase(<span class="keyword">new</span> Chunk(</span><br><span class="line">                                roseDiagramItem.description,</span><br><span class="line">                                roseDiagramItem.descriptionFont</span><br><span class="line">                        )),</span><br><span class="line">                        (<span class="keyword">float</span>) (sectorBoundCenterX - descStrWidth / <span class="number">2</span>),</span><br><span class="line">                        (<span class="keyword">float</span>) (sectorBoundCenterY - descStrHeight / <span class="number">2</span>),</span><br><span class="line">                        <span class="number">0</span></span><br><span class="line">                );</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 不会出现等于0的情况</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            sectorAngleOffset += sectorIncrement;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例<br><img src="/img/003.png" alt="玫瑰图扇区描述"></p>
+<h5 id="第七步，勾画扇区"><a href="#第七步，勾画扇区" class="headerlink" title="第七步，勾画扇区"></a>第七步，勾画扇区</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NightingaleRoseDiagram</span> <span class="keyword">extends</span> <span class="title">PdfPCell</span> <span class="keyword">implements</span> <span class="title">PdfPCellEvent</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">drawSectors</span><span class="params">(Rectangle position, PdfContentByte canvas, List&lt;RoseDiagramItem&gt; roseDiagramItems)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (roseDiagramItems.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> sectorCount = roseDiagramItems.size();</span><br><span class="line">        <span class="keyword">float</span> centerX = (position.getLeft() + position.getRight()) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">float</span> centerY = (position.getBottom() + position.getTop()) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">float</span> currentSectorAngleOffset = <span class="number">90</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">float</span> currentSectorAngle;</span><br><span class="line">        BaseColor currentSectorBGColor;</span><br><span class="line">        Point[] sectorVertices;</span><br><span class="line"></span><br><span class="line">        canvas.saveState();</span><br><span class="line">        canvas.setLineWidth(<span class="number">0.1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//画出表示比例的扇区</span></span><br><span class="line">        <span class="keyword">for</span> (RoseDiagramItem roseDiagramItem : roseDiagramItems) &#123;</span><br><span class="line">            currentSectorAngle = <span class="number">360f</span> / sectorCount;</span><br><span class="line">            currentSectorBGColor = roseDiagramItem.bgColor;</span><br><span class="line"></span><br><span class="line">            sectorVertices = getSectorVertices(currentSectorAngleOffset, currentSectorAngle,</span><br><span class="line">                    centerX, centerY, roseDiagramItem.radius);</span><br><span class="line"></span><br><span class="line">            canvas.setColorFill(currentSectorBGColor);</span><br><span class="line">            canvas.setColorStroke(currentSectorBGColor);</span><br><span class="line">            canvas.moveTo(sectorVertices[<span class="number">0</span>].x, sectorVertices[<span class="number">0</span>].y);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">1</span>; index &lt; sectorVertices.length; index++) &#123;</span><br><span class="line">                canvas.lineTo(sectorVertices[index].x, sectorVertices[index].y);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            canvas.closePathFillStroke();</span><br><span class="line"></span><br><span class="line">            currentSectorAngleOffset += currentSectorAngle;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        canvas.restoreState();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 计算每一个扇区对应的顶点信息</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> currentSectorAngleOffset 扇区偏移角度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> currentSectorAngle       当前扇区角度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> centerXPosition          圆心x坐标</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> centerYPosition          圆心y坐标</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> radius                   扇区半径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 扇区对应顶点信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Point[] getSectorVertices(</span><br><span class="line">            <span class="keyword">float</span> currentSectorAngleOffset, <span class="keyword">float</span> currentSectorAngle, <span class="keyword">float</span> centerXPosition, <span class="keyword">float</span> centerYPosition, <span class="keyword">float</span> radius) &#123;</span><br><span class="line">        <span class="comment">//计算出画当前扇区需要的顶点的数目</span></span><br><span class="line">        <span class="keyword">int</span> sectorVerticesCount = Math.round(currentSectorAngle / <span class="number">360</span> * DEFAULT_CALC_STEP_COUNT + <span class="number">0.5f</span>) + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        Point[] sectorVertices = <span class="keyword">new</span> Point[sectorVerticesCount];</span><br><span class="line"></span><br><span class="line">        <span class="comment">//初始化</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; sectorVerticesCount; index++) &#123;</span><br><span class="line">            sectorVertices[index] = <span class="keyword">new</span> Point(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        sectorVertices[<span class="number">0</span>].x = centerXPosition;</span><br><span class="line">        sectorVertices[<span class="number">0</span>].y = centerYPosition;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">1</span>; index &lt; sectorVerticesCount; index++) &#123;</span><br><span class="line">            sectorVertices[index].x = (<span class="keyword">float</span>) (centerXPosition + radius</span><br><span class="line">                    * Math.cos(currentSectorAngleOffset * Math.PI * <span class="number">2</span> / <span class="number">360</span></span><br><span class="line">                    + (index - <span class="number">1</span>) * <span class="number">1.0f</span> / (sectorVerticesCount - <span class="number">2</span>) * currentSectorAngle * Math.PI * <span class="number">2</span> / <span class="number">360</span>));</span><br><span class="line">            sectorVertices[index].y = (<span class="keyword">float</span>) (centerYPosition + radius</span><br><span class="line">                    * Math.sin(currentSectorAngleOffset * Math.PI * <span class="number">2</span> / <span class="number">360</span></span><br><span class="line">                    + (index - <span class="number">1</span>) * <span class="number">1.0f</span> / (sectorVerticesCount - <span class="number">2</span>) * currentSectorAngle * Math.PI * <span class="number">2</span> / <span class="number">360</span>));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sectorVertices;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例<br><img src="/img/004.png" alt="玫瑰图扇区"></p>
+<h5 id="第八步，玫瑰图内圈"><a href="#第八步，玫瑰图内圈" class="headerlink" title="第八步，玫瑰图内圈"></a>第八步，玫瑰图内圈</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NightingaleRoseDiagram</span> <span class="keyword">extends</span> <span class="title">PdfPCell</span> <span class="keyword">implements</span> <span class="title">PdfPCellEvent</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">drawInnerCircle</span><span class="params">(Rectangle position, PdfContentByte canvas, <span class="keyword">float</span> innerRadius)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">float</span> centerX = (position.getLeft() + position.getRight()) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">float</span> centerY = (position.getBottom() + position.getTop()) / <span class="number">2</span>;</span><br><span class="line">    </span><br><span class="line">        canvas.saveState();</span><br><span class="line">        canvas.setLineWidth(<span class="number">0</span>);</span><br><span class="line">        canvas.setColorStroke(bgColor);</span><br><span class="line">        canvas.circle(centerX,centerY,innerRadius);</span><br><span class="line">        canvas.fillStroke();</span><br><span class="line">        canvas.restoreState();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/005.png" alt="005"></p>
+<h5 id="多个单元格展示"><a href="#多个单元格展示" class="headerlink" title="多个单元格展示"></a>多个单元格展示</h5><p><img src="/img/006.png" alt="多单元格"></p>
+<h5 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NightingaleRoseDiagram</span> <span class="keyword">extends</span> <span class="title">PdfPCell</span> <span class="keyword">implements</span> <span class="title">PdfPCellEvent</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String destFileStr = <span class="string">"result/NightingaleRoseDiagram.pdf"</span>;</span><br><span class="line">        File destFile = <span class="keyword">new</span> File(destFileStr);</span><br><span class="line">        destFile.getParentFile().mkdirs();</span><br><span class="line"></span><br><span class="line">        Document document = <span class="keyword">new</span> Document();</span><br><span class="line"></span><br><span class="line">        PdfWriter.getInstance(document, <span class="keyword">new</span> FileOutputStream(destFile));</span><br><span class="line"></span><br><span class="line">        document.open();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> partCount = <span class="number">8</span>;</span><br><span class="line">        String[] sectorsDesc = <span class="keyword">new</span> String[]&#123;<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>, <span class="string">"E"</span>, <span class="string">"F"</span>, <span class="string">"G"</span>, <span class="string">"H"</span>&#125;;</span><br><span class="line">        <span class="keyword">float</span>[] scoresValue = <span class="keyword">new</span> <span class="keyword">float</span>[]&#123;<span class="number">20</span>, <span class="number">100</span>, <span class="number">90</span>, <span class="number">40</span>, <span class="number">90</span>, <span class="number">30</span>, <span class="number">90</span>, <span class="number">70</span>&#125;;</span><br><span class="line">        BaseColor[] sectorsColors = <span class="keyword">new</span> BaseColor[]&#123;</span><br><span class="line">                <span class="keyword">new</span> BaseColor(<span class="number">0xff016895</span>),</span><br><span class="line">                <span class="keyword">new</span> BaseColor(<span class="number">0xffe30c81</span>),</span><br><span class="line">                <span class="keyword">new</span> BaseColor(<span class="number">0xffd1dc2a</span>),</span><br><span class="line">                <span class="keyword">new</span> BaseColor(<span class="number">0xffff841a</span>),</span><br><span class="line">                <span class="keyword">new</span> BaseColor(<span class="number">0xff07a858</span>),</span><br><span class="line">                <span class="keyword">new</span> BaseColor(<span class="number">0xff01adf9</span>),</span><br><span class="line">                <span class="keyword">new</span> BaseColor(<span class="number">0xfff50100</span>),</span><br><span class="line">                <span class="keyword">new</span> BaseColor(<span class="number">0xff960200</span>)</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        Font font = <span class="keyword">new</span> Font(BaseFont.createFont(), <span class="number">8</span>, Font.NORMAL, <span class="keyword">new</span> BaseColor(<span class="number">0xff333333</span>));</span><br><span class="line"></span><br><span class="line">        RoseDiagramItem roseDiagramItem;</span><br><span class="line">        List&lt;RoseDiagramItem&gt; roseDiagramItems = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; partCount; index++) &#123;</span><br><span class="line">            roseDiagramItem = <span class="keyword">new</span> RoseDiagramItem(</span><br><span class="line">                    sectorsDesc[index],</span><br><span class="line">                    font,</span><br><span class="line">                    scoresValue[index],</span><br><span class="line">                    sectorsColors[index]</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">            roseDiagramItems.add(roseDiagramItem);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        BaseColor diagramBgColor = <span class="keyword">new</span> BaseColor(<span class="number">0xffe5e5e5</span>);</span><br><span class="line">        NightingaleRoseDiagram nightingaleRoseDiagram = <span class="keyword">new</span> NightingaleRoseDiagram(</span><br><span class="line">                diagramBgColor,</span><br><span class="line">                <span class="number">100</span>,</span><br><span class="line">                <span class="number">5</span>,</span><br><span class="line">                roseDiagramItems</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        PdfPTable mainFrame = <span class="keyword">new</span> PdfPTable(<span class="number">12</span>);</span><br><span class="line">        mainFrame.setWidthPercentage(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//单个单元格</span></span><br><span class="line">        nightingaleRoseDiagram.setColspan(<span class="number">12</span>);</span><br><span class="line">        mainFrame.addCell(nightingaleRoseDiagram);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//多单元格</span></span><br><span class="line">        <span class="comment">/*nightingaleRoseDiagram.setColspan(3);</span></span><br><span class="line"><span class="comment">        mainFrame.addCell(nightingaleRoseDiagram);</span></span><br><span class="line"><span class="comment">        mainFrame.addCell(nightingaleRoseDiagram);</span></span><br><span class="line"><span class="comment">        mainFrame.addCell(nightingaleRoseDiagram);</span></span><br><span class="line"><span class="comment">        mainFrame.addCell(nightingaleRoseDiagram);*/</span></span><br><span class="line"></span><br><span class="line">        document.add(mainFrame);</span><br><span class="line"></span><br><span class="line">        document.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h5><p>本文只是简单的对iText的一些比较常用的API做了一些基本介绍。然后利用南丁格尔玫瑰图这个控件的实现来简单的介绍了一下一般如何在iText中扩展一个控件，当前这个南丁格尔玫瑰图的控件实现只是为了展示整个过程，要想实现一个高可用的控件，还需要考虑更多的情况。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/pdf/" rel="tag"># pdf</a>
+          
+            <a href="/tags/itext/" rel="tag"># itext</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/03/netty学习笔记/" rel="next" title="netty学习笔记">
+                <i class="fa fa-chevron-left"></i> netty学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mjg4Mi8xOTQyOA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">蒋安维</p>
+              <p class="site-description motion-element" itemprop="description">思绪总在漂流，偶而在此停留</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#iText-基础"><span class="nav-number">1.</span> <span class="nav-text">iText 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础介绍"><span class="nav-number">1.1.</span> <span class="nav-text">基础介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础API"><span class="nav-number">1.2.</span> <span class="nav-text">基础API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#iText-Document"><span class="nav-number">1.2.1.</span> <span class="nav-text">iText Document</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#注意"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#核心API"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">核心API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实例代码"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">实例代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iText-Element"><span class="nav-number">1.2.2.</span> <span class="nav-text">iText Element</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#核心API-1"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">核心API</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iText-Chunk"><span class="nav-number">1.2.3.</span> <span class="nav-text">iText Chunk</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#核心API-2"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">核心API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例代码"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">示例代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iText-Phrase"><span class="nav-number">1.2.4.</span> <span class="nav-text">iText Phrase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#核心API-3"><span class="nav-number">1.2.5.</span> <span class="nav-text">核心API</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#示例代码-1"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">示例代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iText-BaseColor"><span class="nav-number">1.2.6.</span> <span class="nav-text">iText BaseColor</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#核心API-4"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">核心API</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iText-BaseFont"><span class="nav-number">1.2.7.</span> <span class="nav-text">iText BaseFont</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#核心API-5"><span class="nav-number">1.2.7.1.</span> <span class="nav-text">核心API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例代码-2"><span class="nav-number">1.2.7.2.</span> <span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注意-1"><span class="nav-number">1.2.7.3.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iText-Font"><span class="nav-number">1.2.8.</span> <span class="nav-text">iText Font</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#核心API-6"><span class="nav-number">1.2.8.1.</span> <span class="nav-text">核心API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例代码-3"><span class="nav-number">1.2.8.2.</span> <span class="nav-text">示例代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iText-Rectangle"><span class="nav-number">1.2.9.</span> <span class="nav-text">iText Rectangle</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#核心API-7"><span class="nav-number">1.2.9.1.</span> <span class="nav-text">核心API</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iText-PdfPCell"><span class="nav-number">1.2.10.</span> <span class="nav-text">iText PdfPCell</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#核心API-8"><span class="nav-number">1.2.10.1.</span> <span class="nav-text">核心API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注意-2"><span class="nav-number">1.2.10.2.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例代码-4"><span class="nav-number">1.2.10.3.</span> <span class="nav-text">示例代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iText-PdfPTable"><span class="nav-number">1.2.11.</span> <span class="nav-text">iText PdfPTable</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#核心API-9"><span class="nav-number">1.2.11.1.</span> <span class="nav-text">核心API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例代码-5"><span class="nav-number">1.2.11.2.</span> <span class="nav-text">示例代码</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iText控件扩展"><span class="nav-number">2.</span> <span class="nav-text">iText控件扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PdfPCellEvent接口定义"><span class="nav-number">2.1.</span> <span class="nav-text">PdfPCellEvent接口定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-example"><span class="nav-number">2.2.</span> <span class="nav-text">How to example</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意事项"><span class="nav-number">2.2.1.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#需求定义"><span class="nav-number">2.2.2.</span> <span class="nav-text">需求定义</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#控件基本属性"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">控件基本属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编码"><span class="nav-number">2.2.3.</span> <span class="nav-text">编码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一步，控件基本骨架"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">第一步，控件基本骨架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二步，控件基本属性“禁用”"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">第二步，控件基本属性“禁用”</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第三步，定义控件基本属性"><span class="nav-number">2.2.3.3.</span> <span class="nav-text">第三步，定义控件基本属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第四步，勾画控件"><span class="nav-number">2.2.3.4.</span> <span class="nav-text">第四步，勾画控件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第五步，勾画背景"><span class="nav-number">2.2.3.5.</span> <span class="nav-text">第五步，勾画背景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第五步勾画刻度"><span class="nav-number">2.2.3.6.</span> <span class="nav-text">第五步勾画刻度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第六步，勾画扇区描述"><span class="nav-number">2.2.3.7.</span> <span class="nav-text">第六步，勾画扇区描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第七步，勾画扇区"><span class="nav-number">2.2.3.8.</span> <span class="nav-text">第七步，勾画扇区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第八步，玫瑰图内圈"><span class="nav-number">2.2.3.9.</span> <span class="nav-text">第八步，玫瑰图内圈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多个单元格展示"><span class="nav-number">2.2.3.10.</span> <span class="nav-text">多个单元格展示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试代码"><span class="nav-number">2.2.3.11.</span> <span class="nav-text">测试代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#结语"><span class="nav-number">2.2.3.12.</span> <span class="nav-text">结语</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒋安维</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.7.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+    <script>
+  window.livereOptions = {
+    refer: '2019/04/10/itext-pdf/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
