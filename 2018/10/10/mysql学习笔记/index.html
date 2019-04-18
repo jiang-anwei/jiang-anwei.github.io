@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="jiang-anwei blog">
 <meta property="og:description" content="btree索引与hash索引的区别hash索引的优点hash索引解构的特殊性，其检索效率非常高，btree索引需要充根节点访问到分支节点，这样会有多次的io访问，所以hash索引 的查询效率远高于btree btree索引的优点1.hash索引不能满足范围查询而btree可以这是由于 Hash 索引比较的是进行 Hash 运算之后的 Hash 值，所以它只能用于 等值的过滤，不能用于基于范围的过滤">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-11T08:47:07.919Z">
+<meta property="og:updated_time" content="2019-04-10T08:38:54.584Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mqsql学习笔记">
 <meta name="twitter:description" content="btree索引与hash索引的区别hash索引的优点hash索引解构的特殊性，其检索效率非常高，btree索引需要充根节点访问到分支节点，这样会有多次的io访问，所以hash索引 的查询效率远高于btree btree索引的优点1.hash索引不能满足范围查询而btree可以这是由于 Hash 索引比较的是进行 Hash 运算之后的 Hash 值，所以它只能用于 等值的过滤，不能用于基于范围的过滤">
@@ -412,7 +412,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-01-11 16:47:07" itemprop="dateModified" datetime="2019-01-11T16:47:07+08:00">2019-01-11</time>
+                <time title="Modified: 2019-04-10 16:38:54" itemprop="dateModified" datetime="2019-04-10T16:38:54+08:00">2019-04-10</time>
               
             
           </span>
@@ -445,7 +445,7 @@
       
 
       
-        <h4 id="btree索引与hash索引的区别"><a href="#btree索引与hash索引的区别" class="headerlink" title="btree索引与hash索引的区别"></a>btree索引与hash索引的区别</h4><h6 id="hash索引的优点"><a href="#hash索引的优点" class="headerlink" title="hash索引的优点"></a>hash索引的优点</h6><pre><code>hash索引解构的特殊性，其检索效率非常高，btree索引需要充根节点访问到分支节点，这样会有多次的io访问，所以hash索引
+        <h2 id="btree索引与hash索引的区别"><a href="#btree索引与hash索引的区别" class="headerlink" title="btree索引与hash索引的区别"></a>btree索引与hash索引的区别</h2><h6 id="hash索引的优点"><a href="#hash索引的优点" class="headerlink" title="hash索引的优点"></a>hash索引的优点</h6><pre><code>hash索引解构的特殊性，其检索效率非常高，btree索引需要充根节点访问到分支节点，这样会有多次的io访问，所以hash索引
 的查询效率远高于btree
 </code></pre><h6 id="btree索引的优点"><a href="#btree索引的优点" class="headerlink" title="btree索引的优点"></a>btree索引的优点</h6><pre><code>1.hash索引不能满足范围查询而btree可以这是由于 Hash 索引比较的是进行 Hash 运算之后的 Hash 值，所以它只能用于
 等值的过滤，不能用于基于范围的过滤，因为经过相应的 Hash 算法处理之后的 Hash 值的大小关系，并不能保证和Hash运算
@@ -462,7 +462,11 @@
 条数，也无法从 Hash 索引中直接完成查询，还是要通过访问表中的实际数据进行相应的比较，并得到相应的结果。
 </code></pre><p><code>注意事项</code>{:.warning}</p>
 <pre><code>左连接求和时右边的表相关的列求和可能会重复。
-</code></pre>
+</code></pre><h2 id="mysql四种事物隔离级别"><a href="#mysql四种事物隔离级别" class="headerlink" title="mysql四种事物隔离级别"></a>mysql四种事物隔离级别</h2><h3 id="read-uncommitted"><a href="#read-uncommitted" class="headerlink" title="read uncommitted"></a>read uncommitted</h3><p> 读未提交，即便是事务没有被提交（commit），但是其他事务能读到未提交的数据，这是隔离级别最低的一种。</p>
+<h3 id="read-committed"><a href="#read-committed" class="headerlink" title="read committed"></a>read committed</h3><p>读已提交，当前事务只能读到其他事物提交之后的数据，未提交的数据读不到，这个可能造成在同一个事务里，前后读到的数据可能不一样（不可重复读）。大多数数据库默认的隔离级别（oracle）</p>
+<h3 id="repeatable-read"><a href="#repeatable-read" class="headerlink" title="repeatable read"></a>repeatable read</h3><p>可重复读，在事务里，每次读取数据的结果都一样，不管其他事务的结果有没有提交。可能会造成幻读。MySQL默认的隔离级别</p>
+<h3 id="serializable"><a href="#serializable" class="headerlink" title="serializable"></a>serializable</h3><p>串行化，一个事务提交前，其他事物将被挂起。就是说，在同一时间只有一个事务操作表。</p>
+
       
     </div>
 
@@ -585,7 +589,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -649,7 +653,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -685,7 +693,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#btree索引与hash索引的区别"><span class="nav-number">1.</span> <span class="nav-text">btree索引与hash索引的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#hash索引的优点"><span class="nav-number">1.0.1.</span> <span class="nav-text">hash索引的优点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#btree索引的优点"><span class="nav-number">1.0.2.</span> <span class="nav-text">btree索引的优点</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#btree索引与hash索引的区别"><span class="nav-number">1.</span> <span class="nav-text">btree索引与hash索引的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#hash索引的优点"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">hash索引的优点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#btree索引的优点"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">btree索引的优点</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql四种事物隔离级别"><span class="nav-number">2.</span> <span class="nav-text">mysql四种事物隔离级别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#read-uncommitted"><span class="nav-number">2.1.</span> <span class="nav-text">read uncommitted</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#read-committed"><span class="nav-number">2.2.</span> <span class="nav-text">read committed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#repeatable-read"><span class="nav-number">2.3.</span> <span class="nav-text">repeatable read</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#serializable"><span class="nav-number">2.4.</span> <span class="nav-text">serializable</span></a></li></ol></li></div>
             
 
           </div>

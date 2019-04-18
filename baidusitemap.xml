@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://jiang-anwei.github.io/2019/04/12/spring%E4%BA%8B%E5%8A%A1/</loc>
+    <lastmod>2019-04-18</lastmod>
+  </url>  <url>
+    <loc>http://jiang-anwei.github.io/2018/10/10/mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2019-04-10</lastmod>
+  </url>  <url>
     <loc>http://jiang-anwei.github.io/2019/04/03/netty%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2019-04-10</lastmod>
   </url>  <url>
@@ -44,9 +50,6 @@
     <lastmod>2019-01-11</lastmod>
   </url>  <url>
     <loc>http://jiang-anwei.github.io/2018/10/24/%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2019-01-11</lastmod>
-  </url>  <url>
-    <loc>http://jiang-anwei.github.io/2018/10/10/mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2019-01-11</lastmod>
   </url>  <url>
     <loc>http://jiang-anwei.github.io/2019/01/04/java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</loc>
