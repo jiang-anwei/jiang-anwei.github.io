@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="jansusgraph是一款分布式开源图数据库。 JanusGraph Server使用默认的数据库及搜索引擎配置：bin/janusgraph.sh start 自定义存储及搜索引擎：bin/gremlin-server.sh ./conf/gremlin-server/gremlin-server.yaml gremlin-server.yaml内容： 1234567891011121314h">
+<meta name="keywords" content="JanusGraph,学习笔记,图数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JanusGraph学习笔记">
+<meta property="og:url" content="http://jiang-anwei.github.io/2019/07/15/JanusGraph学习笔记/index.html">
+<meta property="og:site_name" content="jiang-anwei blog">
+<meta property="og:description" content="jansusgraph是一款分布式开源图数据库。 JanusGraph Server使用默认的数据库及搜索引擎配置：bin/janusgraph.sh start 自定义存储及搜索引擎：bin/gremlin-server.sh ./conf/gremlin-server/gremlin-server.yaml gremlin-server.yaml内容： 1234567891011121314h">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-31T06:08:34.660Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JanusGraph学习笔记">
+<meta name="twitter:description" content="jansusgraph是一款分布式开源图数据库。 JanusGraph Server使用默认的数据库及搜索引擎配置：bin/janusgraph.sh start 自定义存储及搜索引擎：bin/gremlin-server.sh ./conf/gremlin-server/gremlin-server.yaml gremlin-server.yaml内容： 1234567891011121314h">
+
+
+
+
+
+
+  <link rel="canonical" href="http://jiang-anwei.github.io/2019/07/15/JanusGraph学习笔记/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JanusGraph学习笔记 | jiang-anwei blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">jiang-anwei blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jiang-anwei.github.io/2019/07/15/JanusGraph学习笔记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蒋安维">
+      <meta itemprop="description" content="思绪总在漂流，偶而在此停留">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiang-anwei blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JanusGraph学习笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-15 10:09:30" itemprop="dateCreated datePublished" datetime="2019-07-15T10:09:30+08:00">2019-07-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-31 14:08:34" itemprop="dateModified" datetime="2019-07-31T14:08:34+08:00">2019-07-31</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/后台/" itemprop="url" rel="index"><span itemprop="name">后台</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>jansusgraph是一款分布式开源图数据库。</p>
+<h2 id="JanusGraph-Server"><a href="#JanusGraph-Server" class="headerlink" title="JanusGraph Server"></a>JanusGraph Server</h2><p>使用默认的数据库及搜索引擎配置：bin/janusgraph.sh start</p>
+<p>自定义存储及搜索引擎：bin/gremlin-server.sh ./conf/gremlin-server/gremlin-server.yaml</p>
+<p>gremlin-server.yaml内容：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">host:</span> <span class="string">localhost</span></span><br><span class="line"><span class="attr">port:</span> <span class="number">8182</span></span><br><span class="line"><span class="attr">scriptEvaluationTimeout:</span> <span class="number">120000</span></span><br><span class="line"><span class="comment"># ws+http</span></span><br><span class="line"><span class="attr">channelizer:</span> <span class="string">org.apache.tinkerpop.gremlin.server.channel.WsAndHttpChannelizer</span></span><br><span class="line"><span class="comment">#http</span></span><br><span class="line"><span class="comment">#channelizer: org.apache.tinkerpop.gremlin.server.channel.HttpChannelizer</span></span><br><span class="line"><span class="comment">#ws</span></span><br><span class="line"><span class="comment">#channelizer: org.apache.tinkerpop.gremlin.server.channel.WebSocketChannelizer</span></span><br><span class="line"><span class="attr">graphs:</span> <span class="string">&#123;</span></span><br><span class="line"><span class="comment">#数据库及搜索引擎配置</span></span><br><span class="line"><span class="attr">  graph:</span> <span class="string">conf/gremlin-server/socket-janusgraph-hbase-server.properties</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">..............</span></span><br></pre></td></tr></table></figure>
+<p>socket-janusgraph-hbase-server.properties内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">gremlin.graph=org.janusgraph.core.JanusGraphFactory</span><br><span class="line">storage.backend=hbase</span><br><span class="line">storage.hostname=3-142-bigdata-2.jianganwei.com,3-141-bigdata-1.jianganwei.com,3-143-bigdata-3.jianganwei.com</span><br><span class="line">storage.batch-loading=true</span><br><span class="line">ids.block-size=100000000</span><br><span class="line">storage.hbase.ext.zookeeper.znode.parent=/hbase-unsecure</span><br><span class="line">cache.db-cache = true</span><br><span class="line">cache.db-cache-clean-wait = 20</span><br><span class="line">cache.db-cache-time = 180000</span><br><span class="line">cache.db-cache-size = 0.5</span><br><span class="line">index.search.backend=elasticsearch</span><br><span class="line">index.search.hostname=127.0.0.1</span><br></pre></td></tr></table></figure>
+<p>还有权限认证功能 见 <a href="https://docs.janusgraph.org/latest/server.html" target="_blank" rel="noopener">官方文档</a></p>
+<h2 id="Gremlin"><a href="#Gremlin" class="headerlink" title="Gremlin"></a>Gremlin</h2><h3 id="终端连接远程数据库"><a href="#终端连接远程数据库" class="headerlink" title="终端连接远程数据库"></a>终端连接远程数据库</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:remote connect tinkerpop.server conf/remote.yaml</span><br></pre></td></tr></table></figure>
+<p>remote.yaml :</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">hosts:</span> <span class="string">[localhost]</span></span><br><span class="line"><span class="attr">port:</span> <span class="number">8182</span></span><br><span class="line"><span class="attr">serializer:</span> <span class="string">&#123;</span> <span class="attr">className:</span> <span class="string">org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV1d0,</span> <span class="attr">config:</span> <span class="string">&#123;</span> <span class="attr">serializeResultToString:</span> <span class="literal">true</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="基础语句"><a href="#基础语句" class="headerlink" title="基础语句"></a>基础语句</h3><ol>
+<li><code>graph = JanusGraphFactory.open(&#39;conf/gremlin-server/socket-janusgraph-hbase-server.properties&#39;)</code> 打开数据库连接</li>
+<li><code>g=graph.traversal()</code>  的到实列</li>
+<li><code>V()</code>：查询顶点，一般作为图查询的第1步，后面可以续接的语句种类繁多。例，<code>g.V()，g.V(&#39;v_id&#39;)</code>，查询所有点和特定点；</li>
+<li><code>E()</code>：查询边，一般作为图查询的第1步，后面可以续接的语句种类繁多；</li>
+<li><code>id()</code>：获取顶点、边的id。例：<code>g.V().id()</code>，查询所有顶点的id；</li>
+<li><code>label()</code>：获取顶点、边的 label。例：<code>g.V().label()</code>，可查询所有顶点的label。</li>
+<li><code>key() / values()</code>：获取属性的key/value的值。</li>
+<li><code>properties()</code>：获取顶点、边的属性；可以和 key()、value()搭配使用，以获取属性的名称或值。例：<code>g.V().properties(&#39;name&#39;)</code>，查询所有顶点的 name 属性；</li>
+<li><code>valueMap()</code>：获取顶点、边的属性，以Map的形式体现，和<code>properties()</code>比较像；</li>
+<li><code>values()</code>：获取顶点、边的属性值。例，<code>g.V().values()</code> 等于 <code>g.V().properties().value()</code></li>
+</ol>
+<h3 id="遍历（以定点为基础）"><a href="#遍历（以定点为基础）" class="headerlink" title="遍历（以定点为基础）"></a>遍历（以定点为基础）</h3><ol>
+<li><code>out(label)</code>：根据指定的 Edge Label 来访问顶点的 OUT 方向邻接<strong>点</strong>（可以是零个 Edge Label，代表所有类型边；也可以一个或多个 Edge Label，代表任意给定 Edge Label 的边，下同）；</li>
+<li><code>in(label)</code>：根据指定的 Edge Label 来访问顶点的 IN 方向邻接<strong>点</strong>；</li>
+<li><code>both(label)</code>：根据指定的 Edge Label 来访问顶点的双向邻接<strong>点</strong>；</li>
+<li><code>outE(label)</code>： 根据指定的 Edge Label 来访问顶点的 OUT 方向邻接<strong>边</strong>；</li>
+<li><code>inE(label)</code>：根据指定的 Edge Label 来访问顶点的 IN 方向邻接<strong>边</strong>；</li>
+<li><code>bothE(label)</code>：根据指定的 Edge Label 来访问顶点的双向邻接<strong>边</strong>；</li>
+</ol>
+<h3 id="遍历（以边为基础）"><a href="#遍历（以边为基础）" class="headerlink" title="遍历（以边为基础）"></a>遍历（以边为基础）</h3><ol>
+<li><code>outV()</code>：访问边的出顶<strong>点</strong>，出顶点是指边的起始顶点；</li>
+<li><code>inV()</code>：访问边的入顶<strong>点</strong>，入顶点是指边的目标顶点，也就是箭头指向的顶点；</li>
+<li><code>bothV()</code>：访问边的双向顶<strong>点</strong>；</li>
+<li><code>otherV()</code>：访问边的伙伴顶<strong>点</strong>，即相对于基准顶点而言的另一端的顶点；</li>
+</ol>
+<h3 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h3><ol>
+<li><code>has(key,value)</code>: 通过属性的名字和值来过滤顶点或边；</li>
+<li><code>has(label, key, value)</code>: 通过label和属性的名字和值过滤顶点和边；</li>
+<li><code>has(key,predicate)</code>: 通过对指定属性用条件过滤顶点和边，例：<code>g.V().has(&#39;age&#39;, gt(20))</code>，可得到年龄大于20的顶点；</li>
+<li><code>hasLabel(labels…)</code>: 通过 label 来过滤顶点或边，满足label列表中一个即可通过；</li>
+<li><code>hasId(ids…)</code>: 通过 id 来过滤顶点或者边，满足id列表中的一个即可通过；</li>
+<li><code>hasKey(keys…)</code>: 通过 properties 中的若干 key 过滤顶点或边；</li>
+<li><code>hasValue(values…)</code>: 通过 properties 中的若干 value 过滤顶点或边；</li>
+<li><code>has(key)</code>: properties 中存在 key 这个属性则通过，等价于hasKey(key)；</li>
+<li><code>hasNot(key)</code>: 和 has(key) 相反；</li>
+</ol>
+<h3 id="分支（if-else）"><a href="#分支（if-else）" class="headerlink" title="分支（if-else）"></a>分支（if-else）</h3><ol>
+<li><p><code>choose(predicate,true,false)</code> :判断第一个参数的条件，满足走true分支，不满足走false分支可以与<code>optional()</code>搭配使用。列子：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">g.V().hasLabel(<span class="string">'person'</span>).</span><br><span class="line">      choose(values(<span class="string">'age'</span>).is(lte(<span class="number">30</span>)),</span><br><span class="line">        __.<span class="keyword">in</span>(),</span><br><span class="line">        __.out()).values(<span class="string">'name'</span>) </span><br><span class="line">g.V().hasLabel(<span class="string">'person'</span>).</span><br><span class="line">      choose(values(<span class="string">'age'</span>)).</span><br><span class="line">        option(<span class="number">27</span>, __.<span class="keyword">in</span>()).</span><br><span class="line">        option(<span class="number">32</span>, __.out()).values(<span class="string">'name'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><ol>
+<li><p><code>repeat()</code>：指定要重复执行的语句；</p>
+</li>
+<li><p><code>times()</code>： 指定要重复执行的次数，如执行3次；</p>
+</li>
+<li><p><code>until()</code>：指定循环终止的条件，如一直找到某个名字的朋友为止；</p>
+</li>
+<li><p><code>loops()</code>：当前循环的次数，可用于控制最大循环次数等，如最多执行3次。</p>
+</li>
+<li><p><code>repeat()</code> 和 <code>until()</code> 的位置不同，决定了不同的循环效果：</p>
+<ul>
+<li><code>repeat()</code> + <code>until()</code>：等同 do-while；</li>
+<li><code>until()</code> + <code>repeat()</code>：等同 while-do</li>
+</ul>
+</li>
+</ol>
+   <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">g.V(<span class="number">1</span>)</span><br><span class="line"> .repeat(out())</span><br><span class="line"> .until(outE().count().is(<span class="number">0</span>))</span><br><span class="line"> .path().by(<span class="string">'name'</span>)</span><br><span class="line"> g.V(<span class="string">'1'</span>)</span><br><span class="line"> .repeat(out())</span><br><span class="line"> .until(loops().is(<span class="number">3</span>))</span><br><span class="line"> .path()</span><br></pre></td></tr></table></figure>
+<h3 id="Match"><a href="#Match" class="headerlink" title="Match"></a>Match</h3><p>匹配数据类似neo4j的match 和as()配合使用</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">g.V().match(</span><br><span class="line">                 __.<span class="keyword">as</span>(<span class="string">'a'</span>).out(<span class="string">'created'</span>).<span class="keyword">as</span>(<span class="string">'b'</span>),</span><br><span class="line">                 __.<span class="keyword">as</span>(<span class="string">'b'</span>).has(<span class="string">'name'</span>, <span class="string">'lop'</span>),</span><br><span class="line">                 __.<span class="keyword">as</span>(<span class="string">'b'</span>).<span class="keyword">in</span>(<span class="string">'created'</span>).<span class="keyword">as</span>(<span class="string">'c'</span>),</span><br><span class="line">                 __.<span class="keyword">as</span>(<span class="string">'c'</span>).has(<span class="string">'age'</span>, <span class="number">29</span>)).</span><br><span class="line">               select(<span class="string">'a'</span>,<span class="string">'c'</span>).by(<span class="string">'name'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="project"><a href="#project" class="headerlink" title="project"></a>project</h3><p>通过by来进行分支运算</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">g.V().groupCount().by(label()).unfold().project(<span class="string">'k'</span>,<span class="string">'v'</span>).by(map&#123;it-&gt;it.get().getKey()&#125;).by(map&#123;it-&gt;it.get().getValue()&#125;).order().by(select(<span class="string">'v'</span>))</span><br><span class="line"></span><br><span class="line">g.V().groupCount().by(label()).unfold().project(<span class="string">'k'</span>,<span class="string">'v'</span>,<span class="string">'v1'</span>).by(map&#123;it-&gt;it.get().getValue()&#125;).by(map&#123;it-&gt;it.get().getKey()&#125;).by(map&#123;it-&gt;it.get().getValue()&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h3><ol>
+<li><p><code>path()</code>当前遍历过的路径</p>
+</li>
+<li><p><code>simplePath()</code>过滤掉路径中含有环路的对象</p>
+</li>
+<li><p><code>cyclicPath()</code>过滤掉路径中不含有环路的对象</p>
+</li>
+<li><p><code>shortestPath()</code>最短路径</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g.V().shortestPath().with(ShortestPath.edges, Direction.IN).with(ShortestPath.target, __.has(<span class="string">'name'</span>,<span class="string">'josh'</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="统计"><a href="#统计" class="headerlink" title="统计"></a>统计</h3><ol>
+<li><code>sum()</code>：将 traversal 中的所有的数字求和；</li>
+<li><code>max()</code>：对 traversal 中的所有的数字求最大值；</li>
+<li><code>min()</code>：对 traversal 中的所有的数字求最小值；</li>
+<li><code>mean()</code>：将 traversal 中的所有的数字求均值；</li>
+<li><code>count()</code>：统计 traversal 中 item 总数。</li>
+</ol>
+<p><a href="http://tinkerpop.apache.org/docs/current/reference/#traversal" target="_blank" rel="noopener">更多语法见官方文档</a></p>
+<h2 id="批量导入"><a href="#批量导入" class="headerlink" title="批量导入"></a>批量导入</h2><p>janusGraph 本身不带有导入功能 我们使用github 开源工具 <a href="https://github.com/IBM/janusgraph-utils" target="_blank" rel="noopener">https://github.com/IBM/janusgraph-utils</a></p>
+<h3 id="下载工具ropo-打包"><a href="#下载工具ropo-打包" class="headerlink" title="下载工具ropo 打包"></a>下载工具ropo 打包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/IBM/janusgraph-utils.git</span><br><span class="line">cd janusgraph-utils/</span><br><span class="line">mvn package</span><br></pre></td></tr></table></figure>
+<p>根据配置生成模版文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./run.sh gencsv csv-conf/twitter-like-w-date.json /tmp</span><br></pre></td></tr></table></figure>
+<p>里面包括schama.json 描述各个字段类型，及索引等等，datamapper.json 描述各个节点及边所在的文件名，及各个字段对应关系。</p>
+<h3 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h3><p>设置环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export JANUSGRAPH_HOME=/opt/app/janusgraph-0.3.1-hadoop2</span><br><span class="line">export PATH=$PATH:$JANUSGRAPH_HOME/bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./run.sh import ~/janusgraph/conf/janusgraph-cql-es.properties /tmp /tmp/schema.json /tmp/datamapper.json</span><br></pre></td></tr></table></figure>
+<h2 id="批量导入官方版本"><a href="#批量导入官方版本" class="headerlink" title="批量导入官方版本"></a>批量导入官方版本</h2><p><a href="https://docs.janusgraph.org/0.3.0/hadoop-tp3.html" target="_blank" rel="noopener">官方导入方式</a> 注意配置 hadoop 环境变量 最新版本的</p>
+<p>环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export HADOOP_CONF_DIR=/etc/hadoop/conf</span><br><span class="line">export CLASSPATH=$HADOOP_CONF_DIR</span><br><span class="line">bin/gremlin.sh</span><br></pre></td></tr></table></figure>
+<p>配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">gremlin.graph=org.apache.tinkerpop.gremlin.hadoop.structure.HadoopGraph</span><br><span class="line">##读取数据的格式</span><br><span class="line">gremlin.hadoop.graphReader=org.janusgraph.hadoop.formats.cassandra.Cassandra3InputFormat</span><br><span class="line">gremlin.hadoop.graphWriter=org.apache.tinkerpop.gremlin.hadoop.structure.io.gryo.GryoOutputFormat</span><br><span class="line"></span><br><span class="line">gremlin.hadoop.jarsInDistributedCache=true</span><br><span class="line">##输入文件地址</span><br><span class="line">gremlin.hadoop.inputLocation=none</span><br><span class="line">gremlin.hadoop.outputLocation=output</span><br><span class="line">gremlin.spark.persistContext=true</span><br><span class="line">........</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">:load data/grateful-dead-janusgraph-schema.groovy</span><br><span class="line">graph = JanusGraphFactory.open('conf/gremlin-server/jianganwei-janusgraph-hbase-server.properties')</span><br><span class="line">defineGratefulDeadSchema(graph)</span><br><span class="line">graph.close()</span><br><span class="line">hdfs.copyFromLocal('data/grateful-dead.kryo','data/grateful-dead.kryo')</span><br><span class="line">graph = GraphFactory.open('conf/hadoop-graph/hadoop-graphson.properties')</span><br><span class="line">blvp = BulkLoaderVertexProgram.build().writeGraph('conf/gremlin-server/jianganwei-janusgraph-hbase-server.properties').create(graph)</span><br><span class="line">graph.compute(SparkGraphComputer).program(blvp).submit().get()</span><br></pre></td></tr></table></figure>
+<h2 id="清除数据"><a href="#清除数据" class="headerlink" title="清除数据"></a>清除数据</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">:i</span> <span class="string">org.janusgraph.core.util.JanusGraphCleanup</span>   </span><br><span class="line"><span class="string">graph</span> <span class="string">=</span> <span class="string">JanusGraphFactory.open('conf/gremlin-server/jianganwei-janusgraph-hbase-server.properties')</span></span><br><span class="line"><span class="string">graph.close()</span></span><br><span class="line"><span class="string">JanusGraphCleanup.clear(graph)</span></span><br></pre></td></tr></table></figure>
+<h2 id="查看schema"><a href="#查看schema" class="headerlink" title="查看schema"></a>查看schema</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph = JanusGraphFactory.open(<span class="string">'conf/gremlin-server/jianganwei-janusgraph-hbase-server.properties'</span>)</span><br><span class="line">mgmt = graph.openManagement()</span><br><span class="line">mgmt.printSchema()</span><br></pre></td></tr></table></figure>
+<h2 id="添加节点"><a href="#添加节点" class="headerlink" title="添加节点"></a>添加节点</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tx = graph.newTransaction()</span><br><span class="line">vertex = tx.addVertex(<span class="string">"Customer"</span>)</span><br><span class="line">vertex.property(<span class="string">"id_no"</span>,<span class="number">510800200000000000</span>)</span><br><span class="line">vertex.property(<span class="string">"cust_no"</span>,<span class="string">"123"</span>)</span><br><span class="line">vertex.property(<span class="string">"cust_name"</span>,<span class="string">"李四"</span>)</span><br><span class="line">vertex.property(<span class="string">"gender"</span>,<span class="string">"男"</span>)</span><br><span class="line">vertex.property(<span class="string">"create_time"</span>,<span class="keyword">new</span> java.util.Date())</span><br><span class="line">tx.commit()</span><br></pre></td></tr></table></figure>
+<h3 id="添加边"><a href="#添加边" class="headerlink" title="添加边"></a>添加边</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">left=g.V(<span class="number">7372800004272</span>).next()</span><br><span class="line">right=g.V(<span class="number">8216</span>).next()</span><br><span class="line">edge=left.addEdge(<span class="string">"CALL"</span>, right)</span><br><span class="line">edge.property(<span class="string">"content"</span>,<span class="string">"我好想你"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="建立混合索引"><a href="#建立混合索引" class="headerlink" title="建立混合索引"></a>建立混合索引</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">indexBuilder = mgmt.buildIndex(<span class="string">"call_content_index"</span>, Edge.<span class="keyword">class</span>)</span><br><span class="line">indexBuilder.indexOnly(mgmt.getEdgeLabel(<span class="string">"CALL"</span>))</span><br><span class="line">indexBuilder.unique();</span><br><span class="line">indexBuilder.addKey(mgmt.getPropertyKey(<span class="string">"content"</span>), Mapping.STRING.asParameter())</span><br><span class="line">indexBuilder.buildMixedIndex(<span class="string">"search"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="建立精准索引"><a href="#建立精准索引" class="headerlink" title="建立精准索引"></a>建立精准索引</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">indexBuilder = mgmt.buildIndex(<span class="string">"test_set_index"</span>, Vertex.<span class="keyword">class</span>)</span><br><span class="line">indexBuilder.indexOnly(mgmt.getVertexLabel(<span class="string">"Customer"</span>))</span><br><span class="line">indexBuilder.unique();</span><br><span class="line">indexBuilder.addKey(mgmt.getPropertyKey(<span class="string">"test_set"</span>));</span><br><span class="line">indexBuilder.buildCompositeIndex();</span><br></pre></td></tr></table></figure>
+<h3 id="添加属性"><a href="#添加属性" class="headerlink" title="添加属性"></a>添加属性</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mgmt.makePropertyKey(<span class="string">"content"</span>).dataType(java.lang.String.<span class="keyword">class</span>).cardinality(Cardinality.SINGLE).make()</span><br></pre></td></tr></table></figure>
+<h3 id="按混合索引查询数据"><a href="#按混合索引查询数据" class="headerlink" title="按混合索引查询数据"></a>按混合索引查询数据</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graph.indexQuery(<span class="string">"call_content_index"</span>,<span class="string">"你"</span>).edgeTotals()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JanusGraph/" rel="tag"># JanusGraph</a>
+          
+            <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
+          
+            <a href="/tags/图数据库/" rel="tag"># 图数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/12/spring事务/" rel="next" title="spring事务">
+                <i class="fa fa-chevron-left"></i> spring事务
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/31/es学习笔记-基础篇/" rel="prev" title="es学习笔记-基础篇">
+                es学习笔记-基础篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mjg4Mi8xOTQyOA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">蒋安维</p>
+              <p class="site-description motion-element" itemprop="description">思绪总在漂流，偶而在此停留</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JanusGraph-Server"><span class="nav-number">1.</span> <span class="nav-text">JanusGraph Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gremlin"><span class="nav-number">2.</span> <span class="nav-text">Gremlin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#终端连接远程数据库"><span class="nav-number">2.1.</span> <span class="nav-text">终端连接远程数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础语句"><span class="nav-number">2.2.</span> <span class="nav-text">基础语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历（以定点为基础）"><span class="nav-number">2.3.</span> <span class="nav-text">遍历（以定点为基础）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历（以边为基础）"><span class="nav-number">2.4.</span> <span class="nav-text">遍历（以边为基础）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过滤"><span class="nav-number">2.5.</span> <span class="nav-text">过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分支（if-else）"><span class="nav-number">2.6.</span> <span class="nav-text">分支（if-else）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环"><span class="nav-number">2.7.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Match"><span class="nav-number">2.8.</span> <span class="nav-text">Match</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#project"><span class="nav-number">2.9.</span> <span class="nav-text">project</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路径"><span class="nav-number">2.10.</span> <span class="nav-text">路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计"><span class="nav-number">2.11.</span> <span class="nav-text">统计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批量导入"><span class="nav-number">3.</span> <span class="nav-text">批量导入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载工具ropo-打包"><span class="nav-number">3.1.</span> <span class="nav-text">下载工具ropo 打包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入数据"><span class="nav-number">3.2.</span> <span class="nav-text">导入数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批量导入官方版本"><span class="nav-number">4.</span> <span class="nav-text">批量导入官方版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清除数据"><span class="nav-number">5.</span> <span class="nav-text">清除数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看schema"><span class="nav-number">6.</span> <span class="nav-text">查看schema</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加节点"><span class="nav-number">7.</span> <span class="nav-text">添加节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加边"><span class="nav-number">7.1.</span> <span class="nav-text">添加边</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立混合索引"><span class="nav-number">7.2.</span> <span class="nav-text">建立混合索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立精准索引"><span class="nav-number">7.3.</span> <span class="nav-text">建立精准索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加属性"><span class="nav-number">7.4.</span> <span class="nav-text">添加属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按混合索引查询数据"><span class="nav-number">7.5.</span> <span class="nav-text">按混合索引查询数据</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒋安维</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.7.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+    <script>
+  window.livereOptions = {
+    refer: '2019/07/15/JanusGraph学习笔记/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
