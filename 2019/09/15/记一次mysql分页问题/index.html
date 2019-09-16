@@ -96,24 +96,29 @@
 
 
 
-  <meta name="description" content="思绪总在漂流，偶而在此停留">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://jiang-anwei.github.io/tags/index.html">
+  <meta name="description" content="前言都知道mysql分页使用limit这个关键字来进行的，但今天使用这个关键之进行分页点时候出现了点问题，有些记录没有查到，有些记录在上一页出现之后，翻下一页又出现了。 问题分析单独使用limit这个关键字是没有问题的，加上order by 这个关键字之后排序就会出现上述问题，猜想order by 这个关键字与limit会相互影响。 问题重现先准备需要查询的数据  分别执行sql select">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次mysql分页问题">
+<meta property="og:url" content="http://jiang-anwei.github.io/2019/09/15/记一次mysql分页问题/index.html">
 <meta property="og:site_name" content="jiang-anwei blog">
-<meta property="og:description" content="思绪总在漂流，偶而在此停留">
+<meta property="og:description" content="前言都知道mysql分页使用limit这个关键字来进行的，但今天使用这个关键之进行分页点时候出现了点问题，有些记录没有查到，有些记录在上一页出现之后，翻下一页又出现了。 问题分析单独使用limit这个关键字是没有问题的，加上order by 这个关键字之后排序就会出现上述问题，猜想order by 这个关键字与limit会相互影响。 问题重现先准备需要查询的数据  分别执行sql select">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-11T08:47:07.920Z">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6gy1g71c8qim1pj30jg09kq3g.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6gy1g71cb825avj30fo072jrr.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6gy1g71cc0i916j30g403qmx9.jpg">
+<meta property="og:updated_time" content="2019-09-16T06:44:17.726Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="思绪总在漂流，偶而在此停留">
+<meta name="twitter:title" content="记一次mysql分页问题">
+<meta name="twitter:description" content="前言都知道mysql分页使用limit这个关键字来进行的，但今天使用这个关键之进行分页点时候出现了点问题，有些记录没有查到，有些记录在上一页出现之后，翻下一页又出现了。 问题分析单独使用limit这个关键字是没有问题的，加上order by 这个关键字之后排序就会出现上述问题，猜想order by 这个关键字与limit会相互影响。 问题重现先准备需要查询的数据  分别执行sql select">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/006y8mN6gy1g71c8qim1pj30jg09kq3g.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://jiang-anwei.github.io/tags/">
+  <link rel="canonical" href="http://jiang-anwei.github.io/2019/09/15/记一次mysql分页问题/">
 
 
 
@@ -123,7 +128,7 @@
   };
 </script>
 
-  <title>tags | jiang-anwei blog</title>
+  <title>记一次mysql分页问题 | jiang-anwei blog</title>
   
 
 
@@ -226,7 +231,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -331,171 +336,211 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jiang-anwei.github.io/2019/09/15/记一次mysql分页问题/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蒋安维">
+      <meta itemprop="description" content="思绪总在漂流，偶而在此停留">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiang-anwei blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">tags
-
-</h1>
-
-<div class="post-meta">
-  
-  
-
-
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
+          <h1 class="post-title" itemprop="name headline">记一次mysql分页问题
+
               
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-                
-                  
-                
-              
-              23 tags in total
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Android/" style="font-size: 12px; color: #ccc">Android</a> <a href="/tags/ClassLoader/" style="font-size: 12px; color: #ccc">ClassLoader</a> <a href="/tags/JanusGraph/" style="font-size: 12px; color: #ccc">JanusGraph</a> <a href="/tags/Springboot/" style="font-size: 24px; color: #4f4f4f">Springboot</a> <a href="/tags/ThreadPool/" style="font-size: 12px; color: #ccc">ThreadPool</a> <a href="/tags/celery/" style="font-size: 12px; color: #ccc">celery</a> <a href="/tags/es/" style="font-size: 12px; color: #ccc">es</a> <a href="/tags/itext/" style="font-size: 12px; color: #ccc">itext</a> <a href="/tags/java/" style="font-size: 30px; color: #111">java</a> <a href="/tags/mysql/" style="font-size: 18px; color: #8e8e8e">mysql</a> <a href="/tags/netty/" style="font-size: 12px; color: #ccc">netty</a> <a href="/tags/pdf/" style="font-size: 12px; color: #ccc">pdf</a> <a href="/tags/python/" style="font-size: 12px; color: #ccc">python</a> <a href="/tags/quartz/" style="font-size: 12px; color: #ccc">quartz</a> <a href="/tags/spring/" style="font-size: 12px; color: #ccc">spring</a> <a href="/tags/事务/" style="font-size: 12px; color: #ccc">事务</a> <a href="/tags/任务队列/" style="font-size: 12px; color: #ccc">任务队列</a> <a href="/tags/分布式/" style="font-size: 12px; color: #ccc">分布式</a> <a href="/tags/图数据库/" style="font-size: 12px; color: #ccc">图数据库</a> <a href="/tags/多线程/" style="font-size: 18px; color: #8e8e8e">多线程</a> <a href="/tags/学习笔记/" style="font-size: 18px; color: #8e8e8e">学习笔记</a> <a href="/tags/模块设计/" style="font-size: 12px; color: #ccc">模块设计</a> <a href="/tags/爬虫/" style="font-size: 12px; color: #ccc">爬虫</a>
-            </div>
-          </div>
+            
+          </h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-15 00:00:00" itemprop="dateCreated datePublished" datetime="2019-09-15T00:00:00+08:00">2019-09-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-16 14:44:17" itemprop="dateModified" datetime="2019-09-16T14:44:17+08:00">2019-09-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/后台/" itemprop="url" rel="index"><span itemprop="name">后台</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>都知道mysql分页使用limit这个关键字来进行的，但今天使用这个关键之进行分页点时候出现了点问题，有些记录没有查到，有些记录在上一页出现之后，翻下一页又出现了。</p>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>单独使用limit这个关键字是没有问题的，加上order by 这个关键字之后排序就会出现上述问题，猜想order by 这个关键字与limit会相互影响。</p>
+<h2 id="问题重现"><a href="#问题重现" class="headerlink" title="问题重现"></a>问题重现</h2><p>先准备需要查询的数据</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g71c8qim1pj30jg09kq3g.jpg" alt="0A7F1212-2D6D-4D5D-9AAA-72CE1865C789"></p>
+<p>分别执行sql select <em> from limit_test order by score limit 5，select </em> from limit_test order by score limit 5，10</p>
+<p>得到结果</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g71cb825avj30fo072jrr.jpg" alt="7E19721F-DF99-4568-B5B3-A18EDBA6E5E1"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g71cc0i916j30g403qmx9.jpg" alt="5C2AF397-2B26-4AB7-B7CA-6F8E64131F9B"></p>
+<p>结果发现id为8的这条记录出现了2次而id为6的记录没有出现，重现了该问题。</p>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>小弟束手无策，这个时候只有请求google大神了，最后在mysql官网找到了这个问题的原因 <a href="https://dev.mysql.com/doc/refman/5.7/en/limit-optimization.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/limit-optimization.html</a></p>
+<p> 原因大概是order by 和limit 组合使用的时候,mysql 会将不会整体排序，而是到了需要查的数据量(limit 的值)的时候，就不会进行排序了，而order by 字段相同值记录的顺序是不确定的，所以导致了上面的问题</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>在order by子句中包含附加列，使顺序具有确定性。比如加上唯一的主键id。 例如：</p>
+<p>select * from limit_test order by score,id limit 5</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>用了mysql 这么久，以为对它已经很熟悉了，结果还是太年轻，学习之路，任重道远啊！！</p>
+
       
     </div>
-    
-
-
 
     
+
     
     
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/31/es学习笔记-基础篇/" rel="next" title="es学习笔记-基础篇">
+                <i class="fa fa-chevron-left"></i> es学习笔记-基础篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
   </div>
 
 
@@ -530,8 +575,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -647,6 +701,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题分析"><span class="nav-number">2.</span> <span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题重现"><span class="nav-number">3.</span> <span class="nav-text">问题重现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决问题"><span class="nav-number">4.</span> <span class="nav-text">解决问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法"><span class="nav-number">4.1.</span> <span class="nav-text">解决办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.2.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -793,7 +864,7 @@
   
     <script>
   window.livereOptions = {
-    refer: 'tags/index.html'
+    refer: '2019/09/15/记一次mysql分页问题/'
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
