@@ -96,20 +96,20 @@
 
 
 
-  <meta name="description" content="springBean创建流程.png) 扩展点ImportBeanDefinitionRegistrar 与ImportSelector实现接口可以添加自定义的beanDefinition，例： 12345678910@Componentpublic class RpcClientSelector implements ImportBeanDefinitionRegistrar &amp;#123;">
+  <meta name="description" content="springBean创建流程 扩展点ImportBeanDefinitionRegistrar 与ImportSelector实现接口可以添加自定义的beanDefinition，例： 12345678910@Componentpublic class RpcClientSelector implements ImportBeanDefinitionRegistrar &amp;#123;    @Ove">
 <meta name="keywords" content="spring">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spring Bean创建流程及扩展点">
 <meta property="og:url" content="http://jiang-anwei.github.io/2019/09/26/spring Bean创建流程及扩展点/index.html">
 <meta property="og:site_name" content="jiang-anwei blog">
-<meta property="og:description" content="springBean创建流程.png) 扩展点ImportBeanDefinitionRegistrar 与ImportSelector实现接口可以添加自定义的beanDefinition，例： 12345678910@Componentpublic class RpcClientSelector implements ImportBeanDefinitionRegistrar &amp;#123;">
+<meta property="og:description" content="springBean创建流程 扩展点ImportBeanDefinitionRegistrar 与ImportSelector实现接口可以添加自定义的beanDefinition，例： 12345678910@Componentpublic class RpcClientSelector implements ImportBeanDefinitionRegistrar &amp;#123;    @Ove">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://jiang-anwei.github.io/Users/jianganwei/Downloads/未命名文件%20(1">
-<meta property="og:updated_time" content="2019-09-26T02:51:59.203Z">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6gy1g7cqhd3pmaj30lh0kywfd.jpg">
+<meta property="og:updated_time" content="2019-09-26T02:58:54.570Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring Bean创建流程及扩展点">
-<meta name="twitter:description" content="springBean创建流程.png) 扩展点ImportBeanDefinitionRegistrar 与ImportSelector实现接口可以添加自定义的beanDefinition，例： 12345678910@Componentpublic class RpcClientSelector implements ImportBeanDefinitionRegistrar &amp;#123;">
-<meta name="twitter:image" content="http://jiang-anwei.github.io/Users/jianganwei/Downloads/未命名文件%20(1">
+<meta name="twitter:description" content="springBean创建流程 扩展点ImportBeanDefinitionRegistrar 与ImportSelector实现接口可以添加自定义的beanDefinition，例： 12345678910@Componentpublic class RpcClientSelector implements ImportBeanDefinitionRegistrar &amp;#123;    @Ove">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/006y8mN6gy1g7cqhd3pmaj30lh0kywfd.jpg">
 
 
 
@@ -397,7 +397,7 @@
                 
               
 
-              <time title="Created: 2019-09-26 00:00:00 / Modified: 10:51:59" itemprop="dateCreated datePublished" datetime="2019-09-26T00:00:00+08:00">2019-09-26</time>
+              <time title="Created: 2019-09-26 00:00:00 / Modified: 10:58:54" itemprop="dateCreated datePublished" datetime="2019-09-26T00:00:00+08:00">2019-09-26</time>
             
 
             
@@ -453,7 +453,7 @@
       
 
       
-        <h2 id="springBean创建流程"><a href="#springBean创建流程" class="headerlink" title="springBean创建流程"></a>springBean创建流程</h2><p><img src="/Users/jianganwei/Downloads/未命名文件 (1" alt="未命名文件 (https://tva1.sinaimg.cn/large/006y8mN6gy1g7bt25xkz6j30lh0kywfd.jpg)">.png)</p>
+        <h2 id="springBean创建流程"><a href="#springBean创建流程" class="headerlink" title="springBean创建流程"></a>springBean创建流程</h2><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g7cqhd3pmaj30lh0kywfd.jpg" alt="spring bean流程"></p>
 <h2 id="扩展点"><a href="#扩展点" class="headerlink" title="扩展点"></a>扩展点</h2><h3 id="ImportBeanDefinitionRegistrar-与ImportSelector"><a href="#ImportBeanDefinitionRegistrar-与ImportSelector" class="headerlink" title="ImportBeanDefinitionRegistrar 与ImportSelector"></a>ImportBeanDefinitionRegistrar 与ImportSelector</h3><p>实现接口可以添加自定义的beanDefinition，例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RpcClientSelector</span> <span class="keyword">implements</span> <span class="title">ImportBeanDefinitionRegistrar</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; map = importingClassMetadata.getAnnotationAttributes(EnableRpcClient.class.getName());</span><br><span class="line">        BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.rootBeanDefinition(RpcScanner.class);</span><br><span class="line">        beanDefinitionBuilder.addPropertyValue(<span class="string">"basePackage"</span>, map.get(<span class="string">"basePackage"</span>));</span><br><span class="line">        registry.registerBeanDefinition(RpcScanner.class.getName(), beanDefinitionBuilder.getBeanDefinition());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>BeanDefinitionBuilder.rootBeanDefinition(clazz); 如果clazz 实现了FactoryBean那么创建的bean 的类型不是clazz本身，而是getObject() 方法返回的对象类型</p>

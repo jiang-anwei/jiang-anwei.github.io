@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[spring Bean创建流程及扩展点]]></title>
     <url>%2F2019%2F09%2F26%2Fspring%20Bean%E5%88%9B%E5%BB%BA%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%89%A9%E5%B1%95%E7%82%B9%2F</url>
-    <content type="text"><![CDATA[springBean创建流程.png) 扩展点ImportBeanDefinitionRegistrar 与ImportSelector实现接口可以添加自定义的beanDefinition，例： 12345678910@Componentpublic class RpcClientSelector implements ImportBeanDefinitionRegistrar &#123; @Override public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) &#123; Map&lt;String, Object&gt; map = importingClassMetadata.getAnnotationAttributes(EnableRpcClient.class.getName()); BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.rootBeanDefinition(RpcScanner.class); beanDefinitionBuilder.addPropertyValue("basePackage", map.get("basePackage")); registry.registerBeanDefinition(RpcScanner.class.getName(), beanDefinitionBuilder.getBeanDefinition()); &#125;&#125; BeanDefinitionBuilder.rootBeanDefinition(clazz); 如果clazz 实现了FactoryBean那么创建的bean 的类型不是clazz本身，而是getObject() 方法返回的对象类型 123456789@Componentpublic class RpcClientSelector implements ImportSelector &#123; @Override public String[] selectImports(AnnotationMetadata importingClassMetadata) &#123; Set&lt;String&gt; strings = importingClassMetadata.getMetaAnnotationTypes(RpcClient.class.getName()); Set&lt;String&gt; strings1 = importingClassMetadata.getAnnotationTypes(); return new String[]&#123;"com.jianganwei.rpcclient.selector.RpcScanner"&#125;; &#125;&#125; BeanFactoryPostProcessor添加修改bean 12345678910111213141516@Componentpublic class MyConfigBean implements BeanFactoryPostProcessor &#123; @Override public void postProcessBeanFactory ( ConfigurableListableBeanFactory beanFactory) throws BeansException &#123; GenericBeanDefinition bd = new GenericBeanDefinition(); bd.setBeanClass(MyBean.class); bd.getPropertyValues().add("strProp", "my string property"); ((DefaultListableBeanFactory) beanFactory) .registerBeanDefinition("myBeanName", bd); &#125;&#125; BeanPostProcessorbean的初始化过程（初始化，之前初始化之后） 总结通过上面的扩展点可以动态修改bean然后注入到代码中，注入动态代理后的bean都是基于这些扩展点完成的。]]></content>
+    <content type="text"><![CDATA[springBean创建流程 扩展点ImportBeanDefinitionRegistrar 与ImportSelector实现接口可以添加自定义的beanDefinition，例： 12345678910@Componentpublic class RpcClientSelector implements ImportBeanDefinitionRegistrar &#123; @Override public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) &#123; Map&lt;String, Object&gt; map = importingClassMetadata.getAnnotationAttributes(EnableRpcClient.class.getName()); BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.rootBeanDefinition(RpcScanner.class); beanDefinitionBuilder.addPropertyValue("basePackage", map.get("basePackage")); registry.registerBeanDefinition(RpcScanner.class.getName(), beanDefinitionBuilder.getBeanDefinition()); &#125;&#125; BeanDefinitionBuilder.rootBeanDefinition(clazz); 如果clazz 实现了FactoryBean那么创建的bean 的类型不是clazz本身，而是getObject() 方法返回的对象类型 123456789@Componentpublic class RpcClientSelector implements ImportSelector &#123; @Override public String[] selectImports(AnnotationMetadata importingClassMetadata) &#123; Set&lt;String&gt; strings = importingClassMetadata.getMetaAnnotationTypes(RpcClient.class.getName()); Set&lt;String&gt; strings1 = importingClassMetadata.getAnnotationTypes(); return new String[]&#123;"com.jianganwei.rpcclient.selector.RpcScanner"&#125;; &#125;&#125; BeanFactoryPostProcessor添加修改bean 12345678910111213141516@Componentpublic class MyConfigBean implements BeanFactoryPostProcessor &#123; @Override public void postProcessBeanFactory ( ConfigurableListableBeanFactory beanFactory) throws BeansException &#123; GenericBeanDefinition bd = new GenericBeanDefinition(); bd.setBeanClass(MyBean.class); bd.getPropertyValues().add("strProp", "my string property"); ((DefaultListableBeanFactory) beanFactory) .registerBeanDefinition("myBeanName", bd); &#125;&#125; BeanPostProcessorbean的初始化过程（初始化，之前初始化之后） 总结通过上面的扩展点可以动态修改bean然后注入到代码中，注入动态代理后的bean都是基于这些扩展点完成的。]]></content>
       <categories>
         <category>后台</category>
       </categories>
@@ -30,8 +30,8 @@
         <category>后台</category>
       </categories>
       <tags>
-        <tag>学习笔记</tag>
         <tag>es</tag>
+        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -42,8 +42,8 @@
         <category>后台</category>
       </categories>
       <tags>
-        <tag>JanusGraph</tag>
         <tag>学习笔记</tag>
+        <tag>JanusGraph</tag>
         <tag>图数据库</tag>
       </tags>
   </entry>
