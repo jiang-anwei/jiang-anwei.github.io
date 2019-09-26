@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[spring Bean创建流程及扩展点]]></title>
+    <url>%2F2019%2F09%2F26%2Fspring%20Bean%E5%88%9B%E5%BB%BA%E6%B5%81%E7%A8%8B%E5%8F%8A%E6%89%A9%E5%B1%95%E7%82%B9%2F</url>
+    <content type="text"><![CDATA[springBean创建流程.png) 扩展点ImportBeanDefinitionRegistrar 与ImportSelector实现接口可以添加自定义的beanDefinition，例： 12345678910@Componentpublic class RpcClientSelector implements ImportBeanDefinitionRegistrar &#123; @Override public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) &#123; Map&lt;String, Object&gt; map = importingClassMetadata.getAnnotationAttributes(EnableRpcClient.class.getName()); BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.rootBeanDefinition(RpcScanner.class); beanDefinitionBuilder.addPropertyValue("basePackage", map.get("basePackage")); registry.registerBeanDefinition(RpcScanner.class.getName(), beanDefinitionBuilder.getBeanDefinition()); &#125;&#125; BeanDefinitionBuilder.rootBeanDefinition(clazz); 如果clazz 实现了FactoryBean那么创建的bean 的类型不是clazz本身，而是getObject() 方法返回的对象类型 123456789@Componentpublic class RpcClientSelector implements ImportSelector &#123; @Override public String[] selectImports(AnnotationMetadata importingClassMetadata) &#123; Set&lt;String&gt; strings = importingClassMetadata.getMetaAnnotationTypes(RpcClient.class.getName()); Set&lt;String&gt; strings1 = importingClassMetadata.getAnnotationTypes(); return new String[]&#123;"com.jianganwei.rpcclient.selector.RpcScanner"&#125;; &#125;&#125; BeanFactoryPostProcessor添加修改bean 12345678910111213141516@Componentpublic class MyConfigBean implements BeanFactoryPostProcessor &#123; @Override public void postProcessBeanFactory ( ConfigurableListableBeanFactory beanFactory) throws BeansException &#123; GenericBeanDefinition bd = new GenericBeanDefinition(); bd.setBeanClass(MyBean.class); bd.getPropertyValues().add("strProp", "my string property"); ((DefaultListableBeanFactory) beanFactory) .registerBeanDefinition("myBeanName", bd); &#125;&#125; BeanPostProcessorbean的初始化过程（初始化，之前初始化之后） 总结通过上面的扩展点可以动态修改bean然后注入到代码中，注入动态代理后的bean都是基于这些扩展点完成的。]]></content>
+      <categories>
+        <category>后台</category>
+      </categories>
+      <tags>
+        <tag>spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[记一次mysql分页问题]]></title>
     <url>%2F2019%2F09%2F15%2F%E8%AE%B0%E4%B8%80%E6%AC%A1mysql%E5%88%86%E9%A1%B5%E9%97%AE%E9%A2%98%2F</url>
     <content type="text"><![CDATA[前言都知道mysql分页使用limit这个关键字来进行的，但今天使用这个关键之进行分页点时候出现了点问题，有些记录没有查到，有些记录在上一页出现之后，翻下一页又出现了。 问题分析单独使用limit这个关键字是没有问题的，加上order by 这个关键字之后排序就会出现上述问题，猜想order by 这个关键字与limit会相互影响。 问题重现先准备需要查询的数据 分别执行sql select from limit_test order by score limit 5，select from limit_test order by score limit 5，10 得到结果 结果发现id为8的这条记录出现了2次而id为6的记录没有出现，重现了该问题。 解决问题小弟束手无策，这个时候只有请求google大神了，最后在mysql官网找到了这个问题的原因 https://dev.mysql.com/doc/refman/5.7/en/limit-optimization.html 原因大概是order by 和limit 组合使用的时候,mysql 会将不会整体排序，而是到了需要查的数据量(limit 的值)的时候，就不会进行排序了，而order by 字段相同值记录的顺序是不确定的，所以导致了上面的问题 解决办法在order by子句中包含附加列，使顺序具有确定性。比如加上唯一的主键id。 例如： select * from limit_test order by score,id limit 5 总结用了mysql 这么久，以为对它已经很熟悉了，结果还是太年轻，学习之路，任重道远啊！！]]></content>
@@ -19,8 +30,8 @@
         <category>后台</category>
       </categories>
       <tags>
-        <tag>es</tag>
         <tag>学习笔记</tag>
+        <tag>es</tag>
       </tags>
   </entry>
   <entry>
@@ -31,8 +42,8 @@
         <category>后台</category>
       </categories>
       <tags>
-        <tag>学习笔记</tag>
         <tag>JanusGraph</tag>
+        <tag>学习笔记</tag>
         <tag>图数据库</tag>
       </tags>
   </entry>
