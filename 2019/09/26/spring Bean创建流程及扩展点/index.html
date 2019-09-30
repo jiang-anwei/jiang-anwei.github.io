@@ -105,7 +105,7 @@
 <meta property="og:description" content="springBean创建流程 扩展点ImportBeanDefinitionRegistrar 与ImportSelector实现接口可以添加自定义的beanDefinition，例： 12345678910@Componentpublic class RpcClientSelector implements ImportBeanDefinitionRegistrar &amp;#123;    @Ove">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6gy1g7cqhd3pmaj30lh0kywfd.jpg">
-<meta property="og:updated_time" content="2019-09-26T02:58:54.570Z">
+<meta property="og:updated_time" content="2019-09-26T03:01:13.739Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring Bean创建流程及扩展点">
 <meta name="twitter:description" content="springBean创建流程 扩展点ImportBeanDefinitionRegistrar 与ImportSelector实现接口可以添加自定义的beanDefinition，例： 12345678910@Componentpublic class RpcClientSelector implements ImportBeanDefinitionRegistrar &amp;#123;    @Ove">
@@ -397,7 +397,7 @@
                 
               
 
-              <time title="Created: 2019-09-26 00:00:00 / Modified: 10:58:54" itemprop="dateCreated datePublished" datetime="2019-09-26T00:00:00+08:00">2019-09-26</time>
+              <time title="Created: 2019-09-26 00:00:00 / Modified: 11:01:13" itemprop="dateCreated datePublished" datetime="2019-09-26T00:00:00+08:00">2019-09-26</time>
             
 
             
@@ -461,7 +461,7 @@
 <h3 id="BeanFactoryPostProcessor"><a href="#BeanFactoryPostProcessor" class="headerlink" title="BeanFactoryPostProcessor"></a>BeanFactoryPostProcessor</h3><p>添加修改bean</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfigBean</span> <span class="keyword">implements</span> <span class="title">BeanFactoryPostProcessor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postProcessBeanFactory</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            ConfigurableListableBeanFactory beanFactory)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line"></span><br><span class="line">      GenericBeanDefinition bd = <span class="keyword">new</span> GenericBeanDefinition();</span><br><span class="line">      bd.setBeanClass(MyBean.class);</span><br><span class="line">      bd.getPropertyValues().add(<span class="string">"strProp"</span>, <span class="string">"my string property"</span>);</span><br><span class="line"></span><br><span class="line">      ((DefaultListableBeanFactory) beanFactory)</span><br><span class="line">                .registerBeanDefinition(<span class="string">"myBeanName"</span>, bd);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="BeanPostProcessor"><a href="#BeanPostProcessor" class="headerlink" title="BeanPostProcessor"></a>BeanPostProcessor</h3><p>bean的初始化过程（初始化，之前初始化之后）</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过上面的扩展点可以动态修改bean然后注入到代码中，注入动态代理后的bean都是基于这些扩展点完成的。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过上面的扩展点可以动态修改bean然后注入到代码中，注入动态代理后的bean都是基于这些扩展点完成的。</p>
 
       
     </div>
@@ -507,6 +507,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/30/使用shrio来管理权限/" rel="prev" title="使用shrio来管理权限">
+                使用shrio来管理权限 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -581,7 +585,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -657,7 +661,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">23</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -693,7 +701,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#springBean创建流程"><span class="nav-number">1.</span> <span class="nav-text">springBean创建流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展点"><span class="nav-number">2.</span> <span class="nav-text">扩展点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ImportBeanDefinitionRegistrar-与ImportSelector"><span class="nav-number">2.1.</span> <span class="nav-text">ImportBeanDefinitionRegistrar 与ImportSelector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BeanFactoryPostProcessor"><span class="nav-number">2.2.</span> <span class="nav-text">BeanFactoryPostProcessor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BeanPostProcessor"><span class="nav-number">2.3.</span> <span class="nav-text">BeanPostProcessor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#springBean创建流程"><span class="nav-number">1.</span> <span class="nav-text">springBean创建流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展点"><span class="nav-number">2.</span> <span class="nav-text">扩展点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ImportBeanDefinitionRegistrar-与ImportSelector"><span class="nav-number">2.1.</span> <span class="nav-text">ImportBeanDefinitionRegistrar 与ImportSelector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BeanFactoryPostProcessor"><span class="nav-number">2.2.</span> <span class="nav-text">BeanFactoryPostProcessor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BeanPostProcessor"><span class="nav-number">2.3.</span> <span class="nav-text">BeanPostProcessor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
