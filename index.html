@@ -396,7 +396,7 @@
                 
               
 
-              <time title="Created: 2019-10-11 00:00:00 / Modified: 17:16:16" itemprop="dateCreated datePublished" datetime="2019-10-11T00:00:00+08:00">2019-10-11</time>
+              <time title="Created: 2019-10-11 00:00:00 / Modified: 20:08:51" itemprop="dateCreated datePublished" datetime="2019-10-11T00:00:00+08:00">2019-10-11</time>
             
 
             
@@ -456,9 +456,8 @@
           
             <p>
               背景最近收到一个新需求，需要充kafka队列中那消息解析写到es中。要求不能漏写数据，或者重复写数据。‘
-##问题
-如果程序中途需要手动停止，就需要把已经从kafka中拿到的数据，写进了es 才能停止程序。否则就会漏写数据或者重复写入数据
-解决钩子函数ShutdownHook只是一个已初始化但为启动
+问题如果程序中途需要手动停止，就需要把已经从kafka中拿到的数据，写进了es 才能停止程序。否则就会漏写数据或者重复写入数据
+解决钩子函数ShutdownHook只是一个已初始化但为启动的线程
               ...
             </p>
           <!--noindex-->
