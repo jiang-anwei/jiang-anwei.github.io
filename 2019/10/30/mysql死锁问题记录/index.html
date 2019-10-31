@@ -96,23 +96,27 @@
 
 
 
-  <meta name="description" content="思绪总在漂流，偶而在此停留">
-<meta property="og:type" content="website">
-<meta property="og:title" content="jiang-anwei blog">
-<meta property="og:url" content="http://jiang-anwei.github.io/tags/图数据库/index.html">
+  <meta name="description" content="记录一下工作中遇到的mysql死锁问题，防止后面再踩坑。 #多索引多线程更新发生死锁 问题描述数据库索引是这样的 多线程执行的sql 是这样的 update indicator  set result=&amp;#39;1&amp;#39; where fk_indicator_id=? and fk_indicator_report_id =? 然后就发生了死锁 分析 通过一番搜索读大佬们的博客发现 updat">
+<meta name="keywords" content="mysql,死锁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql死锁问题记录">
+<meta property="og:url" content="http://jiang-anwei.github.io/2019/10/30/mysql死锁问题记录/index.html">
 <meta property="og:site_name" content="jiang-anwei blog">
-<meta property="og:description" content="思绪总在漂流，偶而在此停留">
+<meta property="og:description" content="记录一下工作中遇到的mysql死锁问题，防止后面再踩坑。 #多索引多线程更新发生死锁 问题描述数据库索引是这样的 多线程执行的sql 是这样的 update indicator  set result=&amp;#39;1&amp;#39; where fk_indicator_id=? and fk_indicator_report_id =? 然后就发生了死锁 分析 通过一番搜索读大佬们的博客发现 updat">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6gy1g8h60bz9nhj308t01y0sm.jpg">
+<meta property="og:updated_time" content="2019-10-31T05:57:07.913Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jiang-anwei blog">
-<meta name="twitter:description" content="思绪总在漂流，偶而在此停留">
+<meta name="twitter:title" content="mysql死锁问题记录">
+<meta name="twitter:description" content="记录一下工作中遇到的mysql死锁问题，防止后面再踩坑。 #多索引多线程更新发生死锁 问题描述数据库索引是这样的 多线程执行的sql 是这样的 update indicator  set result=&amp;#39;1&amp;#39; where fk_indicator_id=? and fk_indicator_report_id =? 然后就发生了死锁 分析 通过一番搜索读大佬们的博客发现 updat">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/006y8mN6gy1g8h60bz9nhj308t01y0sm.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://jiang-anwei.github.io/tags/图数据库/">
+  <link rel="canonical" href="http://jiang-anwei.github.io/2019/10/30/mysql死锁问题记录/">
 
 
 
@@ -122,7 +126,7 @@
   };
 </script>
 
-  <title>Tag: 图数据库 | jiang-anwei blog</title>
+  <title>mysql死锁问题记录 | jiang-anwei blog</title>
   
 
 
@@ -170,7 +174,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -225,7 +229,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -330,79 +334,221 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>图数据库<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jiang-anwei.github.io/2019/10/30/mysql死锁问题记录/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蒋安维">
+      <meta itemprop="description" content="思绪总在漂流，偶而在此停留">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiang-anwei blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/07/15/JanusGraph学习笔记/" itemprop="url">
-            
-              <span itemprop="name">JanusGraph学习笔记</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">mysql死锁问题记录
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-15T10:09:30+08:00" content="2019-07-15">
-          07-15
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-10-30 10:09:30" itemprop="dateCreated datePublished" datetime="2019-10-30T10:09:30+08:00">2019-10-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-31 13:57:07" itemprop="dateModified" datetime="2019-10-31T13:57:07+08:00">2019-10-31</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/后台/" itemprop="url" rel="index"><span itemprop="name">后台</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>记录一下工作中遇到的mysql死锁问题，防止后面再踩坑。</p>
+<p>#多索引多线程更新发生死锁</p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>数据库索引是这样的<img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8h60bz9nhj308t01y0sm.jpg" alt="IMG_2836"></p>
+<p>多线程执行的sql 是这样的 <code>update indicator  set result=&#39;1&#39; where fk_indicator_id=? and fk_indicator_report_id =?</code></p>
+<p>然后就发生了死锁</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p> 通过一番搜索读大佬们的博客发现</p>
+<p>update时，如果where条件里面涉及多个字段，且字段都分别建了索引的话，mysql会多个索引各走一遍，然后结果取个交集；mysql会使用index merge 优化使得有可能加锁的顺序不一致，导致相互等待，导致死锁。</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>建立 两个字段的联合索引</p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+            <a href="/tags/死锁/" rel="tag"># 死锁</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/11/Java程序优雅的退出/" rel="next" title="Java程序优雅的退出">
+                <i class="fa fa-chevron-left"></i> Java程序优雅的退出
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mjg4Mi8xOTQyOA=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -423,8 +569,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -546,6 +701,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决"><span class="nav-number">2.1.</span> <span class="nav-text">解决</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -676,6 +848,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
 
   
 
@@ -685,6 +861,23 @@
 
 
   
+  
+    <script>
+  window.livereOptions = {
+    refer: '2019/10/30/mysql死锁问题记录/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
+
 
 
 
