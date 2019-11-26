@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://jiang-anwei.github.io/2019/10/30/mysql%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</loc>
+    <loc>http://jiang-anwei.github.io/2019/11/26/%E5%BC%82%E6%AD%A5%E7%BC%96%E6%8E%92CompletableFuture/</loc>
     
-    <lastmod>2019-10-31T05:57:07.913Z</lastmod>
+    <lastmod>2019-11-26T09:30:13.952Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://jiang-anwei.github.io/2019/07/15/JanusGraph%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     
-    <lastmod>2019-10-15T10:05:41.255Z</lastmod>
+    <lastmod>2019-11-07T01:50:54.146Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jiang-anwei.github.io/2019/10/30/mysql%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</loc>
+    
+    <lastmod>2019-10-31T05:57:07.913Z</lastmod>
     
   </url>
   
@@ -170,14 +177,14 @@
   </url>
   
   <url>
-    <loc>http://jiang-anwei.github.io/tags/index.html</loc>
+    <loc>http://jiang-anwei.github.io/categories/index.html</loc>
     
     <lastmod>2019-01-11T08:47:07.920Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jiang-anwei.github.io/categories/index.html</loc>
+    <loc>http://jiang-anwei.github.io/tags/index.html</loc>
     
     <lastmod>2019-01-11T08:47:07.920Z</lastmod>
     
