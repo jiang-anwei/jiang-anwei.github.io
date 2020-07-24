@@ -9,7 +9,7 @@
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>“Stream”</tag>
+        <tag>Stream</tag>
       </tags>
   </entry>
   <entry>
@@ -21,7 +21,19 @@
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>“Stream”</tag>
+        <tag>Stream</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Spring boot 整合PowerMock]]></title>
+    <url>%2F2020%2F06%2F28%2FSpring%20boot%20%E6%95%B4%E5%90%88PowerMock%2F</url>
+    <content type="text"><![CDATA[依赖123456789101112&lt;dependency&gt;&lt;groupId&gt;org.powermock&lt;/groupId&gt;&lt;artifactId&gt;powermock-module-junit4&lt;/artifactId&gt;&lt;version&gt;2.0.0-beta5&lt;/version&gt;&lt;scope&gt;test&lt;/scope&gt;&lt;/dependency&gt;&lt;dependency&gt; &lt;groupId&gt;org.powermock&lt;/groupId&gt; &lt;artifactId&gt;powermock-api-mockito2&lt;/artifactId&gt; &lt;version&gt;2.0.0-beta5&lt;/version&gt; &lt;scope&gt;test&lt;/scope&gt;&lt;/dependency&gt; 整合1234567891011121314151617181920212223@PrepareForTest(&#123;HiveAccessConfigDao.class, DataIntegrationConfigDao.class&#125;)@SpringBootTest@RunWith(SpringRunner.class)public class HiveAccessConfigServiceImplTest &#123; @Mock private HiveAccessConfigDao hiveAccessConfigDao; @Autowired @InjectMocks private HiveAccessConfigServiceImpl hiveAccessConfigService; @Before public void init() &#123; MockitoAnnotations.initMocks(this); &#125; @Test public void queryById() &#123; HiveAccessConfig hiveAccessConfig = new HiveAccessConfig(); hiveAccessConfig.setId(2); PowerMockito.when(hiveAccessConfigDao.selectByPrimaryKey(Mockito.anyInt())).thenReturn(hiveAccessConfig); assertEquals(hiveAccessConfigService.queryById(2).getId(), hiveAccessConfig.getId()); &#125;&#125; 注意： 这里@RunWith注解没有使用 PowerMockRunner 为的是使用spring 容器的自动注入功能，这样我们只需要mock 需要mock的service或者dao层，其他的使用spring 容器中的bean。 由于没有使用 PowerMockRunner 加载，所以需要使用MockitoAnnotations.initMocks(this); 方法来初始化这个测试类，动态代理需要mock的bean(PowerMock普通方法是基于Mockito通过动态代理实现的,而静态方法，finnal,private方法等mock则是通过修改字节码)。否则上面注入到hiveAccessConfigService 的hiveAccessConfigDao则还是spring中的bean，达不到mock的目的。]]></content>
+      <categories>
+        <category>后台</category>
+      </categories>
+      <tags>
+        <tag>Spring boot</tag>
+        <tag>PowerMock</tag>
       </tags>
   </entry>
   <entry>
@@ -33,7 +45,7 @@
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>“IO”</tag>
+        <tag>IO</tag>
       </tags>
   </entry>
   <entry>
@@ -45,7 +57,7 @@
       </categories>
       <tags>
         <tag>mysql</tag>
-        <tag>“死锁”</tag>
+        <tag>死锁</tag>
       </tags>
   </entry>
   <entry>
