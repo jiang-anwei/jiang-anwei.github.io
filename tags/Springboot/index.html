@@ -99,7 +99,7 @@
   <meta name="description" content="思绪总在漂流，偶而在此停留">
 <meta property="og:type" content="website">
 <meta property="og:title" content="jiang-anwei blog">
-<meta property="og:url" content="http://jiang-anwei.github.io/tags/Springboot/index.html">
+<meta property="og:url" content="http://jiang-anwei.github.io/tags/SpringBoot/index.html">
 <meta property="og:site_name" content="jiang-anwei blog">
 <meta property="og:description" content="思绪总在漂流，偶而在此停留">
 <meta property="og:locale" content="zh-Hans">
@@ -112,7 +112,7 @@
 
 
 
-  <link rel="canonical" href="http://jiang-anwei.github.io/tags/Springboot/">
+  <link rel="canonical" href="http://jiang-anwei.github.io/tags/SpringBoot/">
 
 
 
@@ -122,7 +122,7 @@
   };
 </script>
 
-  <title>Tag: Springboot | jiang-anwei blog</title>
+  <title>Tag: SpringBoot | jiang-anwei blog</title>
   
 
 
@@ -360,7 +360,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>Springboot<small>Tag</small>
+        <h1>SpringBoot<small>Tag</small>
         </h1>
       </div>
 
@@ -372,95 +372,17 @@
 
       <h2 class="post-title">
         
-          <a class="post-title-link" href="/2018/12/18/springboot及bean 初始化运行/" itemprop="url">
+          <a class="post-title-link" href="/2020/06/28/Spring boot 整合PowerMock/" itemprop="url">
             
-              <span itemprop="name">springboot及bean 初始化运行</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-18T00:00:00+08:00" content="2018-12-18">
-          12-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/11/29/springboot多个数据库的配置/" itemprop="url">
-            
-              <span itemprop="name">springboot多个数据库配置</span>
+              <span itemprop="name">Spring boot 整合PowerMock</span>
             
           </a>
         
       </h2>
 
       <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-29T00:00:00+08:00" content="2018-11-29">
-          11-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/11/08/springboot整合activiti/" itemprop="url">
-            
-              <span itemprop="name">springboot整合activiti</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-08T00:00:00+08:00" content="2018-11-08">
-          11-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/10/23/Springboot自动配置demo/" itemprop="url">
-            
-              <span itemprop="name">springboot自动配置demo</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-10-23T00:00:00+08:00" content="2018-10-23">
-          10-23
+        <time class="post-time" itemprop="dateCreated" datetime="2020-06-28T00:00:00+08:00" content="2020-06-28">
+          06-28
         </time>
       </div>
 
@@ -546,6 +468,8 @@
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
                     
+                    
+                      
                     
                       
                     
@@ -1042,6 +966,98 @@
             } else {
               resultItems.sort(function (resultLeft, resultRight) {
                 if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+{
                   return resultRight.searchTextCount - resultLeft.searchTextCount;
                 } else if (resultLeft.hitCount !== resultRight.hitCount) {
                   return resultRight.hitCount - resultLeft.hitCount;

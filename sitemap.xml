@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://jiang-anwei.github.io/2020/06/28/Spring%20boot%20%E6%95%B4%E5%90%88PowerMock/</loc>
+    
+    <lastmod>2020-07-24T03:25:20.974Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jiang-anwei.github.io/2020/05/10/mysql%E5%B9%B6%E5%8F%91replace%20into%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/</loc>
     
     <lastmod>2020-07-24T03:19:44.729Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>http://jiang-anwei.github.io/2020/06/17/javaIO%E6%A8%A1%E5%9E%8B/</loc>
     
     <lastmod>2020-07-24T03:19:10.254Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jiang-anwei.github.io/2020/06/28/Spring%20boot%20%E6%95%B4%E5%90%88PowerMock/</loc>
-    
-    <lastmod>2020-07-24T03:18:59.378Z</lastmod>
     
   </url>
   
