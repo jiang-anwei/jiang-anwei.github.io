@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://jiang-anwei.github.io/2021/01/14/%E5%B9%B6%E8%A1%8C%E6%B5%81%E7%9A%84%E4%BD%BF%E7%94%A8%E5%81%B6%E7%8E%B0ConcurrentModificationException%20%E5%BC%82%E5%B8%B8/</loc>
+    
+    <lastmod>2021-01-16T13:49:57.149Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jiang-anwei.github.io/2020/10/22/%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6%E8%B0%83%E7%A0%94(jpa%20vs%20mybatis)/</loc>
+    
+    <lastmod>2021-01-16T13:48:09.503Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jiang-anwei.github.io/2020/06/28/Spring%20boot%20%E6%95%B4%E5%90%88PowerMock/</loc>
     
     <lastmod>2020-07-24T03:25:20.974Z</lastmod>
@@ -226,14 +240,14 @@
   </url>
   
   <url>
-    <loc>http://jiang-anwei.github.io/tags/index.html</loc>
+    <loc>http://jiang-anwei.github.io/categories/index.html</loc>
     
     <lastmod>2019-01-11T08:47:07.920Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jiang-anwei.github.io/categories/index.html</loc>
+    <loc>http://jiang-anwei.github.io/tags/index.html</loc>
     
     <lastmod>2019-01-11T08:47:07.920Z</lastmod>
     

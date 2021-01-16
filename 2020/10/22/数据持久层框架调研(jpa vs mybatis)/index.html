@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="背景1.Mybatis generator为mybatis生成了大量并没有实际使用的代码，实际发现只有 selectByExample，insertSelective 两个方法使用较多，而且为每个实体类生成一个 Example 类。 Example 这个类是大量相似的代码，完全可以抽象统一起来 2.还有生成不同风格的 DynamicSql 风格的mapper 层代码，混乱可读性差。 框架选型jpa">
+<meta name="keywords" content="java,mybatis,jpa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据持久层框架调研(jpa vs mybatis)">
+<meta property="og:url" content="http://jiang-anwei.github.io/2020/10/22/数据持久层框架调研(jpa vs mybatis)/index.html">
+<meta property="og:site_name" content="jiang-anwei blog">
+<meta property="og:description" content="背景1.Mybatis generator为mybatis生成了大量并没有实际使用的代码，实际发现只有 selectByExample，insertSelective 两个方法使用较多，而且为每个实体类生成一个 Example 类。 Example 这个类是大量相似的代码，完全可以抽象统一起来 2.还有生成不同风格的 DynamicSql 风格的mapper 层代码，混乱可读性差。 框架选型jpa">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/f598126d69c3dee90368f0ac9f1c4bb2.png">
+<meta property="og:updated_time" content="2021-01-16T13:48:09.503Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据持久层框架调研(jpa vs mybatis)">
+<meta name="twitter:description" content="背景1.Mybatis generator为mybatis生成了大量并没有实际使用的代码，实际发现只有 selectByExample，insertSelective 两个方法使用较多，而且为每个实体类生成一个 Example 类。 Example 这个类是大量相似的代码，完全可以抽象统一起来 2.还有生成不同风格的 DynamicSql 风格的mapper 层代码，混乱可读性差。 框架选型jpa">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/img_convert/f598126d69c3dee90368f0ac9f1c4bb2.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://jiang-anwei.github.io/2020/10/22/数据持久层框架调研(jpa vs mybatis)/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>数据持久层框架调研(jpa vs mybatis) | jiang-anwei blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">jiang-anwei blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jiang-anwei.github.io/2020/10/22/数据持久层框架调研(jpa vs mybatis)/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蒋安维">
+      <meta itemprop="description" content="思绪总在漂流，偶而在此停留">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jiang-anwei blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据持久层框架调研(jpa vs mybatis)
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-10-22 10:09:30" itemprop="dateCreated datePublished" datetime="2020-10-22T10:09:30+08:00">2020-10-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2021-01-16 21:48:09" itemprop="dateModified" datetime="2021-01-16T21:48:09+08:00">2021-01-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/后台/" itemprop="url" rel="index"><span itemprop="name">后台</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>1.Mybatis generator为mybatis生成了大量并没有实际使用的代码，实际发现只有 selectByExample，insertSelective 两个方法使用较多，而且为每个实体类生成一个 <em>Example 类。 </em>Example 这个类是大量相似的代码，完全可以抽象统一起来</p>
+<p>2.还有生成不同风格的 DynamicSql 风格的mapper 层代码，混乱可读性差。</p>
+<h1 id="框架选型"><a href="#框架选型" class="headerlink" title="框架选型"></a>框架选型</h1><h2 id="jpa"><a href="#jpa" class="headerlink" title="jpa"></a>jpa</h2><p>jpa只需要简单生成entity，mapper 层继承 <code>org.springframework.data.jpa.repository.JpaRepository</code> 接口，只需要写方法名，就有了单表操作的能力，比起Mybatis generator 少了大量的不必要代码。</p>
+<p>entity</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderRefund</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 主键ID</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="comment">//省略其他代码</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="单表操作"><a href="#单表操作" class="headerlink" title="单表操作"></a>单表操作</h3><p>方法名字只需要遵守命名规范，就可以完成单表操作。以下相当于<code>select * from order_refund where order_refund_no =?</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OrderRefundMapper</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">OrderRefund</span>, <span class="title">Long</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function">List&lt;OrderRefund&gt; <span class="title">findByOrderRefundNo</span><span class="params">(String orderRefundNo)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分页</p>
+<p>只需要在参数重加上 Pageable 返回值使用 Page 就可完成分页，注意 jpa中的page 是从0开始，而不是1。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OrderRefundMapper</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">OrderRefund</span>, <span class="title">Long</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function">Page&lt;OrderRefund&gt; <span class="title">findByOrderRefundNoIn</span><span class="params">(Collection&lt;String&gt; orderRefundNo, Pageable pageable)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="自定义sql和返回对象"><a href="#自定义sql和返回对象" class="headerlink" title="自定义sql和返回对象"></a>自定义sql和返回对象</h3><h4 id="JPQL查询"><a href="#JPQL查询" class="headerlink" title="JPQL查询"></a>JPQL查询</h4><p>使用自定义对象来接收结果，支持JPQL查询，但是不支持原生sql</p>
+<p>对象定义如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomizeResult</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String supplierRefundNo;</span><br><span class="line">    <span class="keyword">private</span> String supplierName;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>JPQL查询</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OrderRefundMapper</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">OrderRefund</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//自定义sql，及返回结果</span></span><br><span class="line">    <span class="meta">@Query</span>(<span class="string">"select new com.example.jpademo.entity.CustomizeResult(orderRefundNo,supplierName) "</span> +</span><br><span class="line">            <span class="string">"from OrderRefund where orderRefundNo = :orderRefundNo"</span>)</span><br><span class="line">    <span class="function">List&lt;CustomizeResult&gt; <span class="title">customizeQuery</span><span class="params">(@Param(<span class="string">"orderRefundNo"</span>)</span> String orderRefundNo)</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="原生sql"><a href="#原生sql" class="headerlink" title="原生sql"></a>原生sql</h4><p>使用原生sql 必须定义接口来收集结果或者使用List&lt;Object[]&gt;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CustomizeResultInterface</span> </span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">getSupplierRefundNo</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">getSupplierName</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> String <span class="title">toStringInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"name="</span> + getSupplierName() + <span class="string">"; num="</span> + getSupplierRefundNo();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原生sql</span></span><br><span class="line"><span class="meta">@Query</span>(value = <span class="string">"select order_refund_no as supplierRefundNo ,supplier_name  as  supplierName"</span> +</span><br><span class="line">        <span class="string">" from order_refund where order_refund_no=:orderRefundNo"</span>,</span><br><span class="line">        nativeQuery = <span class="keyword">true</span>)</span><br><span class="line"><span class="function">List&lt;CustomizeResultInterface&gt; <span class="title">customizeSqlQuery</span><span class="params">(@Param(<span class="string">"orderRefundNo"</span>)</span> String orderRefundNo)</span>;</span><br></pre></td></tr></table></figure>
+<p>分页</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原生sql</span></span><br><span class="line"><span class="meta">@Query</span>(value = <span class="string">"select order_refund_no as supplierRefundNo ,supplier_name  as  supplierName"</span> +</span><br><span class="line">        <span class="string">" from order_refund where order_refund_no=:orderRefundNo"</span>,</span><br><span class="line">        countQuery = <span class="string">"select count (1) supplierName +\n"</span> +</span><br><span class="line">                <span class="string">"           from order_refund where order_refund_no=:orderRefundNo"</span>,</span><br><span class="line">        nativeQuery = <span class="keyword">true</span>)</span><br><span class="line"><span class="function">Page&lt;CustomizeResultInterface&gt; <span class="title">customizeSqlQuery</span><span class="params">(@Param(<span class="string">"orderRefundNo"</span>)</span> String orderRefundNo,Pageable pageable)</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="动态sql"><a href="#动态sql" class="headerlink" title="动态sql"></a>动态sql</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">OutInstruct outInstruct = <span class="keyword">new</span> OutInstruct();</span><br><span class="line">outInstruct.setOutInstructNo(<span class="string">"admin"</span>);</span><br><span class="line">ExampleMatcher exampleMatcher = ExampleMatcher.matching()</span><br><span class="line">        .withMatcher(<span class="string">"outInstructNo"</span>, ExampleMatcher.GenericPropertyMatcher::startsWith);</span><br><span class="line">Example&lt;OutInstruct&gt; example = Example.of(outInstruct, exampleMatcher);</span><br><span class="line">outInstructMapper.findOne(example);</span><br></pre></td></tr></table></figure>
+<p>Jpa 中 Example 中的功能有限，不支持非字符串的范围查询，只支持等值查询。如果需要可以采用下面的方案</p>
+<p>多继承一个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OrderRefundMapper</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">OrderRefund</span>, <span class="title">Long</span>&gt; ,<span class="title">JpaSpecificationExecutor</span>&lt;<span class="title">OrderRefund</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用 根据条件动态拼接sql</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">orderRefundMapper.findAll((Specification&lt;OrderRefund&gt;) (root, query, criteriaBuilder) -&gt; &#123;</span><br><span class="line">    Predicate predicate1 = criteriaBuilder.equal(root.get(<span class="string">"orderRefundNo"</span>), <span class="string">"ORD3298534907620"</span>);</span><br><span class="line">    Predicate predicate2 = criteriaBuilder.equal(root.get(<span class="string">"outInstructNo"</span>), <span class="string">"ORD3298534907620"</span>);</span><br><span class="line">    <span class="keyword">return</span> criteriaBuilder.and(predicate1, predicate2);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="连表查询"><a href="#连表查询" class="headerlink" title="连表查询"></a>连表查询</h3><p>举个 onetoMany的栗子：</p>
+<p>定义指令单实体类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table</span>(name = <span class="string">"out_instruct_10"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OutInstruct</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 自增主键</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"out_instruct_no"</span>)</span><br><span class="line">    <span class="keyword">private</span> String outInstructNo;</span><br><span class="line">  <span class="comment">//省略其他代码</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="meta">@OneToMany</span>(fetch = FetchType.LAZY)</span><br><span class="line">    <span class="meta">@JoinColumn</span>(name = <span class="string">"out_instruct_no"</span>,referencedColumnName = <span class="string">"out_instruct_no"</span>)</span><br><span class="line">    List&lt;OutInstructDt&gt; dtList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义出库指令单详情实体：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table</span>(name = <span class="string">"out_instruct_dt_10"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OutInstructDt</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 主键自增</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"out_instruct_no"</span>)</span><br><span class="line">    <span class="keyword">private</span> String outInstructNo;</span><br><span class="line">   <span class="comment">//省略其他代码</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@JoinColumn中name 字段为详情表的外键字段(不必真的在数据库建立外键，逻辑外键即可)，referencedColumnName 字段为主表的 主键(同样不必真的是数据库的主键，逻辑主键即可)</p>
+<p> @OneToMany(fetch = FetchType.LAZY) 这里定义为懒加载，JOIN FETCH中的fetch，是可以在单条select语句中，初始化对象中的关联或集合。</p>
+<p>如示例中<code>OutInstruct</code>的<code>dtList</code>成员，它是lazy成员，默认情况下是不会被初始化的，也就是说如果通过<code>getDtList()</code>访问成员的时候，就会报<code>LazyInitializationException</code>的异常。</p>
+<p>例如以下代码会抛出<code>LazyInitializationException</code>的异常：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">OutInstruct outInstruct = <span class="keyword">new</span> OutInstruct();</span><br><span class="line">outInstruct.setOutInstructNo(<span class="string">"111"</span>);</span><br><span class="line">ExampleMatcher exampleMatcher = ExampleMatcher.matching()</span><br><span class="line">        .withMatcher(<span class="string">"outInstructNo"</span>, ExampleMatcher.GenericPropertyMatcher::startsWith);</span><br><span class="line">Example&lt;OutInstruct&gt; example = Example.of(outInstruct, exampleMatcher);</span><br><span class="line">Optional&lt;OutInstruct&gt; outInstruct1=outInstructMapper.findOne(example);</span><br><span class="line"></span><br><span class="line">outInstruct1.ifPresent(x -&gt; System.out.println(x.getDtList()));</span><br></pre></td></tr></table></figure>
+<p>如果想有连表查详情的能力，比较简单的方式有以下两种：</p>
+<p>第一：</p>
+<p> 在方法上加上事物的注解：如果在同一个事务上下文内，是可以获取到lazy成员的，但在长事务或者多线程的场景下，这种方法就不合适。</p>
+<p>第二：</p>
+<p>使用JpaSpecificationExecutor api手动fetch相关懒加载成员：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;OutInstruct&gt; outInstruct1 = outInstructMapper.findOne((Specification&lt;OutInstruct&gt;) (root, query, criteriaBuilder) -&gt; &#123;</span><br><span class="line">    root.fetch(<span class="string">"dtList"</span>);</span><br><span class="line">    <span class="keyword">return</span> criteriaBuilder.equal(root.get(<span class="string">"outInstructNo"</span>), <span class="string">"1111"</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line">outInstruct1.ifPresent(x -&gt; System.out.println(x.getDtList()));</span><br></pre></td></tr></table></figure>
+<h2 id="mybatis-mybatiscodehelper-插件"><a href="#mybatis-mybatiscodehelper-插件" class="headerlink" title="mybatis+mybatiscodehelper 插件"></a>mybatis+mybatiscodehelper 插件</h2><p><a href="http://118.24.53.162/#/methodNameToSql" target="_blank" rel="noopener">http://118.24.53.162/#/methodNameToSql</a> </p>
+<p>通过方法名字 生成sql，其规范和jpa的一样。比起Mybatis generator 少了大量的不必要代码。缺点就是每一种查询条件都需要写一个sql，没有动态拼接sql 的能力,可能会有大量的单表操作的方法。</p>
+<p>分页功能可以基于mybatis的分页插件。</p>
+<h2 id="mybatis-plus"><a href="#mybatis-plus" class="headerlink" title="mybatis plus"></a>mybatis plus</h2><p>Mybatis 本身就是自定义sql 的这里主要就说一下 mybatis plus 对单表操作及动态sql 的封装，其中的<code>com.baomidou.mybatisplus.core.mapper.BaseMapper</code></p>
+<p><code>com.baomidou.mybatisplus.extension.service.IService</code> 这两个接口提供了大量单表的curd，基本能满足所有的单表操作要求。</p>
+<h4 id="动态sql-1"><a href="#动态sql-1" class="headerlink" title="动态sql"></a>动态sql</h4><p>QueryWrapper,UpdateWrapper提供了动态select ,update的功能。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">QueryWrapper&lt;OutInstruct&gt; queryWrapper=<span class="keyword">new</span> QueryWrapper&lt;&gt;();</span><br><span class="line">queryWrapper.lambda().eq(OutInstruct::getBatchNo,<span class="string">"12"</span>);</span><br><span class="line">outInstructMapper.selectCount(queryWrapper);</span><br><span class="line">UpdateWrapper&lt;OutInstruct&gt; outInstructUpdateWrapper=<span class="keyword">new</span> UpdateWrapper&lt;&gt;();</span><br><span class="line">outInstructUpdateWrapper.lambda().set(OutInstruct::getBatchNo,<span class="string">"123"</span>);</span><br><span class="line">outInstructMapper.update(<span class="keyword">null</span>,outInstructUpdateWrapper);</span><br></pre></td></tr></table></figure>
+<h4 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h4><p>定义插件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> MybatisPlusInterceptor <span class="title">mybatisPlusInterceptor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MybatisPlusInterceptor interceptor = <span class="keyword">new</span> MybatisPlusInterceptor();</span><br><span class="line">    interceptor.addInnerInterceptor(<span class="keyword">new</span> PaginationInnerInterceptor(DbType.MYSQL));</span><br><span class="line">    <span class="keyword">return</span> interceptor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在参数列表中加入IPage 就可完成分页</p>
+<figure class="highlight plain"><figcaption><span>a vj a</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Select(&quot;select * from out_instruct where id &gt; #&#123;identity&#125;&quot;)</span><br><span class="line">IPage&lt;OutInstruct&gt; pageSql(IPage&lt;OutInstruct&gt; page, @Param(&quot;identity&quot;) Integer id);</span><br></pre></td></tr></table></figure>
+<h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><h2 id="接入成本"><a href="#接入成本" class="headerlink" title="接入成本"></a>接入成本</h2><ul>
+<li>Jpa:换了持久层框架，会修改所有持久层代码，接入成本比较大</li>
+<li>mybatiscodehelper 插件：和原来一样只是安装一个插件，基本没有接入成本</li>
+<li>mybatis plus ：可以和原有的mybatis兼容，基本没有接入成本</li>
+</ul>
+<h2 id="学习成本"><a href="#学习成本" class="headerlink" title="学习成本"></a>学习成本</h2><ul>
+<li>Jpa：换了持久层框架，如果之前没有用过，有一定的学习成本。</li>
+<li>mybatiscodehelper 插件：原生mybatis，没有学习成本。</li>
+<li>mybatis plus：和原来的mybatis差不多，基本没有学习成本。</li>
+</ul>
+<h2 id="易用性"><a href="#易用性" class="headerlink" title="易用性"></a>易用性</h2><ul>
+<li>Jpa:单表操作只需要按照规范写方法名，支持动态sql，分页。</li>
+<li>mybatiscodehelper 插件：单表操作只需要按照规范写方法名，不支持动态sql。</li>
+<li>mybatis plus：提供了丰富的单表操作方法， 支持动态sql。</li>
+</ul>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p>单条数据的操作逻辑都是一样的，只有批量数据的操作逻辑不太一样，这里以批量插入为例，比较一下不同框架的性能</p>
+<p>建立测试表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- auto-generated definition</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test_table</span><br><span class="line">(</span><br><span class="line">    <span class="keyword">id</span>          <span class="built_in">int</span> auto_increment</span><br><span class="line">        primary <span class="keyword">key</span>,</span><br><span class="line">    <span class="keyword">uuid</span>        <span class="built_in">varchar</span>(<span class="number">64</span>) <span class="literal">null</span>,</span><br><span class="line">    create_time <span class="built_in">timestamp</span>   <span class="literal">null</span>,</span><br><span class="line">    <span class="keyword">data</span>        <span class="built_in">varchar</span>(<span class="number">64</span>) <span class="literal">null</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>mybatis plus</th>
+<th>jpa</th>
+<th>自定义sql</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10000条</td>
+<td>时间太久不想等</td>
+<td>时间太久不想等</td>
+<td>9s</td>
+</tr>
+<tr>
+<td>5000条</td>
+<td>406 s</td>
+<td>时间太久不想等</td>
+<td>7s</td>
+</tr>
+<tr>
+<td>2000条</td>
+<td>148 s</td>
+<td>252 s</td>
+<td>6s</td>
+</tr>
+</tbody>
+</table>
+<h3 id="why？"><a href="#why？" class="headerlink" title="why？"></a>why？</h3><h4 id="mybatis-plus慢在哪里"><a href="#mybatis-plus慢在哪里" class="headerlink" title="mybatis plus慢在哪里"></a>mybatis plus慢在哪里</h4><p>查看源码 mybatis plus 中的批量插入 使用的是批量模式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH);</span><br></pre></td></tr></table></figure>
+<p>把SQL语句发个数据库，数据库预编译好，数据库等待需要运行的参数，接收到参数后一次运行，ExecutorType.BATCH只打印一次SQL语句，多次设置参数步骤。</p>
+<p>mybatis plus 源码简单来看相当于以下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH);) &#123;</span><br><span class="line">    TestTableMapper testTableMapper = sqlSession.getMapper(TestTableMapper.class);</span><br><span class="line">    StopWatch stopWatch = <span class="keyword">new</span> StopWatch();</span><br><span class="line">    stopWatch.start();</span><br><span class="line">    list.forEach(testTableMapper::insert);</span><br><span class="line">    sqlSession.flushStatements();</span><br><span class="line">    sqlSession.commit();</span><br><span class="line">    stopWatch.stop();</span><br><span class="line">    System.out.println(stopWatch.shortSummary());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sql日志中 也证实只发了一句sql 多次发送参数的过程</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/f598126d69c3dee90368f0ac9f1c4bb2.png" alt="image-20201022173800347"></p>
+<p>翻译成原始的jdbc就是这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">String sql=<span class="string">"INSERT INTO test_table ( uuid, create_time, data ) VALUES ( ?, ?, ? )"</span>;</span><br><span class="line"><span class="keyword">try</span> (Connection connection = dataSource.getConnection()) &#123;</span><br><span class="line">   PreparedStatement statement= connection.prepareStatement(sql);</span><br><span class="line">   list.forEach(x-&gt;&#123;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           statement.setTimestamp(<span class="number">2</span>, Timestamp.valueOf(x.getCreateTime()));</span><br><span class="line">           statement.setString(<span class="number">1</span>,x.getUuid());</span><br><span class="line">           statement.setString(<span class="number">3</span>,x.getData());</span><br><span class="line">           statement.addBatch();</span><br><span class="line">       &#125; <span class="keyword">catch</span> (SQLException throwables) &#123;</span><br><span class="line">           throwables.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;);</span><br><span class="line">   statement.executeBatch();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="jpa-慢在哪里"><a href="#jpa-慢在哪里" class="headerlink" title="jpa 慢在哪里"></a>jpa 慢在哪里</h4><p>查看jpa 中的源码</p>
+<p>发现循环调用save 方法，真的过分，慢的合情合理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> &lt;S extends T&gt; <span class="function">List&lt;S&gt; <span class="title">saveAll</span><span class="params">(Iterable&lt;S&gt; entities)</span> </span>&#123;</span><br><span class="line">   Assert.notNull(entities, <span class="string">"Entities must not be null!"</span>);</span><br><span class="line">   List&lt;S&gt; result = <span class="keyword">new</span> ArrayList&lt;S&gt;();</span><br><span class="line">   <span class="keyword">for</span> (S entity : entities) &#123;</span><br><span class="line">      result.add(save(entity));</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="自定义sql快在哪里"><a href="#自定义sql快在哪里" class="headerlink" title="自定义sql快在哪里"></a>自定义sql快在哪里</h4><p>自定义sql insert()values (),(),() 只执行一句sql 快的飞起，但是有一点需要注意， sql 的长度是有限制的，mysql默认接受sql的大小是1048576(1M)</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>jpa，mybatis-plus,虽然很方便，提供了很多但表操作的api，以及动态sql的支持，但是要小心使用他们的批量操作的功能，性能上比起自定义sql差很多。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/mybatis/" rel="tag"># mybatis</a>
+          
+            <a href="/tags/jpa/" rel="tag"># jpa</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/09/对java8 StreamAPI的扩展/" rel="next" title="对java8 StreamApi的扩展">
+                <i class="fa fa-chevron-left"></i> 对java8 StreamApi的扩展
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/01/14/并行流的使用偶现ConcurrentModificationException 异常/" rel="prev" title="并行流的使用偶现ConcurrentModificationException 异常">
+                并行流的使用偶现ConcurrentModificationException 异常 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Mjg4Mi8xOTQyOA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">蒋安维</p>
+              <p class="site-description motion-element" itemprop="description">思绪总在漂流，偶而在此停留</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">36</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#框架选型"><span class="nav-number">2.</span> <span class="nav-text">框架选型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#jpa"><span class="nav-number">2.1.</span> <span class="nav-text">jpa</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单表操作"><span class="nav-number">2.1.1.</span> <span class="nav-text">单表操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义sql和返回对象"><span class="nav-number">2.1.2.</span> <span class="nav-text">自定义sql和返回对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JPQL查询"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">JPQL查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原生sql"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">原生sql</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态sql"><span class="nav-number">2.1.3.</span> <span class="nav-text">动态sql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连表查询"><span class="nav-number">2.1.4.</span> <span class="nav-text">连表查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mybatis-mybatiscodehelper-插件"><span class="nav-number">2.2.</span> <span class="nav-text">mybatis+mybatiscodehelper 插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mybatis-plus"><span class="nav-number">2.3.</span> <span class="nav-text">mybatis plus</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动态sql-1"><span class="nav-number">2.3.0.1.</span> <span class="nav-text">动态sql</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分页"><span class="nav-number">2.3.0.2.</span> <span class="nav-text">分页</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#对比"><span class="nav-number">3.</span> <span class="nav-text">对比</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#接入成本"><span class="nav-number">3.1.</span> <span class="nav-text">接入成本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习成本"><span class="nav-number">3.2.</span> <span class="nav-text">学习成本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#易用性"><span class="nav-number">3.3.</span> <span class="nav-text">易用性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能"><span class="nav-number">3.4.</span> <span class="nav-text">性能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#why？"><span class="nav-number">3.4.1.</span> <span class="nav-text">why？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mybatis-plus慢在哪里"><span class="nav-number">3.4.1.1.</span> <span class="nav-text">mybatis plus慢在哪里</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jpa-慢在哪里"><span class="nav-number">3.4.1.2.</span> <span class="nav-text">jpa 慢在哪里</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义sql快在哪里"><span class="nav-number">3.4.1.3.</span> <span class="nav-text">自定义sql快在哪里</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-number">4.</span> <span class="nav-text">结论</span></a></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒋安维</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.7.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+    <script>
+  window.livereOptions = {
+    refer: '2020/10/22/数据持久层框架调研(jpa vs mybatis)/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
